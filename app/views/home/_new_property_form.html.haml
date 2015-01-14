@@ -1,0 +1,22 @@
+%div.table
+= form_for(@property) do |f| 
+  - if @property.errors.any? 
+    %div#id="error_explanation"
+    %h2= pluralize(@property.errors.count, "error") 
+    prohibited this property from being saved:
+
+    %ul
+      - @property.errors.full_messages.each do |msg|
+        %li= msg 
+  %div.table_row 
+    %div.table_cell= f.label :address 
+    %div.table_cell= f.text_field :address
+  %div.table_row 
+    %div.table_cell= f.label :city
+    %div.table_cell= f.select :city, @cities 
+  %p= f.hidden_field :state_id, :value => 6 
+  %p= f.hidden_field :country_id, :value => 226 
+  %p= f.hidden_field :business_id, :value => 1
+  %div.table_row 
+    %div.table_cell
+      = f.submit 

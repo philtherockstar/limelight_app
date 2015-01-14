@@ -1,0 +1,47 @@
+%p
+  = link_to "Go back to Choosing Rooms", "/home/step2/#{@bid.id.to_s}"
+  |
+  = link_to "Go back to Choosing Items", "/home/step3/#{@bid.id.to_s}"
+  |
+  = link_to "Enter a New Bid", "/"
+- grand_total = 0
+%table{ :border => "1" }
+  %tr
+    %thead
+      %th
+        Furniture and Accessories
+      %th
+        Quantity
+      %th.items-unit-rental
+        Unit Rental Per Month
+      %th.items-total-rental
+        Total Rental Per Month
+  - @bid_rooms.each do |br|
+    - cnt=1
+    - while cnt <= br.num_rooms
+      %tbody
+        %tr
+          %th{ :colspan => "4" }
+            - if br.num_rooms > 1
+              ="#{br.room.name} #{cnt}"
+            - else
+              ="#{br.room.name}"
+      - bri = BidRoomItem.all.where( "bid_room_id = #{br.id} and room_instance = #{cnt}" )
+      - cnt += 1
+      - bri.each do |ri|
+        %tr
+          %td
+            = "#{ri.item_name}"
+          %td
+            - if ri.item_name.match(/accessor/i)
+              Misc.
+            - else
+              = "#{ri.item_qty}"
+          %td
+            = "#{ri.rental_price}"
+          %td
+            - grand_total += (ri.item_qty * ri.rental_price)
+            = "#{ri.item_qty * ri.rental_price}"
+  %tr
+    %td.items-table-footer{ :colspan => "4" }
+      = "Total Per Month = $#{grand_total}"

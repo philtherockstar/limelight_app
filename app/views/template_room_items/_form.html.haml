@@ -1,0 +1,10 @@
+= form_for @template_room_item do |f|
+  - if @template_room_item.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@template_room_item.errors.count, "error")} prohibited this template_room_item from being saved:"
+      %ul
+        - @template_room_item.errors.full_messages.each do |msg|
+          %li= msg
+
+  .actions
+    = f.submit 'Save'

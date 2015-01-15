@@ -1,0 +1,2 @@
+module TemplateRoomItemsHelper
+end

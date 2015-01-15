@@ -1,3 +1,159 @@
-// Place all the styles related to the Home controller here.
+// Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+body {
+  background-color: #fff;
+  color: #333;
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+p, ol, td {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+pre {
+  background-color: #eee;
+  padding: 10px;
+  font-size: 11px;
+}
+
+a {
+  color: #000;
+  &:visited {
+    color: #666;
+  }
+  &:hover {
+    color: #fff;
+    background-color: #000;
+  }
+}
+
+div {
+  &.field, &.actions {
+    margin-bottom: 10px;
+  }
+}
+
+.bid_rental_costs{
+  width: 407px;
+  margin: 5px 5px 5px 5px;
+  border: 1px solid black;
+}
+
+.bid_total_rental_cost{
+  width: 200px;
+  margin: 5px 5px 5px 5px;
+  border: 0px solid blue;
+  float: left;
+}
+
+.total_rental_cost{
+  border: 0px solid blue;
+  display: inline;
+}
+
+.bid_weekly_rental_cost{
+  margin: 5px 5px 5px 5px;
+  border: 0px solid green;
+}
+
+.weekly_rental_cost{
+  border: 0px solid blue;
+  display: inline;
+}
+
+.table{
+  margin: 5px 5px 5px 5px;
+  border: 0px solid blue;
+  display: table;
+}
+.table_title{
+  display: table-caption;
+  text-align: center;
+  font-weight: bold;
+  font-size: larger;
+}
+.table_heading{
+  display: table-row;
+  font-weight: bold;
+  text-align: center;
+}
+.table_row{
+   display: table-row;
+}
+.table_cell{
+   display: table-cell;
+   border: solid;
+   border-width: thin;
+   padding-left: 5px;
+   padding-right: 5px;
+}
+
+.items-unit-rental{
+  width: 100px;
+}
+.items-total-rental{
+  width: 100px;
+}
+.items-table-footer{
+  text-align: right;
+}
+ 
+#final_items_table{
+  font-size: 1.25em;
+  border: 1px solid black;
+  th {
+    background-color: #f0f0f0;
+    color: black;
+    font-size: 1.25em;
+    border-bottom: .5px solid black;
+    padding: 2px;   
+  }
+  td {
+    color: black;
+    font-size: 1.25em;
+    border-bottom: .5px solid black;
+    padding: 2px;
+  }
+}
+#notice {
+  color: green;
+}
+
+.field_with_errors {
+  padding: 2px;
+  background-color: red;
+  display: table;
+}
+
+#error_explanation {
+  width: 450px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 0;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+  h2 {
+    text-align: left;
+    font-weight: bold;
+    padding: 5px 5px 5px 15px;
+    font-size: 12px;
+    margin: -7px;
+    margin-bottom: 0px;
+    background-color: #c00;
+    color: #fff;
+  }
+  ul li {
+    font-size: 12px;
+    list-style: square;
+  }
+}
+
+.ui-menu {
+  background-color: #f0f0f0;
+  width: 200px;
+}

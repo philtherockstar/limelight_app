@@ -1,0 +1,19 @@
+%h1 Listing template_room_items
+
+%table
+  %thead
+    %tr
+      %th
+      %th
+      %th
+      
+  %tbody
+    - @template_room_items.each do |template_room_item|
+      %tr
+        %td= link_to 'Show', template_room_item
+        %td= link_to 'Edit', edit_template_room_item_path(template_room_item)
+        %td= link_to 'Destroy', template_room_item, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Template room item', new_template_room_item_path

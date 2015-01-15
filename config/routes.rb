@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :template_room_items
+
+  resources :items
+
   devise_for :admins
   devise_for :users, :controllers => { :registrations => "registrations" } 
   resources :properties
@@ -30,6 +34,7 @@ Rails.application.routes.draw do
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
+     resources :items
 
   # Example resource route with options:
   #   resources :products do

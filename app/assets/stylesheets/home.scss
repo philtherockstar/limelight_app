@@ -106,18 +106,23 @@ div {
 #final_items_table{
   font-size: 1.25em;
   border: 1px solid black;
+  tr{
+    padding-bottom: 2px;
+  }
   th {
     background-color: #f0f0f0;
     color: black;
     font-size: 1.25em;
     border-bottom: .5px solid black;
-    padding: 2px;   
+    padding: 2px; 
+    margin: 2px;  
   }
   td {
     color: black;
     font-size: 1.25em;
     border-bottom: .5px solid black;
     padding: 2px;
+    margin: 2px;
   }
 }
 #notice {

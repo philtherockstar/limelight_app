@@ -38,10 +38,10 @@
             - else
               = "#{ri.item_qty}"
           %td
-            = "#{ri.rental_price}"
+            = "#{number_to_currency(ri.rental_price)}"
           %td
             - grand_total += (ri.item_qty * ri.rental_price)
-            = "#{ri.item_qty * ri.rental_price}"
+            = "#{number_to_currency(ri.item_qty * ri.rental_price)}"
   %tr
     %td.items-table-footer{ :colspan => "4" }
-      = "Total Per Month = $#{grand_total}"
+      = "Total Per Month = #{number_to_currency(grand_total)}"

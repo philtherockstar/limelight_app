@@ -13,6 +13,9 @@
     %div.weekly_rental_cost
       0
 = form_tag('/home/step3proc') do
+  %button{ :class => "items_form_button", :name => "Save", :type => "button" }Save Work
+  or
+  %button{ :class => "items_form_button", :name => "Finish", :type => "button" }Finish >
   %div.table
     = hidden_field_tag('bid_id',@bid.id)
     - @bid_rooms.each do |br|
@@ -100,8 +103,10 @@
           %div.table_cell
             %button{ :class => "add_item_to_rooms", :id => "button_room_#{br.id}_#{room_number}", :data => { :room_id => "#{br.id}", :room_number => "#{room_number}" }, :name => "button", :type => "button" }Add items
         - room_number += 1
-
-  %button{ :id => "items_form_button", :name => "Next >", :type => "button" }Finish >
+  = hidden_field_tag('items_form_action')
+  %button{ :class => "items_form_button", :name => "Save", :type => "button" }Save Work
+  or
+  %button{ :class => "items_form_button", :name => "Finish", :type => "button" }Finish >
 
 %div.bid_rental_costs
   %div.bid_total_rental_cost

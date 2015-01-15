@@ -7,10 +7,10 @@ class ItemController < ApplicationController
        @items = Item.all
      end
 
-     #respond_to do |format|  
-     #  format.html # index.html.erb  
-     #  format.json { render :json => @items.to_json }
-     #end
-     render :json => @items.to_json
+     respond_to do |format|  
+       format.html # index.html.erb  
+       format.json { render :json => @items.to_json }
+     end
+     #render :json => @items.to_json
   end
 end

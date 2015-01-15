@@ -17,8 +17,10 @@ ready = ->
       #console.log('enter!')
       e.preventDefault
       return false
-  $('#items_form_button').click =>
+  $('.items_form_button').click (e) ->
     #console.log('items_form_button clicked')
+    $('#items_form_action').val($(@).attr('name'))
+    #console.log('my name= ' + $(@).attr('name') )
     $('form').submit()
   $('.bid_room_item_quantity').change ->
     qty = $(@).val()

@@ -22,16 +22,21 @@ class HomeController < ApplicationController
   def step2proc 
     rooms = params[:rooms]
     bid_id = params[:bid_id]
-    BidRoom.delete_all(["bid_id = ?", bid_id])
+    #BidRoom.delete_all(["bid_id = ?", bid_id])
     ActiveRecord::Base.transaction do
       rooms.each do |room|
         if room[1].to_i > 0 
-           br = BidRoom.new
+           br = BidRoom.where("bid_id = #{bid_id} and room_id = #{room[0]}").first_or_create
            br.bid_id = bid_id
            br.room_id = room[0]
            br.num_rooms = room[1]
            br.save
-        end       
+        else
+          br = BidRoom.where("bid_id = #{bid_id} and room_id = #{room[0]}")
+          if br.size > 0 
+            BidRoom.destroy(br[0].id)
+          end
+        end     
       end 
     end
     redirect_to :action => 'step3', :id => bid_id
@@ -67,7 +72,13 @@ class HomeController < ApplicationController
         end
       end
     end
-    redirect_to :action => 'step4', :id => bid_id
+    logger.info("items_form_action=#{params[:items_form_action] }")
+    if params[:items_form_action] == 'Save'
+      flash[:notice] = 'Data successfully saved!'
+      redirect_to :action => 'step3', :id => bid_id 
+    else
+      redirect_to :action => 'step4', :id => bid_id
+    end
     #render :text => "hello"
   end
 

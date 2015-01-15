@@ -36,7 +36,8 @@ class PropertiesController < ApplicationController
       #respond_with(@property, location => home_path(:step2 => '') )
     rescue
       logger.fatal('Could not create a property and bid')
-      render action: 'new'
+      redirect_to "/home/step1", notice: 'Not all the required fields were entered'
+      #render action: 'new'
     end
   end
 

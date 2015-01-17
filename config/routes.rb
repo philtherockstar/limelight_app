@@ -1,11 +1,18 @@
 Rails.application.routes.draw do
+  #resources :bids
+
+  #resources :realtors
+
+  #resources :clients
+
   resources :template_room_items
 
   resources :items
 
   devise_for :admins
   devise_for :users, :controllers => { :registrations => "registrations" } 
-  resources :properties
+  
+  #resources :properties
   get 'home/index'
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -13,18 +20,22 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
-  root 'home#step1'
+  root 'home#index'
 
-     get 'home/step2/:id' => 'home#step2'
-     post 'home/step2proc' => 'home#step2proc'
-     get 'home/step3' => 'home#step3'
-     get 'home/step3/:id' => 'home#step3'
-     post 'home/step3proc' => 'home#step3proc'
-     get 'home/step4' => 'home#step4'
-     get '/item(:json)' => 'item#index'
-     get '/item/index' => 'item#index'
-     get '/item' => 'item#index'
-     get '/home/step1' => 'home#step1'
+   get 'bids/step2/:id' => 'bids#step2'
+   post 'bids/step2proc' => 'bids#step2proc'
+   post 'bids/step1proc' => 'bids#step1proc'
+   get 'bids/step3' => 'bids#step3'
+   get 'bids/step3/:id' => 'bids#step3'
+   post 'bids/step3proc' => 'bids#step3proc'
+   get 'bids/step4' => 'bids#step4'
+   get '/item(:json)' => 'item#index'
+   get '/item/index' => 'item#index'
+   get '/item' => 'item#index'
+   get '/bids/step1' => 'bids#step1'
+   get '/properties/search' => 'properties#search'
+   get '/clients/search' => 'clients#search'
+   get '/realtors/search' => 'realtors#search'
      
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

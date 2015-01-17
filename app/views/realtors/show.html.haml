@@ -1,0 +1,27 @@
+%p#notice= notice
+
+%p
+  %b First name:
+  = @realtor.first_name
+%p
+  %b Last name:
+  = @realtor.last_name
+%p
+  %b Company:
+  = @realtor.company
+%p
+  %b Phone:
+  = @realtor.phone
+%p
+  %b Email:
+  = @realtor.email
+%p
+  %b Created at:
+  = @realtor.created_at
+%p
+  %b Updated at:
+  = @realtor.updated_at
+
+= link_to 'Edit', edit_realtor_path(@realtor)
+\|
+= link_to 'Back', realtors_path

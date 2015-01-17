@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150115200214) do
+ActiveRecord::Schema.define(version: 20150117034541) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -98,6 +98,22 @@ ActiveRecord::Schema.define(version: 20150115200214) do
   add_index "bids", ["property_id", "bid_date"], name: "bids_bids_uidx1"
   add_index "bids", ["property_id"], name: "bids_bids_idx1"
 
+  create_table "bids_clients", id: false, force: :cascade do |t|
+    t.integer "bid_id"
+    t.integer "client_id"
+  end
+
+  add_index "bids_clients", ["bid_id"], name: "index_bids_clients_on_bid_id"
+  add_index "bids_clients", ["client_id"], name: "index_bids_clients_on_client_id"
+
+  create_table "bids_realtors", id: false, force: :cascade do |t|
+    t.integer "bid_id"
+    t.integer "realtor_id"
+  end
+
+  add_index "bids_realtors", ["bid_id"], name: "index_bids_realtors_on_bid_id"
+  add_index "bids_realtors", ["realtor_id"], name: "index_bids_realtors_on_realtor_id"
+
   create_table "business_cities", force: :cascade do |t|
     t.integer "business_id"
     t.string  "city",        limit: 128, null: false
@@ -109,6 +125,19 @@ ActiveRecord::Schema.define(version: 20150115200214) do
   end
 
   add_index "businesses", ["name"], name: "businesses_name_UNIQUE"
+
+  create_table "clients", force: :cascade do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "address"
+    t.string   "phone"
+    t.string   "email"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "business_id"
+  end
+
+  add_index "clients", ["business_id"], name: "clients_on_business_id"
 
   create_table "countries", force: :cascade do |t|
     t.string  "iso",            limit: 2,  default: "", null: false
@@ -157,6 +186,19 @@ ActiveRecord::Schema.define(version: 20150115200214) do
     t.integer "num_rooms",   limit: 11
   end
 
+  create_table "realtors", force: :cascade do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "company"
+    t.string   "phone"
+    t.string   "email"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "business_id"
+  end
+
+  add_index "realtors", ["business_id"], name: "realtors_on_business_id"
+
   create_table "room_items", force: :cascade do |t|
     t.integer "room_id", limit: 11, null: false
     t.integer "item_id", limit: 11, null: false
@@ -201,8 +243,10 @@ ActiveRecord::Schema.define(version: 20150115200214) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "business_id"
   end
 
+  add_index "users", ["business_id"], name: "users_on_business_id"
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 

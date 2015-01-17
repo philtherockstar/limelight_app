@@ -1,0 +1,31 @@
+= form_for @realtor do |f|
+  - if @realtor.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@realtor.errors.count, "error")} prohibited this realtor from being saved:"
+      %ul
+        - @realtor.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :first_name
+    = f.text_field :first_name
+  .field
+    = f.label :last_name
+    = f.text_field :last_name
+  .field
+    = f.label :company
+    = f.text_field :company
+  .field
+    = f.label :phone
+    = f.text_field :phone
+  .field
+    = f.label :email
+    = f.text_field :email
+  .field
+    = f.label :created_at
+    = f.datetime_select :created_at
+  .field
+    = f.label :updated_at
+    = f.datetime_select :updated_at
+  .actions
+    = f.submit 'Save'

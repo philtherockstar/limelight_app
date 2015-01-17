@@ -1,0 +1,46 @@
+%div.table
+= form_tag('/bids/step1proc') do 
+  %div.table_row 
+    %div.table_cell.table_title= "Property:"
+    = hidden_field :property, :id, :value => '0'
+  %div.table_row
+    %div.table_cell= "Address"
+    %div.table_cell= text_field :property, :address
+  %div.table_row
+    %div.table_cell= "City"
+    %div.table_cell= select :property, :city, @cities 
+  %div.table_row
+    %div.table_cell= "Square Feet"
+    %div.table_cell= text_field :property, :sqft
+  %div.table_row
+    %div.table_cell
+      &nbsp;
+  %p= hidden_field :property, :state_id, :value => 6 
+  %p= hidden_field :property, :country_id, :value => 226 
+  %div.table_row  
+    %div.table_cell.table_title= "Client:"
+    = hidden_field :client, :id, :value => '0'
+  %div.table_row
+    %div.table_cell= "First Name"
+    %div.table_cell= text_field :client, :first_name
+    %div.table_cell= "Last Name"
+    %div.table_cell= text_field :client, :last_name
+  %div.table_row 
+    %div.table_cell= "Phone"
+    %div.table_cell= text_field :client, :phone
+    %div.table_cell= "Email"
+    %div.table_cell= text_field :client, :email
+  %div.table_row
+    %div.table_cell
+      &nbsp;
+  %div.table_row 
+    %div.table_cell.table_title= "Realtor:"
+    = hidden_field :realtor, :id, :value => '0'
+  %div.table_row
+    %div.table_cell= "First Name"
+    %div.table_cell= text_field :realtor, :first_name
+    %div.table_cell= "Last Name"
+    %div.table_cell= text_field :realtor, :last_name
+  %div.table_row 
+    %div.table_cell
+      =submit_tag "Submit" 

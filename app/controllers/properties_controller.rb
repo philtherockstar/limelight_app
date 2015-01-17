@@ -21,6 +21,20 @@ class PropertiesController < ApplicationController
   def edit
   end
 
+  def search
+    if params[:term]
+       @properties = Property.where('business_id = ? and lower(address) LIKE ?', current_user.business_id, "%#{params[:term].downcase}%")
+     else
+       @properties = Property.all
+     end
+
+     respond_to do |format|  
+       format.html # index.html.erb  
+       format.json { render :json => @properties.to_json }
+     end
+     #render :json => @items.to_json
+  end
+
   def create
     begin
       Property.transaction do
@@ -32,11 +46,11 @@ class PropertiesController < ApplicationController
           @bid.save
         end
       end
-      redirect_to("/home/step2/"+@bid.id.to_s)
+      redirect_to("/bids/step2/"+@bid.id.to_s)
       #respond_with(@property, location => home_path(:step2 => '') )
     rescue
       logger.fatal('Could not create a property and bid')
-      redirect_to "/home/step1", notice: 'Not all the required fields were entered'
+      redirect_to "/bids/step1", notice: 'Not all the required fields were entered'
       #render action: 'new'
     end
   end

@@ -3,13 +3,13 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 ready = -> 
-  $('#property_address').autocomplete(
+  $('#prop_addr').autocomplete(
     minLength: 2
     source:'/properties/search'
     select: (event,ui) ->
       console.log('ui ' + ui.item.address)
       $('#property_id').val(ui.item.id)
-      $('#property_address').val(ui.item.address)
+      $('#prop_addr').val(ui.item.address)
       false
     ).data('ui-autocomplete')._renderItem = ( ul, item ) ->
       $( "<li>" )

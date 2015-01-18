@@ -44,7 +44,7 @@
       = hidden_field :bid, :id, :value => @bid.id
   %div.table_row
     %div.table_cell= "Address"
-    %div.table_cell= text_field :property, :address, :value => property_address
+    %div.table_cell{ :id => "prop_addr" }= text_field :property, :address, :value => property_address
   %div.table_row
     %div.table_cell= "City"
     %div.table_cell= select :property, :city, @cities, :selected => property_city

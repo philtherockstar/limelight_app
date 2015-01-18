@@ -53,7 +53,7 @@ class BidsController < ApplicationController
     @property=nil
     @client=nil
     @realtor=nil
-    #begin
+    begin
       Property.transaction do
         
         logger.info('property_id=' + params['property']['id'])
@@ -72,7 +72,7 @@ class BidsController < ApplicationController
         @property.business_id = current_user.business_id
         @property.save
         Bid.transaction do
-          if params[:bid][:id]
+          if params[:bid]
             @bid = Bid.find(params[:bid][:id])
           else
             @bid = Bid.new
@@ -117,7 +117,7 @@ class BidsController < ApplicationController
       logger.fatal(e.message)
       redirect_to "/bids/step1", alert: 'Could not save to the databases. Maybe not all the required fields were entered?'
       #render action: 'new'
-    #end
+    end
   end
 
   def step2 

@@ -27,6 +27,10 @@
         Distribution Fee: 
       %div.table_cell
         =text_field_tag "bid[distribution_fee]", @bid.distribution_fee, {:size => 6}
+      %div.table_cell
+        Weeks of Rental Included
+      %div.table_cell
+        =text_field_tag "bid[weeks_included]", @bid.weeks_included, {:size => 6}
 
   %div.table
     = hidden_field_tag('bid_id',@bid.id)

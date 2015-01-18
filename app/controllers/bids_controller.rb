@@ -140,7 +140,9 @@ class BidsController < ApplicationController
       end
       bid = Bid.find(bid_id)
       bid.staging_fee = staging_fee
+      logger.info ("NOTE: hardcoding distro fee and rental weeks. we should get distribution_fee and weeks_included from a preferences table")
       bid.distribution_fee = 250
+      bid.weeks_included = 6 
       bid.save
     end
     redirect_to :action => 'step3', :id => bid_id
@@ -177,6 +179,7 @@ class BidsController < ApplicationController
       bid = Bid.find(bid_id)
       bid.staging_fee = params[:bid][:staging_fee]
       bid.distribution_fee = params[:bid][:distribution_fee]
+      bid.weeks_included = params[:bid][:weeks_included]
       bid.save
     end
     logger.info("items_form_action=#{params[:items_form_action] }")

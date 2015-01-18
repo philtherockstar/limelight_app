@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150117222428) do
+ActiveRecord::Schema.define(version: 20150118020410) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -74,9 +74,10 @@ ActiveRecord::Schema.define(version: 20150117222428) do
   add_index "bid_room_items", ["room_id"], name: "bid_room_items_fk3_idx"
 
   create_table "bid_rooms", force: :cascade do |t|
-    t.integer "bid_id",    limit: 11, null: false
-    t.integer "room_id",   limit: 11, null: false
+    t.integer "bid_id",    limit: 11,                         null: false
+    t.integer "room_id",   limit: 11,                         null: false
     t.integer "num_rooms", limit: 11
+    t.decimal "price",                precision: 5, scale: 2
   end
 
   add_index "bid_rooms", ["bid_id"], name: "bid_rooms_idx1"
@@ -93,6 +94,7 @@ ActiveRecord::Schema.define(version: 20150117222428) do
     t.integer  "complimentary_weeks", limit: 4
     t.integer  "discount_percent",    limit: 4,                          default: 0
     t.decimal  "discount_amount",                precision: 5, scale: 2, default: 0.0
+    t.integer  "rental_weeks"
   end
 
   add_index "bids", ["property_id", "bid_date"], name: "bids_bids_uidx1"
@@ -208,13 +210,14 @@ ActiveRecord::Schema.define(version: 20150117222428) do
   add_index "room_items", ["room_id"], name: "room_items_room_items_fk1"
 
   create_table "room_prices", force: :cascade do |t|
-    t.decimal  "price"
+    t.integer  "price"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "business_id"
     t.integer  "room_id"
   end
 
+  add_index "room_prices", ["business_id", "room_id"], name: "idx_room_prices_on_busi_room_ids"
   add_index "room_prices", ["business_id"], name: "index_room_prices_on_business_id"
   add_index "room_prices", ["room_id"], name: "index_room_prices_on_room_id"
 

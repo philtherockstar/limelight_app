@@ -1,2 +1,27 @@
 = #debug current_user.business_id
-= link_to 'Create a Bid','/bids/step1'  
+= form_tag('/home/find_bids') do 
+  %div.table
+    - if @bids
+      %div.table_row
+        %div.table_cell
+          = "Please select which bid for #{@property.address}, #{@property.city}:"
+          %br
+          - @bids.each do |bid|
+            = radio_button_tag 'bid', bid.id
+            = "Staging fee: #{bid.staging_fee}, Distribution Fee: #{bid.distribution_fee}"
+            %br
+          = submit_tag "Go" 
+    - else
+      %div.table_row
+        %div.table_cell
+          = link_to 'Create a Bid','/bids/step1'
+          or
+        %div.table_cell
+          Change a bid
+      %div.table_row 
+        %div.table_cell
+          =hidden_field :property, :id, :value => '0'
+        %div.table_cell= "Property Address:"
+        %div.table_cell= text_field :property, :address
+        %div.table_cell= submit_tag "Go" 
+

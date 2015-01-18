@@ -12,3 +12,4 @@
  *= require_tree .
  *= require_jquery.ui
  */
+ .ui-helper-hidden-accessible { display:none; }

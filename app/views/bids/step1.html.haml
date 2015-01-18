@@ -1,4 +1,5 @@
-%p Bid on a new propery:
+- unless @bid.id?
+  %p Bid on a new propery:
 = render 'new_property_form' 
 %p <!-- --or-- -->
 %p <!-- Change an existing bid: -->

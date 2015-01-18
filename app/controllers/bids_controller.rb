@@ -39,8 +39,12 @@ class BidsController < ApplicationController
   end
 
   def step1 
-    #@property = Property.new
-    @bid = Bid.new
+    if params[:id] # bid_id
+      #@property = Property.new
+      @bid = Bid.find(params[:id])
+    else
+      @bid = Bid.new
+    end
     @cities=['']
     business.business_cities.each {|bc| @cities << bc.city }
   end
@@ -68,7 +72,11 @@ class BidsController < ApplicationController
         @property.business_id = current_user.business_id
         @property.save
         Bid.transaction do
-          @bid = Bid.new
+          if params[:bid][:id]
+            @bid = Bid.find(params[:bid][:id])
+          else
+            @bid = Bid.new
+          end
           @bid.property_id = @property.id
           Client.transaction do
             if params['client']['id'].to_i > 0
@@ -86,6 +94,8 @@ class BidsController < ApplicationController
           Realtor.transaction do
             if params['realtor']['id'].to_i > 0
               @realtor = Realtor.find(params['realtor']['id'])
+            elsif @bid.realtors.size > 0
+              @realtor = @bid.realtors[0]
             else
               @realtor = Realtor.new
             end

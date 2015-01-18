@@ -113,13 +113,14 @@ class BidsController < ApplicationController
   def step2 
     @bid = Bid.find(params[:id])
     @bid_rooms = BidRoom.where("bid_id = #{@bid.id}")
-    @rooms = Room.all . order("display_order")
+    @rooms = Room.find_by_sql("SELECT r.*, rp.price FROM rooms AS r LEFT JOIN room_prices AS rp ON rp.room_id = r.id AND rp.business_id = #{current_user.business_id}")
   end
 
   def step2proc 
     rooms = params[:rooms]
     bid_id = params[:bid_id]
     #BidRoom.delete_all(["bid_id = ?", bid_id])
+    staging_fee = 0
     ActiveRecord::Base.transaction do
       rooms.each do |room|
         if room[1].to_i > 0 
@@ -127,14 +128,20 @@ class BidsController < ApplicationController
            br.bid_id = bid_id
            br.room_id = room[0]
            br.num_rooms = room[1]
+           br.price = params[:room_prices][room[0]]
            br.save
+           staging_fee += (br.price * br.num_rooms)
         else
           br = BidRoom.where("bid_id = #{bid_id} and room_id = #{room[0]}")
           if br.size > 0 
             BidRoom.destroy(br[0].id)
           end
         end     
-      end 
+      end
+      bid = Bid.find(bid_id)
+      bid.staging_fee = staging_fee
+      bid.distribution_fee = 250
+      bid.save
     end
     redirect_to :action => 'step3', :id => bid_id
   end
@@ -143,7 +150,6 @@ class BidsController < ApplicationController
     @bid = Bid.find(params[:id])
     @bid_rooms = BidRoom.where("bid_id = #{@bid.id}")
     @bid_room_items = BidRoomItem.all.where( "bid_id = #{@bid.id}")
-    @business = business
   end
 
   def step3proc 
@@ -168,6 +174,10 @@ class BidsController < ApplicationController
           end
         end
       end
+      bid = Bid.find(bid_id)
+      bid.staging_fee = params[:bid][:staging_fee]
+      bid.distribution_fee = params[:bid][:distribution_fee]
+      bid.save
     end
     logger.info("items_form_action=#{params[:items_form_action] }")
     if params[:items_form_action] == 'Save'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150117034541) do
+ActiveRecord::Schema.define(version: 20150117222428) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -206,6 +206,17 @@ ActiveRecord::Schema.define(version: 20150117034541) do
 
   add_index "room_items", ["item_id"], name: "room_items_room_items_fk2"
   add_index "room_items", ["room_id"], name: "room_items_room_items_fk1"
+
+  create_table "room_prices", force: :cascade do |t|
+    t.decimal  "price"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "business_id"
+    t.integer  "room_id"
+  end
+
+  add_index "room_prices", ["business_id"], name: "index_room_prices_on_business_id"
+  add_index "room_prices", ["room_id"], name: "index_room_prices_on_room_id"
 
   create_table "rooms", force: :cascade do |t|
     t.string  "name",          limit: 128, null: false

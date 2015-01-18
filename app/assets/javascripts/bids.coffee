@@ -50,7 +50,38 @@ ready_step1 = ->
         .data( "item.autocomplete", item)
         .append( item.first_name + " " + item.last_name)
         .appendTo( ul )
-  
+
+ready_step2 = ->
+  calc_room_total = () ->
+    console.log("calculating room total")
+    sum = 0
+    $('.bid_room_fee_total').each (index,element)=>
+      sum += parseFloat($(element).text())
+      $('.bid_rooms_fee').text(sum)
+  calc_room_total()
+  $('.number_of_rooms').change ->
+    num_rooms = $(@).val()
+    id = $(@).attr('id').match(/.*_(\d*)/)[1]
+    console.log("number of rooms changed for " + id )
+    room_price = $("#room_prices_" + id).val()
+    $("#bid_room_fee_total_" + id).text(num_rooms * room_price)
+    calc_room_total()
+  $('.room_prices').change ->
+    room_price = $(@).val()
+    id = $(@).attr('id').match(/.*_(\d*)/)[1]
+    console.log("room price changed for " + id )
+    console.log("room price is " + room_price)
+    num_rooms = $("#rooms_" + id).val()
+    console.log("number of rooms is " + num_rooms)
+    $("#bid_room_fee_total_" + id).text(room_price * num_rooms)
+    calc_room_total()
+  $('form').on 'keyup', (e) -> 
+    #console.log('key: ' + e.which)
+    if e.which == 13
+      #console.log('enter!')
+      e.preventDefault
+      return false
+
 ready_step3 = ->
   calc_total = () ->
     console.log("calculating total")
@@ -156,8 +187,13 @@ if url.match(/step1/)
   console.log('matched step 1')
   $(document).ready(ready_step1)
   $(document).on('page:load', ready_step1)
-  
-if url.match(/step3/)
+else if url.match(/step2/) 
+  console.log('matched step 2')
+  $(document).ready(ready_step2)
+  $(document).on('page:load', ready_step2)
+else if url.match(/step3/)
   console.log('matched step 3')
   $(document).ready(ready_step3)
   $(document).on('page:load', ready_step3)
+else
+  console.log('no url matched')

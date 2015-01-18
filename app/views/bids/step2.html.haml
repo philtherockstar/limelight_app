@@ -3,10 +3,28 @@
   = form_tag('/bids/step2proc') do
     = hidden_field_tag('bid_id',@bid.id) 
     %h2= "Add rooms for #{@bid.property.address} #{@bid.property.city}"
+    %div.bid_rooms_fee_total
+      Total Staging Fee for rooms:
+      %div.bid_rooms_fee
+      
+    %div.table
+      %div.table_heading
+        %div.table_cell
+          \# Rooms
+        %div.table_cell
+          Room Name
+        %div.table_cell
+          Fee
+        %div.table_cell
+          Total
     - @rooms.each do |room|
       - num_rooms=0
+      - room_price = room.price
       - if @bid_rooms.size > 0
-        - @bid_rooms.each {|br| num_rooms = br.num_rooms if br.room_id == room.id }
+        - @bid_rooms.each do |br| 
+          - if br.room_id == room.id
+            - num_rooms = br.num_rooms
+            - room_price = br.price
       - else
         - case room.name
           - when /Master Bedroom|Master Bathroom|Living Room|^Kitchen$|Dining Area/
@@ -14,10 +32,16 @@
           - when /^Bathroom$/
             - num_rooms=2
       - logger.info("num_rooms is 0 for testing")
+      - 
       - #num_rooms=0 # for testing only
-  
-      =text_field_tag "rooms[#{room.id}]", num_rooms, {:size => 3}
-
-      = room.name
-      %br
+      %div.table_row
+        %div.table_cell
+          =text_field_tag "rooms[#{room.id}]", num_rooms, {:size => 6, :class => "number_of_rooms"}
+          =#text_field_tag "room_prices[#{room.id}]",  {:size => 4}
+        %div.table_cell
+          = room.name
+        %div.table_cell
+          =text_field_tag "room_prices[#{room.id}]", room_price,  {:size => 6, :class => "room_prices"}
+        %div.table_cell.bid_room_fee_total{ :id => "bid_room_fee_total_#{room.id}" }
+          = num_rooms * room_price
     =submit_tag "Next >" 

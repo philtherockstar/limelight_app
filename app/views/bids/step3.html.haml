@@ -1,7 +1,7 @@
 = #debug @bid_room_items
 = link_to "Go back to Choosing Rooms", "/bids/step2/#{@bid.id.to_s}"
 |
-= link_to "Enter a New Bid", "/"
+= link_to "Enter a New Bid", "/bids/step1"
 %h3 Choose Furniture for Rooms
 %div.bid_rental_costs
   %div.bid_total_rental_cost
@@ -16,6 +16,18 @@
   %button{ :class => "items_form_button", :name => "Save", :type => "button" }Save Work
   or
   %button{ :class => "items_form_button", :name => "Finish", :type => "button" }Finish >
+  
+  %div.table
+    %div.table_heading
+      %div.table_cell    
+        Staging Fee: 
+      %div.table_cell
+        =text_field_tag "bid[staging_fee]", @bid.staging_fee, {:size => 6}
+      %div.table_cell
+        Distribution Fee: 
+      %div.table_cell
+        =text_field_tag "bid[distribution_fee]", @bid.distribution_fee, {:size => 6}
+
   %div.table
     = hidden_field_tag('bid_id',@bid.id)
     - @bid_rooms.each do |br|
@@ -40,7 +52,7 @@
             Unit Rental Per Month
           %div.table_cell
             Total Rental Per Month
-        - tri = TemplateRoomItem.where( "business_id = #{@business.id} and room_id = #{br.room_id}")
+        - tri = TemplateRoomItem.where( "business_id = #{current_user.business_id} and room_id = #{br.room_id}")
         - row_number = 0
         - tri.each do |room_item|
           - ri = room_item

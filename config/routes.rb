@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   # root 'welcome#index'
   root 'home#index'
 
+   get 'pricing_proposal/:id' => 'pricing_proposal#index'
    post 'home/find_bids' => 'home#find_bids'
    get 'bids/step1/:id' => 'bids#step1'
    get 'bids/step2/:id' => 'bids#step2'

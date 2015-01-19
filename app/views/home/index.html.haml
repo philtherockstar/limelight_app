@@ -15,14 +15,16 @@
       %div.table_row
         %div.table_cell
           = link_to 'Create a Bid','/bids/step1'
+      %div.table_row
+        %div.table_cell      
           or
+      %div.table_row
         %div.table_cell
           Change a bid
-      %div.table_row 
-        %div.table_cell
-          %input{ :type => "hidden", :id => "prop_id", :name => "property[id]", :value => '0' }
+      %div.table_row           
         %div.table_cell= "Property Address:"
         %div.table_cell
           %input{ :type => "text", :id => "prop_addr", :name => "property[address]" }
+          %input{ :type => "hidden", :id => "prop_id", :name => "property[id]", :value => '0' }
         %div.table_cell= submit_tag "Go" 
 

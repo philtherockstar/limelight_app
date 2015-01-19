@@ -1,0 +1,15 @@
+// Place all the styles related to the pricing_proposal controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+#pp_document{
+	width: 670px;
+	border: 1px solid red;
+	position:fixed;
+    /* left: 33%; */
+}
+#pp_property_details{
+	border: 1px solid black;
+}
+#pp_blurb{
+	border: 1px solid black;
+}

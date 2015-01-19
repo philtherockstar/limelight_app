@@ -197,7 +197,7 @@ class BidsController < ApplicationController
       flash[:notice] = 'Data successfully saved!'
       redirect_to :action => 'step3', :id => bid_id 
     else
-      redirect_to :action => 'step4', :id => bid_id
+      redirect_to :controller => 'pricing_proposal', :action => 'index', :id => bid_id
     end
     #render :text => "hello"
   end

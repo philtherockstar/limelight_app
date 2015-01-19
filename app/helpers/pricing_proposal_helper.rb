@@ -1,0 +1,2 @@
+module PricingProposalHelper
+end

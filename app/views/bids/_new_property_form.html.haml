@@ -66,9 +66,9 @@
     %div.table_cell= text_field :client, :last_name, :value => client_last_name
   %div.table_row 
     %div.table_cell= "Phone"
-    %div.table_cell= text_field :client, :phone, :value => client_phone
+    %div.table_cell= phone_field :client, :phone, :value => client_phone
     %div.table_cell= "Email"
-    %div.table_cell= text_field :client, :email, :value => client_email
+    %div.table_cell= email_field :client, :email, :value => client_email
   %div.table_row
     %div.table_cell
       &nbsp;

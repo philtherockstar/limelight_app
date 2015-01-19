@@ -1,0 +1,101 @@
+%div#pp_document
+  %div#pp_header
+    %div#pp_logo
+      Limelight Home Staging
+    %div.pp_container
+      %div.pp_left
+        I'm Insured
+      %div.pp_center
+        %div
+          Pricing Proposal
+        %div
+          Please call use if you have any questions
+        %div 
+          =current_user.business.phone
+      %div.pp_right
+        ASP
+
+  %div#pp_heading_line
+  %div.pp_container
+    %div#pp_property_details
+      %div.table
+        %div.table_row
+          %div.table_cell
+            ="Client: #{@bid.clients.first.first_name} #{@bid.clients.first.last_name}"
+          %div.table_cell
+            ="Address: #{@bid.property.address}, #{@bid.property.city} #{@bid.property.state.abbrev}"
+          %div.table_cell
+            ="Phone: #{@bid.clients.first.phone}"
+          %div.table_cell
+            ="Email: #{@bid.clients.first.email}"
+          %div.table_cell
+          %div.table_cell
+            ="Realtor: #{@bid.realtors.first.first_name} #{@bid.realtors.first.last_name}"
+          %div.table_cell
+            ="Square Feet: #{@bid.property.sqft}"
+
+    %div#pp_blurb
+      ="Detailed below is a pricing proposal for the property #{@bid.property.address} in #{@bid.property.city}. The staging in this package will highlight the beautiful features of the home and will help to distract potential buyers from any \"negative\” aspects of the property." 
+
+  %div.pp_container
+    %div#pp_staging_fee
+      Staging Fee
+    %div#pp_distribution_fee
+      Distribution Fee
+    %div#rental_fees
+      Accessories/Furniture Rental
+    %div#staging_total
+      Staging Total
+    %div#continued_rental
+      %h3
+        Continued Monthly Rental
+      - if @bid.weeks_included == 6
+        There is a minimum 6 week furniture lease requirement.  After 6 weeks, Limelight Home Staging will include an additional 2 weeks of complementary furniture rental.  Including the 2 weeks of complementary rental, there is a total of 2 months of furniture rental within this pricing proposal.  After 2 months, if any continued furniture rental is necessary, the additional rental fee will be
+    %div.pp_terms
+      This proposal pricing is offered for 10 days only and is subject to scheduling and inventory availability.
+    %div.pp_thanks
+      Thank you for the opportunity to service your staging needs!
+  %div.pp_rental_table_blurb
+    The following table illustrates how your furniture rental has been allocated for this estimate. As necessary, Limelight Home Staging reserves the right to add or change items to best fit the needs of your individual property. Any changes to this estimate proposed by Limelight Home staging will not alter this estimate. However, changes or additions requested by the client may increase the estimate
+  %div.pp_rental_table
+    - grand_total = 0
+    %table{ :border => "0", :id => "final_items_table" }
+      %tr
+        %thead
+          %th
+            Furniture and Accessories
+          %th
+            Quantity
+          %th.items-unit-rental
+            Unit Rental Per Month
+          %th.items-total-rental
+            Total Rental Per Month
+      - @bid_rooms.each do |br|
+        - cnt=1
+        - while cnt <= br.num_rooms
+          %tbody
+            %tr
+              %th{ :colspan => "4" }
+                - if br.num_rooms > 1
+                  ="#{br.room.name} #{cnt}"
+                - else
+                  ="#{br.room.name}"
+          - bri = BidRoomItem.all.where( "bid_room_id = #{br.id} and room_instance = #{cnt}" )
+          - cnt += 1
+          - bri.each do |ri|
+            %tr
+              %td
+                = "#{ri.item_name}"
+              %td
+                - if ri.item_name.match(/accessor/i)
+                  Misc.
+                - else
+                  = "#{ri.item_qty}"
+              %td
+                = "#{number_to_currency(ri.rental_price)}"
+              %td
+                - grand_total += (ri.item_qty * ri.rental_price)
+                = "#{number_to_currency(ri.item_qty * ri.rental_price)}"
+      %tr
+        %td.items-table-footer{ :colspan => "4" }
+          = "Total Per Month = #{number_to_currency(grand_total)}"

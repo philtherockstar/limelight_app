@@ -20,11 +20,21 @@
           or
       %div.table_row
         %div.table_cell
+          = radio_button_tag 'bid_option','change_bid', true
           Change a bid
+      %div.table_row
+        %div.table_cell
+          = radio_button_tag 'bid_option','duplicate_same_property'
+          Duplicate a bid for the same property (create a new bid for the same property)
+      %div.table_row
+        %div.table_cell
+          = radio_button_tag 'bid_option','duplicate_new_property'
+          Duplicate a bid for a new property (use a old bid as a template to bid on a new property)
       %div.table_row           
         %div.table_cell= "Property Address:"
+      %div.table_row
         %div.table_cell
           %input{ :type => "text", :id => "prop_addr", :name => "property[address]" }
           %input{ :type => "hidden", :id => "prop_id", :name => "property[id]", :value => '0' }
-        %div.table_cell= submit_tag "Go" 
+          = submit_tag "Go" 
 

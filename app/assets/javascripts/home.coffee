@@ -16,6 +16,7 @@ ready = ->
         .data( "item.autocomplete", item)
         .append( item.address + " " + item.city )
         .appendTo( ul )
+
 #url = window.location.href
 #console.log("url=" + url)
 #if url.match(/home/)

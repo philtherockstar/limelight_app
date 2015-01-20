@@ -2,14 +2,165 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 #pp_document{
-	width: 670px;
-	border: 1px solid red;
+	width: 668px;
+	
 	position:fixed;
     /* left: 33%; */
 }
+#pp_header{
+	width: 668px;
+	border: 0px solid red;
+	height: 75px;
+	background-color: #9af80e;
+}
+#pp_logo{
+	height: 75px;
+	background-color: #9af80e;
+}
+.pp_left{
+    float: left;
+    border: 0px solid red;
+    margin: 25px 00px 0px 00px;
+}
+.pp_center{
+	font-size: 1.33em;
+	float: left;
+	border: 1px solid black;
+	text-align: center;
+	margin: 20px 0px 0px 15px;
+	padding: 10px 5px 0px 5px;
+	height: 70px;
+}
+#pp_asp_img{
+	position: absolute;
+	top: 20px;
+	border: 0px solid black;
+	margin: 0px 10px 0px 560px;
+	z-index: 999;
+}
+#pp_asp{
+	border: 1px solid black;
+	width: 90px;
+	margin: 6px 0px 0px 0px;
+	padding: 2px 2px 2px 2px;
+}
+#pp_heading_line{
+	width: 668px;
+    border-bottom: 2px solid black;
+}
+#pp_container1{
+	width: 658px;
+	border: 0px solid red;
+	margin: 120px 0px 20px 0px;
+}
 #pp_property_details{
 	border: 1px solid black;
+	font-size: 1.3em;
+	font-weight: bold;
+	line-height: 1.3em;
+	margin: 0px 0px 0px 10px;
+	padding: 2px 2px 2px 2px;
+	height: 160px;
+	width: 300px;
+	background-color: #b2ed4b;
+	float: left;
+}
+#pp_property_details ul{
+  list-style: square;
 }
 #pp_blurb{
+    border: 1px solid black;
+    font-size: 1.25em;
+	height: 154px;
+	margin: 0px 0px 0px 350px;
+	padding: 5px 5px 5px 5px;
+}
+#pp_container2{
+	width: 608px;
 	border: 1px solid black;
+	margin: 10px 25px 0px 25px;
+	padding: 5px 5px 5px 5px;
+}
+#pp_staging_fee{
+
+}
+#pp_distribution_fee{
+
+}
+#pp_rental_fees{
+
+}
+#pp_staging_total{
+}
+#pp_staging_total    ul {
+     max-width: 45em;
+     padding: 0;
+     overflow-x: hidden;    
+     list-style: none;	
+	}	
+#pp_staging_total    ul li:before {
+    	float: left;
+    	width: 0;
+    	white-space: nowrap;
+    	content:
+ ". . . . . . . . . . . . . . . . . . . . "
+ ". . . . . . . . . . . . . . . . . . . . "
+ ". . . . . . . . . . . . . . . . . . . . "
+	}
+#pp_staging_total 	ul span:first-child {
+    	padding-right: 0.33em;
+    	background: white
+    }
+#pp_staging_total 	ul span + span {
+    	float: right;
+    	padding-left: 0.33em;
+    	background: white;
+    }
+
+
+#pp_continued_rental{
+
+}
+#pp_rental_table_blurb{
+	margin: 10px 0px 0px 0px;
+	padding: 10px 10px 10px 10px;
+	width: 660px;
+}
+#pp_rental_table{
+	width: 668px;
+}
+ul.leaders {
+    max-width: 42em;
+    list-style: none;
+    .no-style{
+    	padding: 0;
+    	overflow-x: hidden;    
+    	list-style: none;	
+    }
+}
+ul.leaders li:before {
+    float: left;
+    width: 0;
+    white-space: nowrap;
+    content:
+ ". . . . . . . . . . . . . . . . . . . "
+ ". . . . . . . . . . . . . . . . . . . . "
+ ". . . . . . . . . . . . . . . . . . . . "}
+ul.leaders span:first-child {
+    padding-right: 0.33em;
+    background: white}
+ul.leaders span + span {
+    float: right;
+    padding-left: 0.33em;
+    background: white}
+#pp_terms{
+	text-align: center;
+}
+#pp_thanks{
+	text-align: center;
+	border: 1px solid black;
+		width: 608px;
+	border: 1px solid black;
+	margin: 0px 25px 0px 25px;
+	padding: 5px 5px 5px 5px;
 }

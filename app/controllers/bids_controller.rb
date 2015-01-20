@@ -167,6 +167,7 @@ class BidsController < ApplicationController
   def step3proc 
     bid_id = params[:bid_id]
     quantities = params[:bid_rooms_item_quantity]
+    total_rental=0
     ActiveRecord::Base.transaction do
       BidRoomItem.delete_all(["bid_id = ?", bid_id])
       quantities.each do |bid_room_id, instance|
@@ -182,6 +183,7 @@ class BidsController < ApplicationController
               bri.item_qty = qty
               bri.rental_price = params[:bid_rooms_item_rental_price][bid_room_id][instance_num][item_id]
               bri.save
+              total_rental += (bri.item_qty * bri.rental_price)
             end
           end
         end
@@ -190,6 +192,8 @@ class BidsController < ApplicationController
       bid.staging_fee = params[:bid][:staging_fee]
       bid.distribution_fee = params[:bid][:distribution_fee]
       bid.weeks_included = params[:bid][:weeks_included]
+      bid.rental_monthly = total_rental
+      bid.rental_weekly = total_rental/4
       bid.save
     end
     logger.info("items_form_action=#{params[:items_form_action] }")

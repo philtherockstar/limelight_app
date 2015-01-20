@@ -1,101 +1,170 @@
-%div#pp_document
-  %div#pp_header
-    %div#pp_logo
-      Limelight Home Staging
-    %div.pp_container
-      %div.pp_left
-        I'm Insured
-      %div.pp_center
-        %div
-          Pricing Proposal
-        %div
-          Please call use if you have any questions
-        %div 
-          =current_user.business.phone
-      %div.pp_right
-        ASP
-
-  %div#pp_heading_line
+%div#pp_header
+  %div#pp_logo
+    =image_tag('ll_header.jpg')
   %div.pp_container
-    %div#pp_property_details
-      %div.table
-        %div.table_row
-          %div.table_cell
-            ="Client: #{@bid.clients.first.first_name} #{@bid.clients.first.last_name}"
-          %div.table_cell
-            ="Address: #{@bid.property.address}, #{@bid.property.city} #{@bid.property.state.abbrev}"
-          %div.table_cell
-            ="Phone: #{@bid.clients.first.phone}"
-          %div.table_cell
-            ="Email: #{@bid.clients.first.email}"
-          %div.table_cell
-          %div.table_cell
-            ="Realtor: #{@bid.realtors.first.first_name} #{@bid.realtors.first.last_name}"
-          %div.table_cell
-            ="Square Feet: #{@bid.property.sqft}"
+    %div.pp_left
+      =image_tag('stager_insurance_banner.jpg')
+    %div.pp_center
+      %div
+        Pricing Proposal
+      %div
+        Please call us if you have any questions
+      %div 
+        =current_user.business.phone
+    %div#pp_asp_img
+      %div
+        =image_tag('ASP-Logo_Transparent-BG.png')
+      %div#pp_asp
+        Accredited Staging Professional
 
-    %div#pp_blurb
-      ="Detailed below is a pricing proposal for the property #{@bid.property.address} in #{@bid.property.city}. The staging in this package will highlight the beautiful features of the home and will help to distract potential buyers from any \"negative\” aspects of the property." 
+%div#pp_heading_line
+%div#pp_container1
+  %div#pp_property_details
+    %div.table
+      %div.table_row
+        %div.table_cell
+          ="Client: #{@bid.clients.first.first_name} #{@bid.clients.first.last_name}"
+      %div.table_row  
+        %div.table_cell
+          ="Address: #{@bid.property.address}, #{@bid.property.city} #{@bid.property.state.abbrev}"
+      %div.table_row
+        %div.table_cell
+          ="Phone: #{@bid.clients.first.phone}"
+      %div.table_row
+        %div.table_cell
+          ="Email: #{@bid.clients.first.email}"
+      %div.table_row
+        %div.table_cell
+      %div.table_row
+        %div.table_cell
+          ="Realtor: #{@bid.realtors.first.first_name} #{@bid.realtors.first.last_name}"
+      %div.table_row
+        %div.table_cell
+          ="Square Feet: #{@bid.property.sqft}"
 
-  %div.pp_container
-    %div#pp_staging_fee
+  %div#pp_blurb
+    ="Detailed below is a pricing proposal for the property #{@bid.property.address} in #{@bid.property.city}. The staging in this package will highlight the beautiful features of the home and will help to distract potential buyers from any \"negative\” aspects of the property." 
+- room_str=''
+- @bid_rooms.each do |bdr| 
+  - room_str += "#{bdr.num_rooms.to_s} #{bdr.room.name}"
+  - room_str += "s" if bdr.num_rooms > 1
+  - room_str += ", "
+- room_str = room_str[0..-3]
+%div#pp_container2
+  %div#pp_staging_fee
+    %h4
       Staging Fee
-    %div#pp_distribution_fee
+    %ul
+      %li
+        Inventory Preparation*
+      %li
+        ="Inventory Installation and Staging of Rooms* [#{room_str}]"
+      %li
+        De-staging*
+    %ul.leaders
+      %li
+        %span
+          =' '
+        %span
+          =number_to_currency(@bid.staging_fee)
+    %ul
+      *The preparation, staging, and de-staging fee includes 2 delivery personnel and 1 staging and design professional
+  %div#pp_distribution_fee
+    %h4
       Distribution Fee
-    %div#rental_fees
+    %ul.leaders
+      %li
+        %span
+          Delivery and Pick-up
+        %span
+          =number_to_currency(@bid.distribution_fee)
+
+  %div#pp_rental_fees
+    %h4
       Accessories/Furniture Rental
-    %div#staging_total
-      Staging Total
-    %div#continued_rental
-      %h3
-        Continued Monthly Rental
-      - if @bid.weeks_included == 6
-        There is a minimum 6 week furniture lease requirement.  After 6 weeks, Limelight Home Staging will include an additional 2 weeks of complementary furniture rental.  Including the 2 weeks of complementary rental, there is a total of 2 months of furniture rental within this pricing proposal.  After 2 months, if any continued furniture rental is necessary, the additional rental fee will be
-    %div.pp_terms
+    Staging items could include, but are not limited to: (Please view the detailed outline below.)
+    %ul
+      %li
+        Furniture
+      %li
+        Bedding, linen, bathroom accessories
+      %li
+        Artwork
+      %li
+        Miscellaneous decorative items
+    %ul.leaders
+      %li
+        %span
+          =' '
+        %span
+          ="#{number_to_currency(@bid.rental_weekly * @bid.weeks_included)} (#{@bid.weeks_included} weeks)"
+
+  %div#pp_staging_total
+    %h4
+      %ul
+        %li
+          %span
+            Staging Total
+          %span
+            =number_to_currency(@bid.staging_fee + @bid.distribution_fee + (@bid.rental_weekly * @bid.weeks_included))
+  %div#pp_continued_rental
+    %h4
+      Continued Monthly Rental
+    - if @bid.weeks_included == 6
+      There is a minimum 6 week furniture lease requirement.  After 6 weeks, Limelight Home Staging will include an additional 2 weeks of complementary furniture rental.  Including the 2 weeks of complementary rental, there is a total of 2 months of furniture rental within this pricing proposal.  After 2 months, if any continued furniture rental is necessary, the additional rental fee will 
+      be
+      %ul.leaders
+        %li
+          %span
+            =' '
+          %span 
+            ="#{number_to_currency(@bid.rental_weekly)} per week"
+  %div#pp_terms
+    %h5
       This proposal pricing is offered for 10 days only and is subject to scheduling and inventory availability.
-    %div.pp_thanks
-      Thank you for the opportunity to service your staging needs!
-  %div.pp_rental_table_blurb
-    The following table illustrates how your furniture rental has been allocated for this estimate. As necessary, Limelight Home Staging reserves the right to add or change items to best fit the needs of your individual property. Any changes to this estimate proposed by Limelight Home staging will not alter this estimate. However, changes or additions requested by the client may increase the estimate
-  %div.pp_rental_table
-    - grand_total = 0
-    %table{ :border => "0", :id => "final_items_table" }
-      %tr
-        %thead
-          %th
-            Furniture and Accessories
-          %th
-            Quantity
-          %th.items-unit-rental
-            Unit Rental Per Month
-          %th.items-total-rental
-            Total Rental Per Month
-      - @bid_rooms.each do |br|
-        - cnt=1
-        - while cnt <= br.num_rooms
-          %tbody
-            %tr
-              %th{ :colspan => "4" }
-                - if br.num_rooms > 1
-                  ="#{br.room.name} #{cnt}"
-                - else
-                  ="#{br.room.name}"
-          - bri = BidRoomItem.all.where( "bid_room_id = #{br.id} and room_instance = #{cnt}" )
-          - cnt += 1
-          - bri.each do |ri|
-            %tr
-              %td
-                = "#{ri.item_name}"
-              %td
-                - if ri.item_name.match(/accessor/i)
-                  Misc.
-                - else
-                  = "#{ri.item_qty}"
-              %td
-                = "#{number_to_currency(ri.rental_price)}"
-              %td
-                - grand_total += (ri.item_qty * ri.rental_price)
-                = "#{number_to_currency(ri.item_qty * ri.rental_price)}"
-      %tr
-        %td.items-table-footer{ :colspan => "4" }
-          = "Total Per Month = #{number_to_currency(grand_total)}"
+%div#pp_thanks
+  Thank you for the opportunity to service your staging needs!
+%div#pp_rental_table_blurb
+  The following table illustrates how your furniture rental has been allocated for this estimate. As necessary, Limelight Home Staging reserves the right to add or change items to best fit the needs of your individual property. Any changes to this estimate proposed by Limelight Home staging will not alter this estimate. However, changes or additions requested by the client may increase the estimate
+%div#pp_rental_table
+  - grand_total = 0
+  %table{ :border => "0", :id => "final_items_table" }
+    %tr
+      %thead
+        %th
+          Furniture and Accessories
+        %th
+          Quantity
+        %th.items-unit-rental
+          Unit Rental Per Month
+        %th.items-total-rental
+          Total Rental Per Month
+    - @bid_rooms.each do |br|
+      - cnt=1
+      - while cnt <= br.num_rooms
+        %tbody
+          %tr
+            %th{ :colspan => "4" }
+              - if br.num_rooms > 1
+                ="#{br.room.name} #{cnt}"
+              - else
+                ="#{br.room.name}"
+        - bri = BidRoomItem.all.where( "bid_room_id = #{br.id} and room_instance = #{cnt}" )
+        - cnt += 1
+        - bri.each do |ri|
+          %tr
+            %td
+              = "#{ri.item_name}"
+            %td
+              - if ri.item_name.match(/accessor/i)
+                Misc.
+              - else
+                = "#{ri.item_qty}"
+            %td
+              = "#{number_to_currency(ri.rental_price)}"
+            %td
+              - grand_total += (ri.item_qty * ri.rental_price)
+              = "#{number_to_currency(ri.item_qty * ri.rental_price)}"
+    %tr
+      %td.items-table-footer{ :colspan => "4" }
+        = "Total Per Month = #{number_to_currency(grand_total)}"

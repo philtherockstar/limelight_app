@@ -14,7 +14,7 @@ class HomeController < ApplicationController
       bid=params[:bid]
       bid = do_duplicate_same_property(bid) if duplicate_same_property
       bid = do_duplicate_new_property(bid) if duplicate_new_property
-      redirect_to("/bids/step1/"+bid)
+      redirect_to("/bids/step1/"+bid.to_s)
     else
       @property = Property.find(params[:property][:id])
       @bids = Bid.where("property_id = ?", params[:property][:id])
@@ -22,7 +22,7 @@ class HomeController < ApplicationController
         bid=@bids[0].id
         bid = do_duplicate_same_property(bid) if duplicate_same_property
         bid = do_duplicate_new_property(bid) if duplicate_new_property
-        redirect_to("/bids/step1/"+bid)
+        redirect_to("/bids/step1/"+bid.to_s)
       elsif @bids.size > 0
         #render :action => "index"
         render :index

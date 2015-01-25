@@ -2,6 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 #pp_document{
+	/* this is not used */
 	width: 668px;
 	
 	position:fixed;
@@ -20,16 +21,24 @@
 .pp_left{
     float: left;
     border: 0px solid red;
-    margin: 25px 00px 0px 00px;
+    margin: 15px 00px 0px 00px;
 }
 .pp_center{
 	font-size: 1.33em;
 	float: left;
 	border: 1px solid black;
 	text-align: center;
-	margin: 20px 0px 0px 15px;
-	padding: 10px 5px 0px 5px;
-	height: 70px;
+	margin: 10px 0px 0px 15px;
+	padding: 5px 5px 0px 5px;
+	height: 65px;
+	width: 350px;
+}
+#pp_title{
+    font-size: 1.33em;
+    padding: 0px 0px 5px 0px;
+}
+.pp_title_blurb{
+	font-size: .75em;
 }
 #pp_asp_img{
 	position: absolute;
@@ -39,29 +48,33 @@
 	z-index: 999;
 }
 #pp_asp{
+	font-size: .85em;
 	border: 1px solid black;
-	width: 90px;
-	margin: 6px 0px 0px 0px;
+	text-align: center;
+	width: 120px;
+	margin: 2px 0px 0px -18px;
 	padding: 2px 2px 2px 2px;
 }
 #pp_heading_line{
+	margin: 89px 0px 0px 0px;
 	width: 668px;
     border-bottom: 2px solid black;
 }
 #pp_container1{
 	width: 658px;
 	border: 0px solid red;
-	margin: 120px 0px 20px 0px;
+	margin: 7px 0px 7px 0px;
+
 }
 #pp_property_details{
-	border: 1px solid black;
-	font-size: 1.3em;
+	border: 2px solid black;
+	font-size: 1em;
 	font-weight: bold;
 	line-height: 1.3em;
 	margin: 0px 0px 0px 10px;
 	padding: 2px 2px 2px 2px;
-	height: 160px;
-	width: 300px;
+	height: 124px;
+	width: 340px;
 	background-color: #b2ed4b;
 	float: left;
 }
@@ -69,23 +82,36 @@
   list-style: square;
 }
 #pp_blurb{
-    border: 1px solid black;
-    font-size: 1.25em;
-	height: 154px;
-	margin: 0px 0px 0px 350px;
-	padding: 5px 5px 5px 5px;
+    border: 2px solid black;
+    font-size: .95em;
+	height: 113px;
+	width: 250px;
+	margin: 0px 0px 0px 380px;
+	padding: 2px 5px 13px 5px;
+	text-align: center;
 }
 #pp_container2{
-	width: 608px;
+	width: 595px;
 	border: 1px solid black;
-	margin: 10px 25px 0px 25px;
-	padding: 5px 5px 5px 5px;
+	margin: 0px 25px 0px 20px;
+	padding: 0px 10px 0px 10px;
+	font-size: .9em;
+	h4{
+		border: 0px solid red;
+		margin: 0px 0px 0px 0px;
+	}
+	ul{
+       font-size: 1em;
+	}
+
 }
 #pp_staging_fee{
-
+    padding: 5px 0px 0px 0px;
 }
 #pp_distribution_fee{
-
+	h4{
+		border: 0px solid red;
+	}
 }
 #pp_rental_fees{
 
@@ -93,12 +119,14 @@
 #pp_staging_total{
 }
 #pp_staging_total    ul {
-     max-width: 45em;
+     font-size: 1em;
+     max-width: 56em;
      padding: 0;
      overflow-x: hidden;    
      list-style: none;	
 	}	
 #pp_staging_total    ul li:before {
+    	
     	float: left;
     	width: 0;
     	white-space: nowrap;
@@ -106,8 +134,10 @@
  ". . . . . . . . . . . . . . . . . . . . "
  ". . . . . . . . . . . . . . . . . . . . "
  ". . . . . . . . . . . . . . . . . . . . "
+ ". . . . . . . . . . . . . . . . . . . . "
 	}
 #pp_staging_total 	ul span:first-child {
+    	
     	padding-right: 0.33em;
     	background: white
     }
@@ -130,7 +160,7 @@
 	width: 668px;
 }
 ul.leaders {
-    max-width: 42em;
+    max-width: 52em;
     list-style: none;
     .no-style{
     	padding: 0;
@@ -143,7 +173,8 @@ ul.leaders li:before {
     width: 0;
     white-space: nowrap;
     content:
- ". . . . . . . . . . . . . . . . . . . "
+ ". . . . . . . "
+ ". . . . . . . . . . . . . . . . . . . . "
  ". . . . . . . . . . . . . . . . . . . . "
  ". . . . . . . . . . . . . . . . . . . . "}
 ul.leaders span:first-child {
@@ -157,10 +188,51 @@ ul.leaders span + span {
 	text-align: center;
 }
 #pp_thanks{
+	width: 595px;
+	border: 1px solid black;
+	margin: 0px 25px 0px 20px;
+	padding: 2px 10px 2px 10px;
+	font-size: .9em;
 	text-align: center;
-	border: 1px solid black;
-		width: 608px;
-	border: 1px solid black;
-	margin: 0px 25px 0px 25px;
-	padding: 5px 5px 5px 5px;
+}
+#pp_rental_table_blurb{
+	border: 0px solid red;
+  margin: 0px 10px 0px 10px;
+  padding: 15px 10px 5px 15px;
+  width: 610px;
+}
+#pp_rental_table{
+  margin: 0px 0px 0px 20px;
+  border: 1px solid black;
+  width: 610px;
+  table{
+    
+    margin: 0px 25px 0px 10px;
+	padding: 2px 10px 2px 2px;
+	width: 595px;
+	
+  }
+  tr{
+
+  }
+  thead{
+
+  }
+  th{
+
+  }
+  tr{
+
+  }
+  .td_right{
+  	text-align: right;
+  }
+  .items-table-footer{
+    font-weight: bold;
+  }  
+  td{
+  	border: .5px solid black;
+
+
+  }
 }

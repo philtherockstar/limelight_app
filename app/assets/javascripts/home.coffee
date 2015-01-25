@@ -20,5 +20,9 @@ ready = ->
 #url = window.location.href
 #console.log("url=" + url)
 #if url.match(/home/)
+if $('#prop_addr')?
+  console.log('got prop addr')
+else
+  console.log('no prop addr')
 $(document).ready(ready)
 $(document).on('page:load', ready)

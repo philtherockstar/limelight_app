@@ -5,11 +5,11 @@
     %div.pp_left
       =image_tag('stager_insurance_banner.jpg')
     %div.pp_center
-      %div
+      %div#pp_title
         Pricing Proposal
-      %div
+      %div.pp_title_blurb
         Please call us if you have any questions
-      %div 
+      %div.pp_title_blurb
         =current_user.business.phone
     %div#pp_asp_img
       %div
@@ -23,24 +23,31 @@
     %div.table
       %div.table_row
         %div.table_cell
-          ="Client: #{@bid.clients.first.first_name} #{@bid.clients.first.last_name}"
+          Client:
+        %div.table_cell="#{@bid.clients.first.first_name} #{@bid.clients.first.last_name}"
       %div.table_row  
         %div.table_cell
-          ="Address: #{@bid.property.address}, #{@bid.property.city} #{@bid.property.state.abbrev}"
+          Address: 
+        %div.table_cell="#{@bid.property.address}, #{@bid.property.city} #{@bid.property.state.abbrev}"
       %div.table_row
         %div.table_cell
-          ="Phone: #{@bid.clients.first.phone}"
+          Phone: 
+        %div.table_cell="#{@bid.clients.first.phone}"
       %div.table_row
         %div.table_cell
-          ="Email: #{@bid.clients.first.email}"
+          Email: 
+        %div.table_cell="#{@bid.clients.first.email}"
       %div.table_row
+        %div.table_cell
         %div.table_cell
       %div.table_row
         %div.table_cell
-          ="Realtor: #{@bid.realtors.first.first_name} #{@bid.realtors.first.last_name}"
+          Realtor: 
+        %div.table_cell="#{@bid.realtors.first.first_name} #{@bid.realtors.first.last_name}"
       %div.table_row
         %div.table_cell
-          ="Square Feet: #{@bid.property.sqft}"
+          SQFT: 
+        %div.table_cell="#{@bid.property.sqft}"
 
   %div#pp_blurb
     ="Detailed below is a pricing proposal for the property #{@bid.property.address} in #{@bid.property.city}. The staging in this package will highlight the beautiful features of the home and will help to distract potential buyers from any \"negative\” aspects of the property." 
@@ -56,19 +63,17 @@
       Staging Fee
     %ul
       %li
-        Inventory Preparation*
+        Inventory Preparation
       %li
         ="Inventory Installation and Staging of Rooms* [#{room_str}]"
       %li
-        De-staging*
+        De-staging
     %ul.leaders
       %li
         %span
           =' '
         %span
           =number_to_currency(@bid.staging_fee)
-    %ul
-      *The preparation, staging, and de-staging fee includes 2 delivery personnel and 1 staging and design professional
   %div#pp_distribution_fee
     %h4
       Distribution Fee
@@ -111,7 +116,7 @@
     %h4
       Continued Monthly Rental
     - if @bid.weeks_included == 6
-      There is a minimum 6 week furniture lease requirement.  After 6 weeks, Limelight Home Staging will include an additional 2 weeks of complementary furniture rental.  Including the 2 weeks of complementary rental, there is a total of 2 months of furniture rental within this pricing proposal.  After 2 months, if any continued furniture rental is necessary, the additional rental fee will 
+      There is a minimum 6 week furniture lease requirement.  <b>After 6 weeks, Limelight Home Staging will include an additional 2 weeks of complementary furniture rental.</b>  Including the 2 weeks of complementary rental, <b>there is a total of 2 months of furniture rental within this pricing proposal.</b>  After 2 months, if any continued furniture rental is necessary, the additional rental fee will 
       be
       %ul.leaders
         %li
@@ -128,7 +133,7 @@
   The following table illustrates how your furniture rental has been allocated for this estimate. As necessary, Limelight Home Staging reserves the right to add or change items to best fit the needs of your individual property. Any changes to this estimate proposed by Limelight Home staging will not alter this estimate. However, changes or additions requested by the client may increase the estimate
 %div#pp_rental_table
   - grand_total = 0
-  %table{ :border => "0", :id => "final_items_table" }
+  %table{ :id => "final_items_table" }
     %tr
       %thead
         %th
@@ -155,16 +160,16 @@
           %tr
             %td
               = "#{ri.item_name}"
-            %td
+            %td.td_right
               - if ri.item_name.match(/accessor/i)
                 Misc.
               - else
                 = "#{ri.item_qty}"
-            %td
+            %td.td_right
               = "#{number_to_currency(ri.rental_price)}"
-            %td
+            %td.td_right
               - grand_total += (ri.item_qty * ri.rental_price)
               = "#{number_to_currency(ri.item_qty * ri.rental_price)}"
     %tr
       %td.items-table-footer{ :colspan => "4" }
-        = "Total Per Month = #{number_to_currency(grand_total)}"
+        = "Total Per Month: #{number_to_currency(grand_total)}"

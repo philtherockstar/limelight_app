@@ -16,6 +16,12 @@ ready = ->
         .data( "item.autocomplete", item)
         .append( item.address + " " + item.city )
         .appendTo( ul )
+  
+  #$('#go_button_change_or_duplicate').click (e) ->
+  #  e.preventDefault()
+  #  #console.log('yo')
+  #  if not $('#prop_id').val
+  #    console.log('no prop id')
 
 #url = window.location.href
 #console.log("url=" + url)

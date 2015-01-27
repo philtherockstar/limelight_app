@@ -15,4 +15,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require jquery.turbolinks
+//= require_self
+// require 'bids'
+// require 'home'
 //= require_tree .

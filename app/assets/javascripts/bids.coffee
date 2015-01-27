@@ -3,23 +3,6 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 ready_step1 = -> 
-  $('#property_address').autocomplete(
-    minLength: 2
-    source:'/properties/search'
-    select: (event,ui) ->
-      console.log('ui ' + ui.item.address)
-      $('#property_id').val(ui.item.id)
-      $('#property_address').val(ui.item.address)
-      $('#property_city').val(ui.item.city)
-      $('#property_sqft').val(ui.item.sqft)
-      $('#property_state_id').val(ui.item.state_id)
-      $('#property_country_id').val(ui.item.country_id)
-      false
-    ).data('ui-autocomplete')._renderItem = ( ul, item ) ->
-      $( "<li>" )
-        .data( "item.autocomplete", item)
-        .append( item.address + " " + item.city )
-        .appendTo( ul )
   $('#client_first_name').autocomplete(
     minLength: 2
     source:'/clients/search'
@@ -197,3 +180,4 @@ else if url.match(/step3/)
   $(document).on('page:load', ready_step3)
 else
   console.log('no url matched')
+

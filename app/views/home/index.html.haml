@@ -16,35 +16,43 @@
               = submit_tag "Go", :id => "go_button_choose_property" 
       - else
         %div.row
-          %div.col-xs-12
-            = link_to 'Create a Bid','/bids/step1'
-        %div.row
-          %div.col-xs-12      
-            or
-        %div.form-group
-          %div.row
-            %div.col-xs-12
-              %div.radio
-                = radio_button_tag 'bid_option','change_bid', true
-                Change a bid
-          %div.row
-            %div.col-xs-12
-              %div.radio
-                = radio_button_tag 'bid_option','duplicate_same_property'
-                Duplicate a bid for the same property (create a new bid for the same property)
-          %div.row
-            %div.col-xs-12
-              %div.radio
-                = radio_button_tag 'bid_option','duplicate_new_property'
-                Duplicate a bid for a new property (use a old bid as a template to bid on a new property)
-        %div.form-group
-          %div.row
-            %div.col-xs-12
-              %label{ :for => "Property Address"}
-                Address:
-          %div.row
-            %div.col-xs-12
-              %input{ :type => "text", :id => "prop_addr", :name => "property[address]" }
-              %input{ :type => "hidden", :id => "prop_id", :name => "property[id]", :value => '0' }
-              = submit_tag "Go", :id => "go_button_change_or_duplicate" 
+          %div.col-xs-3
+            %div.panel.panel-default
+              %div.panel-heading
+                Create a New Bid
+              %div.panel-body
+                %p
+                  Click on the button below to create a new bid
+                %p
+                  %a{ :class => "btn btn-primary btn-sm", :href => "/bids/step1", :role => "button", :value => "here"}
+                    Start Bid
+          %div.col-xs-1      
+            OR
+          %div.col-xs-8
+            %div.panel.panel-default
+              %div.panel-heading
+                Change or Duplicate an Existing Bid
+              %dev.panel-body
+                %div.form-group
+                  %div.col-xs-12
+                    %div.col-xs-11
+                      %div.radio
+                        = radio_button_tag 'bid_option','change_bid', true
+                        Change a bid
+                    %div.col-xs-11
+                      %div.radio
+                        = radio_button_tag 'bid_option','duplicate_same_property'
+                        Duplicate a bid for the same property (create a new bid for the same property)
+                    %div.col-xs-11
+                      %div.radio
+                        = radio_button_tag 'bid_option','duplicate_new_property'
+                        Duplicate a bid for a new property (use a old bid as a template to bid on a new property)
+                %div.form-group
+                  %div.col-xs-11
+                    %label{ :for => "Property Address"}
+                      Address:
+                  %div.col-xs-11
+                    %input{ :type => "text", :id => "prop_addr", :name => "property[address]" }
+                    %input{ :type => "hidden", :id => "prop_id", :name => "property[id]", :value => '0' }
+                    = submit_tag "Go", :id => "go_button_change_or_duplicate" 
 

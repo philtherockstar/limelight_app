@@ -59,7 +59,7 @@
 - room_str = room_str[0..-3]
 %div#pp_container2
   %div#pp_staging_fee
-    %h4
+    %h5
       Staging Fee
     %ul
       %li
@@ -75,7 +75,7 @@
         %span
           =number_to_currency(@bid.staging_fee)
   %div#pp_distribution_fee
-    %h4
+    %h5
       Distribution Fee
     %ul.leaders
       %li
@@ -85,7 +85,7 @@
           =number_to_currency(@bid.distribution_fee)
 
   %div#pp_rental_fees
-    %h4
+    %h5
       Accessories/Furniture Rental
     Staging items could include, but are not limited to: (Please view the detailed outline below.)
     %ul
@@ -105,7 +105,7 @@
           ="#{number_to_currency(@bid.rental_weekly * @bid.weeks_included)} (#{@bid.weeks_included} weeks)"
 
   %div#pp_staging_total
-    %h4
+    %h5
       %ul
         %li
           %span
@@ -113,7 +113,7 @@
           %span
             =number_to_currency(@bid.staging_fee + @bid.distribution_fee + (@bid.rental_weekly * @bid.weeks_included))
   %div#pp_continued_rental
-    %h4
+    %h5
       Continued Monthly Rental
     - if @bid.weeks_included == 6
       There is a minimum 6 week furniture lease requirement.  <b>After 6 weeks, Limelight Home Staging will include an additional 2 weeks of complementary furniture rental.</b>  Including the 2 weeks of complementary rental, <b>there is a total of 2 months of furniture rental within this pricing proposal.</b>  After 2 months, if any continued furniture rental is necessary, the additional rental fee will 

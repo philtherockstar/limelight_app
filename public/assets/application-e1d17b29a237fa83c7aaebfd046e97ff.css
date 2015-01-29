@@ -19,20 +19,29 @@
 }
 
 /* line 17, /Users/Shared/Documents/workspace/limelight_app/app/assets/stylesheets/application.scss */
+.ui-menu {
+  background-color: #d3f49b;
+  width: 250px;
+}
+
+/* line 21, /Users/Shared/Documents/workspace/limelight_app/app/assets/stylesheets/application.scss */
+.ui-menu-item {
+  list-style: none;
+}
+
+/* line 24, /Users/Shared/Documents/workspace/limelight_app/app/assets/stylesheets/application.scss */
 .ui-menu .ui-menu-item a {
   color: #96f226;
   border-radius: 0px;
   border: 1px solid #454545;
-  background-color: #f0f0f0;
-  width: 200px;
 }
 
-/* line 24, /Users/Shared/Documents/workspace/limelight_app/app/assets/stylesheets/application.scss */
+/* line 30, /Users/Shared/Documents/workspace/limelight_app/app/assets/stylesheets/application.scss */
 .notice {
   color: green;
 }
 
-/* line 27, /Users/Shared/Documents/workspace/limelight_app/app/assets/stylesheets/application.scss */
+/* line 33, /Users/Shared/Documents/workspace/limelight_app/app/assets/stylesheets/application.scss */
 .alert {
   color: red;
 }
@@ -8057,7 +8066,7 @@ div.field, div.actions {
 
 /* line 41, /Users/Shared/Documents/workspace/limelight_app/app/assets/stylesheets/bids.scss */
 .bid_rental_costs {
-  width: 407px;
+  width: 607px;
   margin: 5px 5px 5px 5px;
   border: 1px solid black;
 }
@@ -8080,22 +8089,23 @@ div.field, div.actions {
 .bid_weekly_rental_cost {
   margin: 5px 5px 5px 5px;
   border: 0px solid green;
+  float: left;
 }
 
-/* line 64, /Users/Shared/Documents/workspace/limelight_app/app/assets/stylesheets/bids.scss */
+/* line 65, /Users/Shared/Documents/workspace/limelight_app/app/assets/stylesheets/bids.scss */
 .weekly_rental_cost {
   border: 0px solid blue;
   display: inline;
 }
 
-/* line 69, /Users/Shared/Documents/workspace/limelight_app/app/assets/stylesheets/bids.scss */
+/* line 75, /Users/Shared/Documents/workspace/limelight_app/app/assets/stylesheets/bids.scss */
 .table {
   margin: 5px 5px 5px 5px;
   border: 0px solid blue;
   display: table;
 }
 
-/* line 74, /Users/Shared/Documents/workspace/limelight_app/app/assets/stylesheets/bids.scss */
+/* line 80, /Users/Shared/Documents/workspace/limelight_app/app/assets/stylesheets/bids.scss */
 .table_title {
   display: table-caption;
   text-align: left;
@@ -8103,14 +8113,14 @@ div.field, div.actions {
   font-size: larger;
 }
 
-/* line 80, /Users/Shared/Documents/workspace/limelight_app/app/assets/stylesheets/bids.scss */
+/* line 86, /Users/Shared/Documents/workspace/limelight_app/app/assets/stylesheets/bids.scss */
 .table_heading {
   display: table-row;
   font-weight: bold;
   text-align: left;
 }
 
-/* line 85, /Users/Shared/Documents/workspace/limelight_app/app/assets/stylesheets/bids.scss */
+/* line 91, /Users/Shared/Documents/workspace/limelight_app/app/assets/stylesheets/bids.scss */
 .table_row {
   display: table-row;
   border: solid;
@@ -8118,7 +8128,7 @@ div.field, div.actions {
   margin-bottom: 5px;
 }
 
-/* line 91, /Users/Shared/Documents/workspace/limelight_app/app/assets/stylesheets/bids.scss */
+/* line 97, /Users/Shared/Documents/workspace/limelight_app/app/assets/stylesheets/bids.scss */
 .table_cell {
   display: table-cell;
   #border: solid;
@@ -8127,17 +8137,17 @@ div.field, div.actions {
   padding-right: 5px;
 }
 
-/* line 99, /Users/Shared/Documents/workspace/limelight_app/app/assets/stylesheets/bids.scss */
+/* line 105, /Users/Shared/Documents/workspace/limelight_app/app/assets/stylesheets/bids.scss */
 .items-unit-rental {
   width: 100px;
 }
 
-/* line 102, /Users/Shared/Documents/workspace/limelight_app/app/assets/stylesheets/bids.scss */
+/* line 108, /Users/Shared/Documents/workspace/limelight_app/app/assets/stylesheets/bids.scss */
 .items-total-rental {
   width: 100px;
 }
 
-/* line 105, /Users/Shared/Documents/workspace/limelight_app/app/assets/stylesheets/bids.scss */
+/* line 111, /Users/Shared/Documents/workspace/limelight_app/app/assets/stylesheets/bids.scss */
 .items-table-footer {
   text-align: right;
 }
@@ -8166,19 +8176,19 @@ div.field, div.actions {
   }
 }
 */
-/* line 132, /Users/Shared/Documents/workspace/limelight_app/app/assets/stylesheets/bids.scss */
+/* line 138, /Users/Shared/Documents/workspace/limelight_app/app/assets/stylesheets/bids.scss */
 #notice {
   color: green;
 }
 
-/* line 136, /Users/Shared/Documents/workspace/limelight_app/app/assets/stylesheets/bids.scss */
+/* line 142, /Users/Shared/Documents/workspace/limelight_app/app/assets/stylesheets/bids.scss */
 .field_with_errors {
   padding: 2px;
   background-color: red;
   display: table;
 }
 
-/* line 142, /Users/Shared/Documents/workspace/limelight_app/app/assets/stylesheets/bids.scss */
+/* line 148, /Users/Shared/Documents/workspace/limelight_app/app/assets/stylesheets/bids.scss */
 #error_explanation {
   width: 450px;
   border: 2px solid red;
@@ -8187,7 +8197,7 @@ div.field, div.actions {
   margin-bottom: 20px;
   background-color: #f0f0f0;
 }
-/* line 149, /Users/Shared/Documents/workspace/limelight_app/app/assets/stylesheets/bids.scss */
+/* line 155, /Users/Shared/Documents/workspace/limelight_app/app/assets/stylesheets/bids.scss */
 #error_explanation h2 {
   text-align: left;
   font-weight: bold;
@@ -8198,7 +8208,7 @@ div.field, div.actions {
   background-color: #c00;
   color: #fff;
 }
-/* line 159, /Users/Shared/Documents/workspace/limelight_app/app/assets/stylesheets/bids.scss */
+/* line 165, /Users/Shared/Documents/workspace/limelight_app/app/assets/stylesheets/bids.scss */
 #error_explanation ul li {
   font-size: 12px;
   list-style: square;

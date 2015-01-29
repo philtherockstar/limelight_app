@@ -31034,7 +31034,7 @@ return $.widget( "ui.tooltip", {
 
 ;
 (function() {
-  var ready_step1, ready_step2, ready_step3, url;
+  var load_my_js, ready_step1, ready_step2, ready_step3;
 
   ready_step1 = function() {
     $('#client_first_name').autocomplete({
@@ -31112,7 +31112,7 @@ return $.widget( "ui.tooltip", {
   ready_step3 = function() {
     var calc_total;
     calc_total = function() {
-      var sum;
+      var distribution_fee, rental_weeks, staging_fee, staging_total, sum;
       console.log("calculating total");
       sum = 0;
       $('.bid_room_item_total').each((function(_this) {
@@ -31120,8 +31120,13 @@ return $.widget( "ui.tooltip", {
           return sum += parseFloat($(element).text());
         };
       })(this));
+      staging_fee = parseFloat($("#bid_staging_fee").val());
+      distribution_fee = parseFloat($("#bid_distribution_fee").val());
+      rental_weeks = parseFloat($("#bid_weeks_included").val());
       $(".total_rental_cost").text(sum);
-      return $(".weekly_rental_cost").text(sum / 4);
+      $(".weekly_rental_cost").text(sum / 4);
+      staging_total = parseFloat((staging_fee + distribution_fee) + ((sum / 4) * rental_weeks));
+      return $(".bid_staging_total").text(staging_total);
     };
     calc_total();
     $('form').on('keyup', function(e) {
@@ -31150,6 +31155,15 @@ return $.widget( "ui.tooltip", {
       console.log("rental changed for " + id);
       qty = $("#bid_rooms_item_quantity_" + id).val();
       $("#bid_rooms_item_total_" + id).text(qty * rental_price);
+      return calc_total();
+    });
+    $('#bid_staging_fee').change(function() {
+      return calc_total();
+    });
+    $('#bid_distribution_fee').change(function() {
+      return calc_total();
+    });
+    $('#bid_weeks_included').change(function() {
       return calc_total();
     });
     return $('.add_item_to_rooms').click(function(e) {
@@ -31209,23 +31223,24 @@ return $.widget( "ui.tooltip", {
     });
   };
 
-  url = window.location.href;
+  load_my_js = function() {
+    var url;
+    url = window.location.href;
+    if (url.match(/step1/)) {
+      console.log('matched step 1');
+      return ready_step1();
+    } else if (url.match(/step2/)) {
+      console.log('matched step 2');
+      return ready_step2();
+    } else if (url.match(/step3/)) {
+      console.log('matched step 3');
+      return ready_step3();
+    } else {
+      return console.log('no url matched');
+    }
+  };
 
-  if (url.match(/step1/)) {
-    console.log('matched step 1');
-    $(document).ready(ready_step1);
-    $(document).on('page:change ready', ready_step1);
-  } else if (url.match(/step2/)) {
-    console.log('matched step 2');
-    $(document).ready(ready_step2);
-    $(document).on('page:change ready', ready_step2);
-  } else if (url.match(/step3/)) {
-    console.log('matched step 3');
-    $(document).ready(ready_step3);
-    $(document).on('page:change ready', ready_step3);
-  } else {
-    console.log('no url matched');
-  }
+  $(document).on('page:change', load_my_js);
 
 }).call(this);
 (function() {
@@ -31236,29 +31251,35 @@ return $.widget( "ui.tooltip", {
   var ready;
 
   ready = function() {
-    return $('#prop_addr').autocomplete({
-      minLength: 2,
-      source: '/properties/search',
-      select: function(event, ui) {
-        console.log('ui ' + ui.item.address);
-        $('#prop_id').val(ui.item.id);
-        $('#prop_addr').val(ui.item.address);
-        return false;
+    var url, x;
+    if (url === void 0) {
+      url = window.location.href;
+    }
+    console.log("url=" + url);
+    if (url.match(/home|bid|pricing/)) {
+      return x = "dummy";
+    } else {
+      if ($('#prop_addr') != null) {
+        console.log('got prop addr');
+      } else {
+        console.log('no prop addr');
       }
-    }).data('ui-autocomplete')._renderItem = function(ul, item) {
-      return $("<li>").data("item.autocomplete", item).append(item.address + " " + item.city).appendTo(ul);
-    };
+      return $('#prop_addr').autocomplete({
+        minLength: 2,
+        source: '/properties/search',
+        select: function(event, ui) {
+          console.log('ui ' + ui.item.address);
+          $('#prop_id').val(ui.item.id);
+          $('#prop_addr').val(ui.item.address);
+          return false;
+        }
+      }).data('ui-autocomplete')._renderItem = function(ul, item) {
+        return $("<li>").data("item.autocomplete", item).append(item.address + " " + item.city).appendTo(ul);
+      };
+    }
   };
 
-  if ($('#prop_addr') != null) {
-    console.log('got prop addr');
-  } else {
-    console.log('no prop addr');
-  }
-
-  $(document).ready(ready);
-
-  $(document).on('page:load', ready);
+  $(document).on('page:change', ready);
 
 }).call(this);
 (function() {

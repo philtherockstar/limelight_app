@@ -176,22 +176,21 @@ ready_step3 = ->
       $("#bid_rooms_item_total_" + id).text(qty * rental_price)
       calc_total()
 
-url = window.location.href
-if url.match(/step1/)
-  console.log('matched step 1')
-  #$(document).ready(ready_step1)
-  #$(document).on('page:load ready', ready_step1)
-  $(document).on('page:change ready', ready_step1)
-else if url.match(/step2/) 
-  console.log('matched step 2')
-  #$(document).ready(ready_step2)
-  #$(document).on('page:load ready', ready_step2)
-  $(document).on('page:change ready', ready_step2)
-else if url.match(/step3/)
-  console.log('matched step 3')
-  #$(document).ready(ready_step3)
-  #$(document).on('page:load ready', ready_step3)
-  $(document).on('page:change ready', ready_step3)
-else
-  console.log('no url matched')
+load_my_js = ->
+  url = window.location.href
+  if url.match(/step1/)
+    console.log('matched step 1')
+    ready_step1()
+  else if url.match(/step2/) 
+    console.log('matched step 2')
+    ready_step2()
+  else if url.match(/step3/)
+    console.log('matched step 3')
+    ready_step3()
+  else
+    console.log('no url matched')
+
+$(document).on('page:change', load_my_js )
+
+
 

@@ -3,32 +3,28 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 ready = -> 
-  $('#prop_addr').autocomplete(
-    minLength: 2
-    source:'/properties/search'
-    select: (event,ui) ->
-      console.log('ui ' + ui.item.address)
-      $('#prop_id').val(ui.item.id)
-      $('#prop_addr').val(ui.item.address)
-      false
-    ).data('ui-autocomplete')._renderItem = ( ul, item ) ->
-      $( "<li>" )
-        .data( "item.autocomplete", item)
-        .append( item.address + " " + item.city )
-        .appendTo( ul )
-  
-  #$('#go_button_change_or_duplicate').click (e) ->
-  #  e.preventDefault()
-  #  #console.log('yo')
-  #  if not $('#prop_id').val
-  #    console.log('no prop id')
+  if url == undefined 
+    url = window.location.href
+  console.log("url=" + url)
+  if url.match(/home|bid|pricing/)
+    x="dummy"
+  else
+    if $('#prop_addr')?
+      console.log('got prop addr')
+    else
+      console.log('no prop addr')
+    $('#prop_addr').autocomplete(
+      minLength: 2
+      source:'/properties/search'
+      select: (event,ui) ->
+        console.log('ui ' + ui.item.address)
+        $('#prop_id').val(ui.item.id)
+        $('#prop_addr').val(ui.item.address)
+        false
+      ).data('ui-autocomplete')._renderItem = ( ul, item ) ->
+        $( "<li>" )
+          .data( "item.autocomplete", item)
+          .append( item.address + " " + item.city )
+          .appendTo( ul )
 
-#url = window.location.href
-#console.log("url=" + url)
-#if url.match(/home/)
-if $('#prop_addr')?
-  console.log('got prop addr')
-else
-  console.log('no prop addr')
-$(document).ready(ready)
 $(document).on('page:change', ready)

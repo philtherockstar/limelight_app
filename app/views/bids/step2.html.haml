@@ -1,45 +1,58 @@
 %div.row
-  %div.col-xs-12
+  %div.col-xs-8
+    %ol.breadcrumb
+      %li
+        = link_to "Home", "/"
+      %li
+        = link_to "Edit Bid Details", "/bids/step1/#{@bid.id.to_s}"
+      %li.active
+        Choose Rooms
+%div.row
+  %div.col-xs-7
     %form{ :action => "/bids/step2proc", :method => "post", :class => "form-horizontal", :role => "form"}
       =hidden_field_tag :authenticity_token, form_authenticity_token
       = hidden_field_tag('bid_id',@bid.id) 
-      %b="Add rooms for #{@bid.property.address} #{@bid.property.city}"
-      %div.form-group
-        %div.col-xs-4
-          %div.bid_rooms_fee_total
-            Total Staging Fee for rooms:
-            %span.bid_rooms_fee
-      %div.form-group
-        %label.col-xs-2
-          \# Rooms
-        %label.col-xs-3
-          Room Name
-        %label.col-xs-2
-          Fee
-        %label.col-xs-2
-          Total
-      - @rooms.each do |room|
-        - num_rooms=0
-        - room_price = room.price
-        - if @bid_rooms.size > 0
-          - @bid_rooms.each do |br| 
-            - if br.room_id == room.id
-              - num_rooms = br.num_rooms
-              - room_price = br.price
-        - else
-          - case room.name
-            - when /Master Bedroom|Master Bathroom|Living Room|^Kitchen$|Dining Area/
-              - num_rooms=1
-            - when /^Bathroom$/
-              - num_rooms=2
-        %div.form-group
-          %div.col-xs-2
-            =text_field_tag "rooms[#{room.id}]", num_rooms, {:size => 6, :class => "number_of_rooms"}
-            =#text_field_tag "room_prices[#{room.id}]",  {:size => 4}
-          %div.col-xs-3
-            = room.name
-          %div.col-xs-2
-            =text_field_tag "room_prices[#{room.id}]", room_price,  {:size => 6, :class => "room_prices"}
-          %div.col-xs-2.bid_room_fee_total{ :id => "bid_room_fee_total_#{room.id}" }
-            = num_rooms * room_price
-      =submit_tag "Next >" 
+      %div.panel.panel-default
+        %div.panel-heading
+          = "Add rooms to #{@bid.property.address} #{@bid.property.city}"
+        %div.panel-body 
+          %div.form-group
+            %div.col-xs-7
+              %div.bid_rooms_fee_total
+                Total Staging Fee for rooms:
+                $
+                %span.bid_rooms_fee
+          %div.form-group
+            %label.col-xs-2
+              \#Rooms
+            %label.col-xs-3
+              Name
+            %label.col-xs-2
+              Fee
+            %label.col-xs-1
+              Total
+          - @rooms.each do |room|
+            - num_rooms=0
+            - room_price = room.price
+            - if @bid_rooms.size > 0
+              - @bid_rooms.each do |br| 
+                - if br.room_id == room.id
+                  - num_rooms = br.num_rooms
+                  - room_price = br.price
+            - else
+              - case room.name
+                - when /Master Bedroom|Master Bathroom|Living Room|^Kitchen$|Dining Area/
+                  - num_rooms=1
+                - when /^Bathroom$/
+                  - num_rooms=2
+            %div.form-group
+              %div.col-xs-2
+                =text_field_tag "rooms[#{room.id}]", num_rooms, {:size => 6, :class => "number_of_rooms"}
+                =#text_field_tag "room_prices[#{room.id}]",  {:size => 4}
+              %div.col-xs-3
+                = room.name
+              %div.col-xs-2
+                =text_field_tag "room_prices[#{room.id}]", room_price,  {:size => 6, :class => "room_prices"}
+              %div.col-xs-1.bid_room_fee_total{ :id => "bid_room_fee_total_#{room.id}" }
+                = num_rooms * room_price
+          =submit_tag "Next >" 

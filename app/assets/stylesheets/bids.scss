@@ -39,7 +39,7 @@ div {
 }
 
 .bid_rental_costs{
-  width: 407px;
+  width: 607px;
   margin: 5px 5px 5px 5px;
   border: 1px solid black;
 }
@@ -59,13 +59,19 @@ div {
 .bid_weekly_rental_cost{
   margin: 5px 5px 5px 5px;
   border: 0px solid green;
+  float: left;
 }
 
 .weekly_rental_cost{
   border: 0px solid blue;
   display: inline;
 }
+.bid_total_cost{
 
+}
+.bid_staging_total{
+
+}
 .table{
   margin: 5px 5px 5px 5px;
   border: 0px solid blue;

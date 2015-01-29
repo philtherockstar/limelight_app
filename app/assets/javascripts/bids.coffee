@@ -71,8 +71,13 @@ ready_step3 = ->
     sum = 0
     $('.bid_room_item_total').each (index,element)=>
       sum += parseFloat($(element).text())
+    staging_fee = parseFloat($("#bid_staging_fee").val())
+    distribution_fee = parseFloat($("#bid_distribution_fee").val())
+    rental_weeks = parseFloat($("#bid_weeks_included").val())
     $(".total_rental_cost").text(sum)
     $(".weekly_rental_cost").text(sum/4)
+    staging_total = parseFloat((staging_fee + distribution_fee) + ((sum/4)*rental_weeks))
+    $(".bid_staging_total").text(staging_total)
   calc_total()
   $('form').on 'keyup', (e) -> 
     #console.log('key: ' + e.which)
@@ -98,6 +103,12 @@ ready_step3 = ->
     console.log("rental changed for " + id )
     qty = $("#bid_rooms_item_quantity_" + id).val()
     $("#bid_rooms_item_total_" + id).text(qty * rental_price)
+    calc_total()
+  $('#bid_staging_fee').change ->
+    calc_total()
+  $('#bid_distribution_fee').change ->
+    calc_total()
+  $('#bid_weeks_included').change ->
     calc_total()
   $('.add_item_to_rooms').click (e) -> 
     console.log("clicked .add_item_to_room button. creating new row")
@@ -168,16 +179,19 @@ ready_step3 = ->
 url = window.location.href
 if url.match(/step1/)
   console.log('matched step 1')
-  $(document).ready(ready_step1)
-  $(document).on('page:load', ready_step1)
+  #$(document).ready(ready_step1)
+  #$(document).on('page:load ready', ready_step1)
+  $(document).on('page:change ready', ready_step1)
 else if url.match(/step2/) 
   console.log('matched step 2')
-  $(document).ready(ready_step2)
-  $(document).on('page:load', ready_step2)
+  #$(document).ready(ready_step2)
+  #$(document).on('page:load ready', ready_step2)
+  $(document).on('page:change ready', ready_step2)
 else if url.match(/step3/)
   console.log('matched step 3')
-  $(document).ready(ready_step3)
-  $(document).on('page:load', ready_step3)
+  #$(document).ready(ready_step3)
+  #$(document).on('page:load ready', ready_step3)
+  $(document).on('page:change ready', ready_step3)
 else
   console.log('no url matched')
 

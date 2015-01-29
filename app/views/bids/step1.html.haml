@@ -1,8 +1,10 @@
 %div.row
-  %div.col-xs-9
-    - unless @bid.id?
-      %p Create a new bid:
-    = render 'new_property_form' 
-    %p <!-- --or-- -->
-    %p <!-- Change an existing bid: -->
-    = #render 'existing_property_form'
+  %div.col-xs-12
+    %div.panel.panel-default
+      %div.panel-heading
+        - unless @bid.id?
+          Create a New Bid
+        - else
+          Edit Bid Details
+      %div.panel-body
+        = render 'new_property_form' 

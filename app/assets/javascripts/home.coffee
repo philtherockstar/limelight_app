@@ -31,4 +31,4 @@ if $('#prop_addr')?
 else
   console.log('no prop addr')
 $(document).ready(ready)
-$(document).on('page:load', ready)
+$(document).on('page:change', ready)

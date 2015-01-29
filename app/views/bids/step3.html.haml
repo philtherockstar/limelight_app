@@ -1,136 +1,163 @@
-= #debug @bid_room_items
-= link_to "Go back to Choosing Rooms", "/bids/step2/#{@bid.id.to_s}"
-|
-= link_to "Enter a New Bid", "/bids/step1"
-%h4 Choose Furniture for Rooms
-%div.bid_rental_costs
-  %div.bid_total_rental_cost
-    Total Rental:
-    %div.total_rental_cost
-      0
-  %div.bid_weekly_rental_cost
-    Weekly Rental:
-    %div.weekly_rental_cost
-      0
-= form_tag('/bids/step3proc') do
-  %button{ :class => "items_form_button", :name => "Save", :type => "button" }Save Work
-  or
-  %button{ :class => "items_form_button", :name => "Finish", :type => "button" }Finish >
-  
-  %div.table
-    %div.table_heading
-      %div.table_cell    
-        Staging Fee: 
-      %div.table_cell
-        =text_field_tag "bid[staging_fee]", @bid.staging_fee, {:size => 6}
-      %div.table_cell
-        Distribution Fee: 
-      %div.table_cell
-        =text_field_tag "bid[distribution_fee]", @bid.distribution_fee, {:size => 6}
-      %div.table_cell
-        Weeks of Rental Included
-      %div.table_cell
-        =text_field_tag "bid[weeks_included]", @bid.weeks_included, {:size => 6}
+%div.row
+  %div.col-xs-8
+    %ol.breadcrumb
+      %li
+        = link_to "Home", "/"
+      %li
+        = link_to "Edit Bid Details", "/bids/step1/#{@bid.id.to_s}"
+      %li
+        = link_to "Choose Rooms", "/bids/step2/#{@bid.id.to_s}"
+      %li.active
+        Choose Furniture
 
-  %div.table
-    = hidden_field_tag('bid_id',@bid.id)
-    - @bid_rooms.each do |br|
-      - room_number=1
-      - id=0
-      - while room_number <= br.num_rooms
-        - room_exists=nil
-        - if @bid_room_items.size > 0 
-          - @bid_room_items.each do |britest|
-            - if britest.bid_room_id == br.id && britest.room_instance == room_number
-              - room_exists=true
-              - break
-        %div.table_heading
-          %div.table_cell
-            - if br.num_rooms > 1
-              ="#{br.room.name} #{room_number}"
-            - else
-              ="#{br.room.name}"
-          %div.table_cell
-            Qty
-          %div.table_cell
-            Unit Rental Per Month
-          %div.table_cell
-            Total Rental Per Month
-        - tri = TemplateRoomItem.where( "business_id = #{current_user.business_id} and room_id = #{br.room_id}")
-        - row_number = 0
-        - tri.each do |room_item|
-          - ri = room_item
-          - row_number += 1
-          - id=ri.id
-          - if @bid_room_items.size > 0 && room_exists
-            - bri = BidRoomItem.where("bid_room_id = #{br.id} and room_instance = #{room_number} and item_id = #{ri.item_id}")[0]
-            - if bri
-              - ri.quantity = bri.item_qty
-              - ri.item.rental_price = bri.rental_price
-            - else
-              - ri.quantity = 0
-          .table_row{:id => "row_#{br.id}_#{room_number}_#{row_number}", :data => { :room_id => "#{br.id}", :room_number => "#{room_number}", :template_room_id => "#{ri.id}", :row_number => "#{row_number}" }, :class => "table_row room_#{br.id}_#{room_number}" }
-            %div.table_cell
-              = "#{ri.item.name}"
-              %input{ :type => "hidden", :id => "bid_rooms_item_#{br.id}_#{room_number}_#{row_number}", :class => "bid_room_item", :name => "bid_rooms_item[#{br.id}][#{room_number}][#{ri.item_id}]", :value => "#{ri.item.name}" }/
-            %div.table_cell
-              - if ri.item.name.match(/accessor/i)
-                %input{ :type => "hidden", :id => "bid_rooms_item_quantity_#{br.id}_#{room_number}_#{row_number}", :class => "bid_room_item_quantity", :name => "bid_rooms_item_quantity[#{br.id}][#{room_number}][#{ri.item_id}]", :value => "1" }/
-                Misc.
-              - else
-                %input{ :type => "text", :id => "bid_rooms_item_quantity_#{br.id}_#{room_number}_#{row_number}", :class => "bid_room_item_quantity", :name => "bid_rooms_item_quantity[#{br.id}][#{room_number}][#{ri.item_id}]", :value => "#{ri.quantity}", :size => "3" }/
-            %div.table_cell
-              %input{ :type => "text", :id => "bid_rooms_item_rental_price_#{br.id}_#{room_number}_#{row_number}", :class => "bid_room_item_rental_price", :name => "bid_rooms_item_rental_price[#{br.id}][#{room_number}][#{ri.item_id}]", :value => "#{ri.item.rental_price}", :size => "3" }/
-            %div.table_cell.bid_room_item_total{ :id => "bid_rooms_item_total_#{br.id}_#{room_number}_#{row_number}" }
-              = ri.quantity * ri.item.rental_price
-        - newbri = BidRoomItem.where("bid_room_id = #{br.id} and room_instance = #{room_number} and item_id = 0")[0]
-        - if newbri
-          - row_number += 1
-          .table_row{:id => "row_#{br.id}_#{room_number}_#{row_number}", :data => { :room_id => "#{br.id}", :room_number => "#{room_number}", :template_room_id => "#{newbri.id}", :row_number => "#{row_number}" }, :class => "table_row room_#{br.id}_#{room_number}" }
-            %div.table_cell
-              = "#{newbri.item_name}"
-              %input{ :type => "hidden", :id => "bid_rooms_item_#{br.id}_#{room_number}_#{row_number}", :class => "bid_room_item", :name => "bid_rooms_item[#{br.id}][#{room_number}][#{newbri.item_id}]", :value => "#{newbri.item_name}" }/
-            %div.table_cell
-              %input{ :type => "text", :id => "bid_rooms_item_quantity_#{br.id}_#{room_number}_#{row_number}", :class => "bid_room_item_quantity", :name => "bid_rooms_item_quantity[#{br.id}][#{room_number}][#{newbri.item_id}]", :value => "#{newbri.item_qty}", :size => "3" }/
-            %div.table_cell
-              %input{ :type => "text", :id => "bid_rooms_item_rental_price_#{br.id}_#{room_number}_#{row_number}", :class => "bid_room_item_rental_price", :name => "bid_rooms_item_rental_price[#{br.id}][#{room_number}][#{newbri.item_id}]", :value => "#{newbri.rental_price}", :size => "3" }/
-            %div.table_cell.bid_room_item_total{ :id => "bid_rooms_item_total_#{br.id}_#{room_number}_#{row_number}" }
-              = newbri.item_qty * newbri.rental_price
-        - # now where there any BidRoomItems that aren't in the template?
-        - morebri = BidRoomItem.where("bid_room_id = #{br.id} and room_instance = #{room_number} and (item_id > 0 and item_id not in (select tri.item_id from template_room_items as tri, bid_rooms as br where tri.room_id = br.room_id and br.id = bid_room_id  ))")
-        = #debug morebri
-        - morebri.each do |ri|
-          - row_number += 1
-          .table_row{:id => "row_#{br.id}_#{room_number}_#{row_number}", :data => { :room_id => "#{br.id}", :room_number => "#{room_number}", :template_room_id => "#{ri.id}", :row_number => "#{row_number}" }, :class => "table_row room_#{br.id}_#{room_number}" }
-            %div.table_cell
-              = "#{ri.item_name}"
-              %input{ :type => "hidden", :id => "bid_rooms_item_#{br.id}_#{room_number}_#{row_number}", :class => "bid_room_item", :name => "bid_rooms_item[#{br.id}][#{room_number}][#{ri.item_id}]", :value => "#{ri.item_name}" }/
-            %div.table_cell
-              - if ri.item.name.match(/accessor/i)
-                %input{ :type => "hidden", :id => "bid_rooms_item_quantity_#{br.id}_#{room_number}_#{row_number}", :class => "bid_room_item_quantity", :name => "bid_rooms_item_quantity[#{br.id}][#{room_number}][#{ri.item_id}]", :value => "1" }/
-                Misc.
-              - else
-                %input{ :type => "text", :id => "bid_rooms_item_quantity_#{br.id}_#{room_number}_#{row_number}", :class => "bid_room_item_quantity", :name => "bid_rooms_item_quantity[#{br.id}][#{room_number}][#{ri.item_id}]", :value => "#{ri.item_qty}", :size => "3" }/
-            %div.table_cell
-              %input{ :type => "text", :id => "bid_rooms_item_rental_price_#{br.id}_#{room_number}_#{row_number}", :class => "bid_room_item_rental_price", :name => "bid_rooms_item_rental_price[#{br.id}][#{room_number}][#{ri.item_id}]", :value => "#{ri.rental_price}", :size => "3" }/
-            %div.table_cell.bid_room_item_total{ :id => "bid_rooms_item_total_#{br.id}_#{room_number}_#{row_number}" }
-              = ri.item_qty * ri.rental_price
-        %div.table_row
-          %div.table_cell
-            %button{ :class => "add_item_to_rooms", :id => "button_room_#{br.id}_#{room_number}", :data => { :room_id => "#{br.id}", :room_number => "#{room_number}" }, :name => "button", :type => "button" }Add items
-        - room_number += 1
-  = hidden_field_tag('items_form_action')
-  %button{ :class => "items_form_button", :name => "Save", :type => "button" }Save Work
-  or
-  %button{ :class => "items_form_button", :name => "Finish", :type => "button" }Finish >
+%div.row
+  %div.col-xs-8
+    %div.panel.panel-default
+      %div.panel-heading
+        Choose Furniture for Rooms
+      %div.panel-body
+        = form_tag('/bids/step3proc') do
+          %button{ :class => "items_form_button", :name => "Save", :type => "button" }Save Work
+          or
+          %button{ :class => "items_form_button", :name => "Finish", :type => "button" }Finish >
+          %div.table
+            %div.table_row
+              %div.table_cell.table_heading
+                Total Rental:
+              %div.table_cell
+                %div.total_rental_cost
+                  0
+              %div.table_cell.table_heading
+                Weekly Rental:
+              %div.table_cell
+                %div.weekly_rental_cost
+                  0
+              %div.table_cell.table_heading
+                Staging Total:
+              %div.table_cell
+                %div.bid_staging_total
+                  0
+            %div.table_row
+              %div.table_cell.table_heading   
+                Staging Fee: 
+              %div.table_cell
+                =text_field_tag "bid[staging_fee]", @bid.staging_fee, {:size => 6}
+              %div.table_cell.table_heading
+                Distribution Fee: 
+              %div.table_cell
+                =text_field_tag "bid[distribution_fee]", @bid.distribution_fee, {:size => 6}
+              %div.table_cell.table_heading
+                Rental Weeks:
+              %div.table_cell
+                =text_field_tag "bid[weeks_included]", @bid.weeks_included, {:size => 6}
 
-%div.bid_rental_costs
-  %div.bid_total_rental_cost
-    Total Rental:
-    %div.total_rental_cost
-      0
-  %div.bid_weekly_rental_cost
-    Weekly Rental:
-    %div.weekly_rental_cost
-      0
+          %div.table
+            = hidden_field_tag('bid_id',@bid.id)
+            - @bid_rooms.each do |br|
+              - room_number=1
+              - id=0
+              - while room_number <= br.num_rooms
+                - room_exists=nil
+                - if @bid_room_items.size > 0 
+                  - @bid_room_items.each do |britest|
+                    - if britest.bid_room_id == br.id && britest.room_instance == room_number
+                      - room_exists=true
+                      - break
+                %div.table_heading
+                  %div.table_cell
+                    - if br.num_rooms > 1
+                      ="#{br.room.name} #{room_number}"
+                    - else
+                      ="#{br.room.name}"
+                  %div.table_cell
+                    Qty
+                  %div.table_cell
+                    Unit Rental/mo
+                  %div.table_cell
+                    Total Rental/mo
+                - tri = TemplateRoomItem.where( "business_id = #{current_user.business_id} and room_id = #{br.room_id}")
+                - row_number = 0
+                - tri.each do |room_item|
+                  - ri = room_item
+                  - row_number += 1
+                  - id=ri.id
+                  - if @bid_room_items.size > 0 && room_exists
+                    - bri = BidRoomItem.where("bid_room_id = #{br.id} and room_instance = #{room_number} and item_id = #{ri.item_id}")[0]
+                    - if bri
+                      - ri.quantity = bri.item_qty
+                      - ri.item.rental_price = bri.rental_price
+                    - else
+                      - ri.quantity = 0
+                  .table_row{:id => "row_#{br.id}_#{room_number}_#{row_number}", :data => { :room_id => "#{br.id}", :room_number => "#{room_number}", :template_room_id => "#{ri.id}", :row_number => "#{row_number}" }, :class => "table_row room_#{br.id}_#{room_number}" }
+                    %div.table_cell
+                      = "#{ri.item.name}"
+                      %input{ :type => "hidden", :id => "bid_rooms_item_#{br.id}_#{room_number}_#{row_number}", :class => "bid_room_item", :name => "bid_rooms_item[#{br.id}][#{room_number}][#{ri.item_id}]", :value => "#{ri.item.name}" }/
+                    %div.table_cell
+                      - if ri.item.name.match(/accessor/i)
+                        %input{ :type => "hidden", :id => "bid_rooms_item_quantity_#{br.id}_#{room_number}_#{row_number}", :class => "bid_room_item_quantity", :name => "bid_rooms_item_quantity[#{br.id}][#{room_number}][#{ri.item_id}]", :value => "1" }/
+                        Misc.
+                      - else
+                        %input{ :type => "text", :id => "bid_rooms_item_quantity_#{br.id}_#{room_number}_#{row_number}", :class => "bid_room_item_quantity", :name => "bid_rooms_item_quantity[#{br.id}][#{room_number}][#{ri.item_id}]", :value => "#{ri.quantity}", :size => "4" }/
+                    %div.table_cell
+                      %input{ :type => "text", :id => "bid_rooms_item_rental_price_#{br.id}_#{room_number}_#{row_number}", :class => "bid_room_item_rental_price", :name => "bid_rooms_item_rental_price[#{br.id}][#{room_number}][#{ri.item_id}]", :value => "#{ri.item.rental_price}", :size => "4" }/
+                    %div.table_cell.bid_room_item_total{ :id => "bid_rooms_item_total_#{br.id}_#{room_number}_#{row_number}" }
+                      = ri.quantity * ri.item.rental_price
+                - newbri = BidRoomItem.where("bid_room_id = #{br.id} and room_instance = #{room_number} and item_id = 0")[0]
+                - if newbri
+                  - row_number += 1
+                  .table_row{:id => "row_#{br.id}_#{room_number}_#{row_number}", :data => { :room_id => "#{br.id}", :room_number => "#{room_number}", :template_room_id => "#{newbri.id}", :row_number => "#{row_number}" }, :class => "table_row room_#{br.id}_#{room_number}" }
+                    %div.table_cell
+                      = "#{newbri.item_name}"
+                      %input{ :type => "hidden", :id => "bid_rooms_item_#{br.id}_#{room_number}_#{row_number}", :class => "bid_room_item", :name => "bid_rooms_item[#{br.id}][#{room_number}][#{newbri.item_id}]", :value => "#{newbri.item_name}" }/
+                    %div.table_cell
+                      %input{ :type => "text", :id => "bid_rooms_item_quantity_#{br.id}_#{room_number}_#{row_number}", :class => "bid_room_item_quantity", :name => "bid_rooms_item_quantity[#{br.id}][#{room_number}][#{newbri.item_id}]", :value => "#{newbri.item_qty}", :size => "4" }/
+                    %div.table_cell
+                      %input{ :type => "text", :id => "bid_rooms_item_rental_price_#{br.id}_#{room_number}_#{row_number}", :class => "bid_room_item_rental_price", :name => "bid_rooms_item_rental_price[#{br.id}][#{room_number}][#{newbri.item_id}]", :value => "#{newbri.rental_price}", :size => "4" }/
+                    %div.table_cell.bid_room_item_total{ :id => "bid_rooms_item_total_#{br.id}_#{room_number}_#{row_number}" }
+                      = newbri.item_qty * newbri.rental_price
+                - # now where there any BidRoomItems that aren't in the template?
+                - morebri = BidRoomItem.where("bid_room_id = #{br.id} and room_instance = #{room_number} and (item_id > 0 and item_id not in (select tri.item_id from template_room_items as tri, bid_rooms as br where tri.room_id = br.room_id and br.id = bid_room_id  ))")
+                = #debug morebri
+                - morebri.each do |ri|
+                  - row_number += 1
+                  .table_row{:id => "row_#{br.id}_#{room_number}_#{row_number}", :data => { :room_id => "#{br.id}", :room_number => "#{room_number}", :template_room_id => "#{ri.id}", :row_number => "#{row_number}" }, :class => "table_row room_#{br.id}_#{room_number}" }
+                    %div.table_cell
+                      = "#{ri.item_name}"
+                      %input{ :type => "hidden", :id => "bid_rooms_item_#{br.id}_#{room_number}_#{row_number}", :class => "bid_room_item", :name => "bid_rooms_item[#{br.id}][#{room_number}][#{ri.item_id}]", :value => "#{ri.item_name}" }/
+                    %div.table_cell
+                      - if ri.item.name.match(/accessor/i)
+                        %input{ :type => "hidden", :id => "bid_rooms_item_quantity_#{br.id}_#{room_number}_#{row_number}", :class => "bid_room_item_quantity", :name => "bid_rooms_item_quantity[#{br.id}][#{room_number}][#{ri.item_id}]", :value => "1" }/
+                        Misc.
+                      - else
+                        %input{ :type => "text", :id => "bid_rooms_item_quantity_#{br.id}_#{room_number}_#{row_number}", :class => "bid_room_item_quantity", :name => "bid_rooms_item_quantity[#{br.id}][#{room_number}][#{ri.item_id}]", :value => "#{ri.item_qty}", :size => "4" }/
+                    %div.table_cell
+                      %input{ :type => "text", :id => "bid_rooms_item_rental_price_#{br.id}_#{room_number}_#{row_number}", :class => "bid_room_item_rental_price", :name => "bid_rooms_item_rental_price[#{br.id}][#{room_number}][#{ri.item_id}]", :value => "#{ri.rental_price}", :size => "4" }/
+                    %div.table_cell.bid_room_item_total{ :id => "bid_rooms_item_total_#{br.id}_#{room_number}_#{row_number}" }
+                      = ri.item_qty * ri.rental_price
+                %div.table_row
+                  %div.table_cell
+                    %button{ :class => "add_item_to_rooms", :id => "button_room_#{br.id}_#{room_number}", :data => { :room_id => "#{br.id}", :room_number => "#{room_number}" }, :name => "button", :type => "button" }Add items
+                - room_number += 1
+          = hidden_field_tag('items_form_action')
+          %button{ :class => "items_form_button", :name => "Save", :type => "button" }Save Work
+          or
+          %button{ :class => "items_form_button", :name => "Finish", :type => "button" }Finish >
+
+          %div.table
+            %div.table_row
+              %div.table_cell.table_heading
+                Total Rental:
+              %div.table_cell
+                %div.total_rental_cost
+                  0
+              %div.table_cell.table_heading
+                Weekly Rental:
+              %div.table_cell
+                %div.weekly_rental_cost
+                  0
+              %div.table_cell.table_heading
+                Staging Total:
+              %div.table_cell
+                %div.bid_staging_total
+                  0
 

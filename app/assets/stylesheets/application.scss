@@ -13,12 +13,18 @@
  *= require_jquery.ui
  */
  .ui-helper-hidden-accessible { display:none; }
+ .ui-menu {
+   background-color: #d3f49b;
+   width: 250px;
+ }
+ .ui-menu-item{
+ 	list-style: none;
+ }
  .ui-menu .ui-menu-item a{
    color: #96f226;
    border-radius: 0px;
    border: 1px solid #454545;
-   background-color: #f0f0f0;
-   width: 200px;
+
 }
  .notice{
    color: green;

@@ -4,16 +4,21 @@
     %form{ :action => "/home/find_bids", :method => "post", :class => "form", :role => "form"}
       =hidden_field_tag :authenticity_token, form_authenticity_token
       - if @bids
-        %div.form-group
-          %div.row
-            %div.col-xs-12
-              = "Please select which bid for #{@property.address}, #{@property.city}:"
-              %br
-              - @bids.each do |bid|
-                = radio_button_tag 'bid', bid.id
-                = "Staging fee: #{bid.staging_fee}, Distribution Fee: #{bid.distribution_fee}"
-                %br
-              = submit_tag "Go", :id => "go_button_choose_property" 
+        %div.row
+          %div.col-xs-8
+            %div.panel.panel-default
+              %div.panel-heading
+                = "Please select which bid for #{@property.address}, #{@property.city}:"
+              %div.panel-body              
+                %div.form-group
+                  - @bids.each do |bid|
+                    %div.col-xs-8
+                      %div.radio
+                        = radio_button_tag 'bid', bid.id
+                        = "Staging fee: #{bid.staging_fee}, Distribution Fee: #{bid.distribution_fee}"
+                %div.form-group
+                  %div.col-xs-6
+                    = submit_tag "Go", :id => "go_button_choose_property" 
       - else
         %div.row
           %div.col-xs-3
@@ -44,7 +49,7 @@
                     %div.col-xs-11
                       %div.radio
                         = radio_button_tag 'bid_option','duplicate_new_property'
-                        Duplicate a bid for a new property (use a old bid as a template to bid on a new property)
+                        Duplicate a bid for a new property (use an old bid as a template to bid on a new property)
                 %div.form-group
                   %div.col-xs-11
                     %label{ :for => "Property Address"}

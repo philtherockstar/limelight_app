@@ -6,7 +6,7 @@ ready_home = ->
   if url == undefined 
     url = window.location.href
   console.log("url=" + url)
-  if url.match(/home|bid|pricing/)
+  if url.match(/home|\/bids\/step|pricing/)
     x="dummy"
   else
     if $('#prop_addr')?

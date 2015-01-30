@@ -2,6 +2,31 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+ready_home = -> 
+  if url == undefined 
+    url = window.location.href
+  console.log("url=" + url)
+  if url.match(/home|bid|pricing/)
+    x="dummy"
+  else
+    if $('#prop_addr')?
+      console.log('got prop addr')
+    else
+      console.log('no prop addr')
+    $('#prop_addr').autocomplete(
+      minLength: 2
+      source:'/properties/search'
+      select: (event,ui) ->
+        console.log('ui ' + ui.item.address)
+        $('#prop_id').val(ui.item.id)
+        $('#prop_addr').val(ui.item.address)
+        false
+      ).data('ui-autocomplete')._renderItem = ( ul, item ) ->
+        $( "<li>" )
+          .data( "item.autocomplete", item)
+          .append( item.address + " " + item.city )
+          .appendTo( ul )
+
 ready_step1 = -> 
   $('#client_first_name').autocomplete(
     minLength: 2
@@ -189,6 +214,7 @@ load_my_js = ->
     ready_step3()
   else
     console.log('no url matched')
+    ready_home()
 
 $(document).on('page:change', load_my_js )
 

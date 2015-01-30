@@ -23,6 +23,25 @@ ready_home = ->
         .data( "item.autocomplete", item)
         .append( item.address + " " + item.city )
         .appendTo( ul )
+  $('form').on 'keyup', (e) -> 
+    #console.log('key: ' + e.which)
+    if e.which == 13
+      #console.log('enter!')
+      e.preventDefault
+      return false
+  $('#home_go_button').click (e) ->
+    console.log('home_go_button clicked')
+    prop_id=$("#prop_id").val()
+    console.log("prop_id=#{prop_id}")
+    if prop_id is '0'
+      console.log('no')
+      $("#home_form_prop_addr_group").removeClass('has-success').addClass('has-error')
+      $('.help-block').html("The address field doesn't have a valid address")
+    else
+      $("#home_form_prop_addr_group").removeClass('has-error').addClass('has-success')
+      $('.help-block').html("Success!")
+      console.log('yes')
+      $('form').submit()
 
 ready_step1 = -> 
   $('#client_first_name').autocomplete(

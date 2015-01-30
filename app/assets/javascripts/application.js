@@ -14,6 +14,7 @@
 //= require jquery.turbolinks
 //= require jquery-ui
 //= require jquery_ujs
+// require bootstrapValidator
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require_self

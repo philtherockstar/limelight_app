@@ -7,7 +7,4 @@
     = javascript_include_tag 'application', 'data-turbolinks-track' => true 
     = csrf_meta_tags
   %body
-    %div.container{ :id => "main_container" }
-      %div.row
-        %div.col-xs-12
-          = yield
+    = yield

@@ -5,20 +5,21 @@
       =hidden_field_tag :authenticity_token, form_authenticity_token
       - if @bids
         %div.row
-          %div.col-xs-8
+          %div.col-xs-12
             %div.panel.panel-default
               %div.panel-heading
                 = "Please select which bid for #{@property.address}, #{@property.city}:"
               %div.panel-body              
-                %div.form-group
+                %div.form-group.has-feedback{ :id => "home_form_choose_prop_group"}
                   - @bids.each do |bid|
-                    %div.col-xs-8
-                      %div.radio
+                    %div.col-xs-12
+                      %div.radio.form-control
                         = radio_button_tag 'bid', bid.id
-                        = "Staging fee: #{bid.staging_fee}, Distribution Fee: #{bid.distribution_fee}"
+                        = "Staging fee: $#{bid.staging_fee}, Distribution Fee: $#{bid.distribution_fee}, Rental Weeks: #{bid.weeks_included}, "
+                  %span.help-block
                 %div.form-group
                   %div.col-xs-6
-                    = submit_tag "Go", :id => "go_button_choose_property" 
+                    %button{ :class => "home_form_choose_property_button", :name => "Save", :type => "button", :id => "home_choose_property_go_button" }Next >
       - else
         %div.row
           %div.col-xs-3
@@ -58,5 +59,5 @@
                     %input.form-control{ :type => "text", :id => "prop_addr", :name => "property[address]"}
                     %span.help-block
                     %input{ :type => "hidden", :id => "prop_id", :name => "property[id]", :value => '0' }
-                    %button{ :class => "items_form_button", :name => "Save", :type => "button", :id => "home_go_button" }Go
+                    %button{ :class => "home_form_button", :name => "Save", :type => "button", :id => "home_go_button" }Go
 

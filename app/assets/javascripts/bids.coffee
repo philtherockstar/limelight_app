@@ -6,29 +6,47 @@ ready_home = ->
   if url == undefined 
     url = window.location.href
   console.log("url=" + url)
-  if $('#prop_addr')?
-    console.log('got prop addr')
-  else
+  p = $('#prop_addr')
+  #console.log(p)
+  if (p.length > 0)
     console.log('no prop addr')
-  $('#prop_addr').autocomplete(
-    minLength: 2
-    source:'/properties/search'
-    select: (event,ui) ->
-      console.log('ui ' + ui.item.address)
-      $('#prop_id').val(ui.item.id)
-      $('#prop_addr').val(ui.item.address)
-      false
-    ).data('ui-autocomplete')._renderItem = ( ul, item ) ->
-      $( "<li>" )
-        .data( "item.autocomplete", item)
-        .append( item.address + " " + item.city )
-        .appendTo( ul )
+    $('#prop_addr').autocomplete(
+      minLength: 2
+      source:'/properties/search'
+      select: (event,ui) ->
+        console.log('ui ' + ui.item.address)
+        $('#prop_id').val(ui.item.id)
+        $('#prop_addr').val(ui.item.address)
+        $("#home_form_prop_addr_group").removeClass('has-error').addClass('has-success')
+        $('.help-block').html("Success!")
+        false
+      ).data('ui-autocomplete')._renderItem = ( ul, item ) ->
+        $( "<li>" )
+          .data( "item.autocomplete", item)
+          .append( item.address + " " + item.city )
+          .appendTo( ul )
   $('form').on 'keyup', (e) -> 
     #console.log('key: ' + e.which)
     if e.which == 13
       #console.log('enter!')
       e.preventDefault
       return false
+
+  $('#home_choose_property_go_button').click (e) ->
+    console.log('home_choose_property_go_button clicked')
+    my_bid = $('input[name=bid]:checked').val() 
+    if (my_bid?)
+      console.log("my_bid=#{my_bid}")
+      $("#home_form_choose_prop_group").removeClass('has-error').addClass('has-success')
+      $('.help-block').html("Success!")
+      console.log('yes')
+      $('form').submit()
+    else
+      console.log("my_bid undefined")
+      $("#home_form_choose_prop_group").removeClass('has-success').addClass('has-error')
+      $('.help-block').html("Please select one of the options")
+
+
   $('#home_go_button').click (e) ->
     console.log('home_go_button clicked')
     prop_id=$("#prop_id").val()

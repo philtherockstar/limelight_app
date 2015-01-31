@@ -194,6 +194,8 @@ class BidsController < ApplicationController
       bid.weeks_included = params[:bid][:weeks_included]
       bid.rental_monthly = total_rental
       bid.rental_weekly = total_rental/4
+      bid.rental = (bid.rental_weekly * bid.weeks_included)
+      bid.bid_date = Time.now.in_time_zone
       bid.save
     end
     logger.info("items_form_action=#{params[:items_form_action] }")

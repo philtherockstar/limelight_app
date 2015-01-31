@@ -39,7 +39,9 @@
         %div.table_cell="#{@bid.clients.first.email}"
       %div.table_row
         %div.table_cell
+          Date:
         %div.table_cell
+          =@bid.bid_date.strftime("%m/%d/%Y")
       %div.table_row
         %div.table_cell
           Realtor: 

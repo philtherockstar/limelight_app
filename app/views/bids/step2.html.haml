@@ -8,28 +8,30 @@
       %li.active
         Choose Rooms
 %div.row
-  %div.col-xs-7
-    %form{ :action => "/bids/step2proc", :method => "post", :class => "form-horizontal", :role => "form"}
+  %div.col-xs-8
+    %form{ :action => "/bids/step2proc", :method => "post", :class => "form-horizontal", :role => "form", :id => "step2form" }
       =hidden_field_tag :authenticity_token, form_authenticity_token
       = hidden_field_tag('bid_id',@bid.id) 
       %div.panel.panel-default
         %div.panel-heading
           = "Add rooms to #{@bid.property.address} #{@bid.property.city}"
         %div.panel-body 
-          %div.form-group
-            %div.col-xs-7
+          %div.form-group.has-feedback{ :id => "bids_step2_staging_fee_group"}
+            %div.col-xs-12
+              %span.help-block
               %div.bid_rooms_fee_total
                 Total Staging Fee for rooms:
                 $
                 %span.bid_rooms_fee
-          %div.form-group
+          
+          %div.form-group.has-feedback{ :id => "bids_step2_labels_group"}
             %label.col-xs-2
               \#Rooms
             %label.col-xs-3
               Name
             %label.col-xs-2
               Fee
-            %label.col-xs-1
+            %label.col-xs-3
               Total
           - @rooms.each do |room|
             - num_rooms=0
@@ -46,13 +48,13 @@
                 - when /^Bathroom$/
                   - num_rooms=2
             %div.form-group
-              %div.col-xs-2
-                =text_field_tag "rooms[#{room.id}]", num_rooms, {:size => 6, :class => "number_of_rooms"}
+              %div.col-xs-2.has-feedback{ :id => "bids_step2_room_number_group_#{room.id}"}
+                =text_field_tag "rooms[#{room.id}]", num_rooms, {:size => 6, :class => "number_of_rooms form-control"}
                 =#text_field_tag "room_prices[#{room.id}]",  {:size => 4}
               %div.col-xs-3
                 = room.name
-              %div.col-xs-2
-                =text_field_tag "room_prices[#{room.id}]", room_price,  {:size => 6, :class => "room_prices"}
-              %div.col-xs-1.bid_room_fee_total{ :id => "bid_room_fee_total_#{room.id}" }
+              %div.col-xs-2.form-group.has-feedback{ :id => "bids_step2_room_price_group_#{room.id}"}
+                =text_field_tag "room_prices[#{room.id}]", room_price,  {:size => 6, :class => "room_prices form-control"}
+              %div.col-xs-3.bid_room_fee_total{ :id => "bid_room_fee_total_#{room.id}" }
                 = num_rooms * room_price
           =submit_tag "Next >" 

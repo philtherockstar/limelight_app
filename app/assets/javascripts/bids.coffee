@@ -62,6 +62,41 @@ ready_home = ->
       $('form').submit()
 
 ready_step1 = -> 
+  $('#property_city').change ->
+    console.log("state_id=#{property_state_id}")
+    $.ajax
+      url: "/properties/search"
+      data:
+        address: $('#property_address').val()
+        city: $(@).val()
+        state_id: $('#property_state_id').val()
+      success: (data,status,response) ->
+        if data.error == true
+          console.log('success but error')
+        else
+          if data.length > 0 
+            console.log('got addr')
+            $("#bids_step1_prop_addr_group").removeClass('has-success').addClass('has-error')
+            $("#bids_step1_prop_city_group").removeClass('has-success').addClass('has-error')
+            $('.help-block').html("This property is already in the database")
+          else
+            console.log('address not found')
+            $("#bids_step1_prop_addr_group").removeClass('has-error').addClass('has-success')
+            $("#bids_step1_prop_city_group").removeClass('has-error').addClass('has-success')
+            $('.help-block').html("")
+      error: ->
+        console.log('error')
+      dataType: "json"
+  $('#property_sqft').change ->
+    sqft=$(@).val()
+    if isFinite(sqft) and parseInt(sqft) < 20000
+      console.log("sqft=#{sqft}")
+      $("#bids_step1_prop_sqft_group").removeClass('has-error').addClass('has-success')
+      $('.help-block').html("")
+    else
+      $("#bids_step1_prop_sqft_group").removeClass('has-success').addClass('has-error')
+      $('.help-block').html("Square Feet must be a number < 20,000")
+
   $('#client_first_name').autocomplete(
     minLength: 2
     source:'/clients/search'
@@ -92,6 +127,9 @@ ready_step1 = ->
         .data( "item.autocomplete", item)
         .append( item.first_name + " " + item.last_name)
         .appendTo( ul )
+  $('#step1_next_button').click (e) ->
+    console.log('step1_next_button clicked')
+    $('#step1_form').submit()
 
 ready_step2 = ->
   calc_room_total = () ->
@@ -105,6 +143,14 @@ ready_step2 = ->
     num_rooms = $(@).val()
     id = $(@).attr('id').match(/.*_(\d*)/)[1]
     console.log("number of rooms changed for " + id )
+    if isFinite(num_rooms) and parseInt(num_rooms) < 11
+      $("#bids_step2_room_number_group_#{id}").removeClass('has-error').addClass('has-success')
+      $('.help-block').html("")
+    else
+      $("#bids_step2_room_number_group_#{id}").removeClass('has-success').addClass('has-error')
+      $('.help-block').html("Room Number must be a number <= 10")
+      $(@).focus()
+      return false
     room_price = $("#room_prices_" + id).val()
     $("#bid_room_fee_total_" + id).text(num_rooms * room_price)
     calc_room_total()
@@ -113,6 +159,14 @@ ready_step2 = ->
     id = $(@).attr('id').match(/.*_(\d*)/)[1]
     console.log("room price changed for " + id )
     console.log("room price is " + room_price)
+    if isFinite(room_price) and parseInt(room_price) < 20000
+      $("#bids_step2_room_price_group_#{id}").removeClass('has-error').addClass('has-success')
+      $('.help-block').html("")
+    else
+      $("#bids_step2_room_price_group_#{id}").removeClass('has-success').addClass('has-error')
+      $('.help-block').html("Room Price must be a number <= 20,000")
+      $(@).focus()
+      return false
     num_rooms = $("#rooms_" + id).val()
     console.log("number of rooms is " + num_rooms)
     $("#bid_room_fee_total_" + id).text(room_price * num_rooms)

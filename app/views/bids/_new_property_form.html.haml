@@ -1,85 +1,107 @@
-%div.table
-- if @bid.id?
-  - property_id = @bid.property.id
-  - property_address = @bid.property.address
-  - property_city = @bid.property.city
-  - property_sqft = @bid.property.sqft
-  - property_state_id = @bid.property.state_id
-  - property_country_id = @bid.property.country_id
-- else
-  - property_id = 0
-  - property_address = ''
-  - property_city = ''
-  - property_sqft = ''
-  - property_state_id = 6
-  - property_country_id = 226
+%form{ :action => "/bids/step1proc", :method => "post", :class => "form-horizontal", :role => "form", :id => "step1_form"}
+  =hidden_field_tag :authenticity_token, form_authenticity_token
 
--if @bid.clients.size > 0
-  - client_id = @bid.clients.first.id
-  - client_first_name = @bid.clients.first.first_name
-  - client_last_name = @bid.clients.first.last_name
-  - client_phone = @bid.clients.first.phone
-  - client_email = @bid.clients.first.email
-- else
-  - client_id = 0
-  - client_first_name = ''
-  - client_last_name = ''
-  - client_phone = ''
-  - client_email = ''
+  - if @bid.id?
+    - property_id = @bid.property.id
+    - property_address = @bid.property.address
+    - property_city = @bid.property.city
+    - property_sqft = @bid.property.sqft
+    - property_state_id = @bid.property.state_id
+    - property_country_id = @bid.property.country_id
+  - else
+    - property_id = 0
+    - property_address = ''
+    - property_city = ''
+    - property_sqft = ''
+    - property_state_id = 6
+    - property_country_id = 226
 
--if @bid.realtors.size > 0
-  - realtor_id = @bid.realtors.first.id
-  - realtor_first_name = @bid.realtors.first.first_name
-  - realtor_last_name = @bid.realtors.first.last_name
-- else
-  - realtor_id = 0
-  - realtor_first_name = ''
-  - realtor_last_name = ''
+  -if @bid.clients.size > 0
+    - client_id = @bid.clients.first.id
+    - client_first_name = @bid.clients.first.first_name
+    - client_last_name = @bid.clients.first.last_name
+    - client_phone = @bid.clients.first.phone
+    - client_email = @bid.clients.first.email
+  - else
+    - client_id = 0
+    - client_first_name = ''
+    - client_last_name = ''
+    - client_phone = ''
+    - client_email = ''
 
-= form_tag('/bids/step1proc') do 
-  %div.table_row 
-    %div.table_cell.table_title= "Property:"
-    = hidden_field :property, :id, :value => property_id
-    - if @bid.id?
-      = hidden_field :bid, :id, :value => @bid.id
-  %div.table_row
-    %div.table_cell= "Address"
-    %div.table_cell{ :id => "prop_addr" }= text_field :property, :address, :value => property_address
-  %div.table_row
-    %div.table_cell= "City"
-    %div.table_cell= select :property, :city, @cities, :selected => property_city
-  %div.table_row
-    %div.table_cell= "Square Feet"
-    %div.table_cell= text_field :property, :sqft, :value => property_sqft
-  %div.table_row
-    %div.table_cell
-      &nbsp;
-  %p= hidden_field :property, :state_id, :value => property_state_id
-  %p= hidden_field :property, :country_id, :value => property_country_id 
-  %div.table_row  
-    %div.table_cell.table_title= "Client:"
-    = hidden_field :client, :id, :value => client_id
-  %div.table_row
-    %div.table_cell= "First Name"
-    %div.table_cell= text_field :client, :first_name, :value => client_first_name
-    %div.table_cell= "Last Name"
-    %div.table_cell= text_field :client, :last_name, :value => client_last_name
-  %div.table_row 
-    %div.table_cell= "Phone"
-    %div.table_cell= phone_field :client, :phone, :value => client_phone
-    %div.table_cell= "Email"
-    %div.table_cell= email_field :client, :email, :value => client_email
-  %div.table_row
-    %div.table_cell
-      &nbsp;
-  %div.table_row 
-    %div.table_cell.table_title= "Realtor:"
-    = hidden_field :realtor, :id, :value => realtor_id
-  %div.table_row
-    %div.table_cell= "First Name"
-    %div.table_cell= text_field :realtor, :first_name, :value => realtor_first_name
-    %div.table_cell= "Last Name"
-    %div.table_cell= text_field :realtor, :last_name, :value => realtor_last_name
-  %div.table_row 
-    %div.table_cell
-      =submit_tag "Next >" 
+  -if @bid.realtors.size > 0
+    - realtor_id = @bid.realtors.first.id
+    - realtor_first_name = @bid.realtors.first.first_name
+    - realtor_last_name = @bid.realtors.first.last_name
+  - else
+    - realtor_id = 0
+    - realtor_first_name = ''
+    - realtor_last_name = ''
+
+  %div.row
+    %div.col-xs-12
+      %div.form-group.has-feedback{ :id => "bids_step1_prop_addr_group"}
+        %div.col-xs-12
+          %span.help-block
+          %label.col-xs-2.control-label{ :for => "Address"}
+            Address:
+          %div.col-xs-4
+            = hidden_field :property, :id, :value => property_id
+            = hidden_field :property, :state_id, :value => property_state_id
+            = hidden_field :property, :country_id, :value => property_country_id 
+            = hidden_field :client, :id, :value => client_id
+            = hidden_field :realtor, :id, :value => realtor_id
+            - if @bid.id?
+              = hidden_field :bid, :id, :value => @bid.id
+            %input.form-control{ :type => "text", :id => "property_address", :name => "property[address]"}            
+      %div.form-group.has-feedback{ :id => "bids_step1_prop_city_group"}
+        %div.col-xs-12
+          %label.col-xs-2.control-label{ :for => "City"}
+            City:
+          %div.col-xs-4
+            = select :property, :city, @cities, :selected => property_city, :class => "form-control"
+      %div.form-group.has-feedback{ :id => "bids_step1_prop_sqft_group"}
+        %div.col-xs-12
+          %label.col-xs-2.control-label{ :for => "Square Feet"}
+            Square Feet:
+          %div.col-xs-2
+            = text_field :property, :sqft, :value => property_sqft, :class => "form-control"
+      %div.form-group.has-feedback{ :id => "bids_step1_client_first_name"}
+        %div.col-xs-12
+          %label.col-xs-2.control-label{ :for => "Client First Name"}
+            Client First Name:
+          %div.col-xs-4
+            = text_field :client, :first_name, :value => client_first_name, :class => "form-control"
+      %div.form-group.has-feedback{ :id => "bids_step1_client_last_name"}
+        %div.col-xs-12
+          %label.col-xs-2.control-label{ :for => "Client Last Name"}
+            Client Last Name:
+          %div.col-xs-4
+            = text_field :client, :last_name, :value => client_last_name, :class => "form-control"
+      %div.form-group.has-feedback{ :id => "bids_step1_client_phone"}
+        %div.col-xs-12
+          %label.col-xs-2.control-label{ :for => "Client Phone"}
+            Phone:
+          %div.col-xs-4
+            = phone_field :client, :phone, :value => client_phone, :class => "form-control"
+      %div.form-group.has-feedback{ :id => "bids_step1_client_email"}
+        %div.col-xs-12
+          %label.col-xs-2.control-label{ :for => "Client Email"}
+            Email:
+          %div.col-xs-4
+            = email_field :client, :email, :value => client_email, :class => "form-control"
+      %div.form-group.has-feedback{ :id => "bids_step1_realtor_first_name"}
+        %div.col-xs-12
+          %label.col-xs-2.control-label{ :for => "Realtor First Name"}
+            Realtor First Name:
+          %div.col-xs-4
+            = text_field :realtor, :first_name, :value => realtor_first_name, :class => "form-control"
+      %div.form-group.has-feedback{ :id => "bids_step1_realtor_last_name"}
+        %div.col-xs-12
+          %label.col-xs-2.control-label{ :for => "Realtor Last Name"}
+            Realtor Last Name:
+          %div.col-xs-4
+            = text_field :realtor, :last_name, :value => realtor_last_name, :class => "form-control"
+      %div.form-group.has-feedback{ :id => "bids_step1_button"}
+        %div.col-xs-12
+          %button{ :class => "step1_form_button", :name => "commit", :type => "button", :id => "step1_next_button" }Next >

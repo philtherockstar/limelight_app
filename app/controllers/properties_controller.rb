@@ -23,11 +23,17 @@ class PropertiesController < ApplicationController
 
   def search
     if params[:term]
-       @properties = Property.where('business_id = ? and lower(address) LIKE ?', current_user.business_id, "%#{params[:term].downcase}%")
-     else
-       @properties = Property.all
-     end
+      @properties = Property.where('business_id = ? and lower(address) LIKE ?', current_user.business_id, "%#{params[:term].downcase}%")
+    elsif params[:address]
+      @properties = Property.where("business_id = ? and lower(address) = ? and city = ? and state_id = ?", 
+                                    current_user.business_id, 
+                                    "#{params[:address].downcase}", 
+                                    "#{params[:city]}",
+                                    params[:state_id] )
+    end
 
+
+     
      respond_to do |format|  
        format.html # index.html.erb  
        format.json { render :json => @properties.to_json }

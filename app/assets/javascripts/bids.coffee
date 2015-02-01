@@ -149,6 +149,7 @@ ready_step2 = ->
     else
       $("#bids_step2_room_number_group_#{id}").removeClass('has-success').addClass('has-error')
       $('.help-block').html("Room Number must be a number <= 10")
+      $('#help-block').css("color:red")
       $(@).focus()
       return false
     room_price = $("#room_prices_" + id).val()
@@ -165,12 +166,40 @@ ready_step2 = ->
     else
       $("#bids_step2_room_price_group_#{id}").removeClass('has-success').addClass('has-error')
       $('.help-block').html("Room Price must be a number <= 20,000")
+      $('#help-block').addClass("error")
       $(@).focus()
       return false
     num_rooms = $("#rooms_" + id).val()
     console.log("number of rooms is " + num_rooms)
     $("#bid_room_fee_total_" + id).text(room_price * num_rooms)
     calc_room_total()
+  $('#step2_next_button').click (e) ->
+    console.log('step2_next_button clicked')
+    submitme=true
+    $('.number_of_rooms').each ->
+      num_rooms=$(@).val()
+      console.log(parseInt(num_rooms))
+      id = $(@).attr('id').match(/.*_(\d*)/)[1]
+      if isFinite(num_rooms) and parseInt(num_rooms) < 11
+        x=0
+      else
+        $("#bids_step2_room_number_group_#{id}").removeClass('has-success').addClass('has-error')
+        $('.help-block').html("Room Number must be a number <= 10")
+        submitme=false
+        return false
+    $('.number_prices').each ->
+      room_price=$(@).val()
+      id = $(@).attr('id').match(/.*_(\d*)/)[1]
+      if isFinite(room_price) and parseInt(room_price) < 20000
+        x=0
+      else
+        $("#bids_step2_room_price_group_#{id}").removeClass('has-success').addClass('has-error')
+        $('.help-block').html("Room Price must be a number <= 20,000")
+        submitme=false
+        return false
+    if submitme 
+      $('#step2form').submit()
+  
   $('form').on 'keyup', (e) -> 
     #console.log('key: ' + e.which)
     if e.which == 13

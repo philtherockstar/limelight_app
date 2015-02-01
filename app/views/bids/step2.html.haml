@@ -18,7 +18,7 @@
         %div.panel-body 
           %div.form-group.has-feedback{ :id => "bids_step2_staging_fee_group"}
             %div.col-xs-12
-              %span.help-block
+              %span#help-block.help-block
               %div.bid_rooms_fee_total
                 Total Staging Fee for rooms:
                 $
@@ -57,4 +57,5 @@
                 =text_field_tag "room_prices[#{room.id}]", room_price,  {:size => 6, :class => "room_prices form-control"}
               %div.col-xs-3.bid_room_fee_total{ :id => "bid_room_fee_total_#{room.id}" }
                 = num_rooms * room_price
-          =submit_tag "Next >" 
+          %button{ :class => "step2_form_button", :name => "commit", :type => "button", :id => "step2_next_button" }Next >
+

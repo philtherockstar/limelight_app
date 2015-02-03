@@ -57,7 +57,7 @@
             = hidden_field :realtor, :id, :value => realtor_id
             - if @bid.id?
               = hidden_field :bid, :id, :value => @bid.id
-            %input.form-control{ :type => "text", :id => "property_address", :name => "property[address]"}            
+            %input.form-control{ :type => "text", :id => "property_address", :value => property_address, :name => "property[address]"}            
       %div.form-group.has-feedback{ :id => "bids_step1_prop_city_group"}
         %div.col-xs-12
           %label.col-xs-2.control-label{ :for => "City"}

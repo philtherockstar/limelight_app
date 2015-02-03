@@ -11,7 +11,7 @@
   %div.col-xs-8
     %form{ :action => "/bids/step2proc", :method => "post", :class => "form-horizontal", :role => "form", :id => "step2form" }
       =hidden_field_tag :authenticity_token, form_authenticity_token
-      = hidden_field_tag('bid_id',@bid.id) 
+      =hidden_field_tag('bid_id',@bid.id) 
       %div.panel.panel-default
         %div.panel-heading
           = "Add rooms to #{@bid.property.address} #{@bid.property.city}"
@@ -19,10 +19,24 @@
           %div.form-group.has-feedback{ :id => "bids_step2_staging_fee_group"}
             %div.col-xs-12
               %span#help-block.help-block
-              %div.bid_rooms_fee_total
-                Total Staging Fee for rooms:
-                $
-                %span.bid_rooms_fee
+              Total Staging Fee for all rooms adds up to:
+              $
+              %span.bid_rooms_fee
+            - unless @bid.staging_fee.nil? 
+              - if @bid.staging_fee != @bid_rooms_total 
+                %div.col-xs-12
+                  ="The Staging fee has been hand entered as $#{@bid.staging_fee}. Do you want to change this staging fee to be the sum total of these rooms?"
+                %div.col-xs-1
+                %div.radio.col-xs-11
+                  = radio_button_tag 'overwrite_staging_fee', 'Y'
+                  = "Yes, overwrite the $#{@bid.staging_fee} staging fee with the sum total of these rooms ($"
+                  %span.bid_rooms_fee
+                  =")"
+                %div.col-xs-1
+                %div.radio.col-xs-11
+                  = radio_button_tag 'overwrite_staging_fee', 'N', true
+                  = "No, keep the staging fee at $#{@bid.staging_fee} "
+
           
           %div.form-group.has-feedback{ :id => "bids_step2_labels_group"}
             %label.col-xs-2

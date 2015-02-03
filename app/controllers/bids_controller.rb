@@ -126,6 +126,8 @@ class BidsController < ApplicationController
     @bid = Bid.find(params[:id])
     @bid_rooms = BidRoom.where("bid_id = #{@bid.id}")
     @rooms = Room.find_by_sql("SELECT r.*, rp.price FROM rooms AS r LEFT JOIN room_prices AS rp ON rp.room_id = r.id AND rp.business_id = #{current_user.business_id}")
+    @bid_rooms_total=0
+    @bid_rooms.each {|br| @bid_rooms_total += (br.price * br.num_rooms)}
   end
 
   def step2proc 
@@ -150,8 +152,8 @@ class BidsController < ApplicationController
           end
         end     
       end
-      bid = Bid.find(bid_id)
-      bid.staging_fee = staging_fee
+      bid = Bid.find(bid_id)      
+      bid.staging_fee = staging_fee unless ( params.has_key?(:overwrite_staging_fee) && params[:overwrite_staging_fee] == "N" )
       logger.info ("NOTE: hardcoding distro fee and rental weeks. we should get distribution_fee and weeks_included from a preferences table")
       bid.distribution_fee = 250
       bid.weeks_included = 6 

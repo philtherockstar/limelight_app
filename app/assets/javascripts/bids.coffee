@@ -121,6 +121,8 @@ ready_step1 = ->
       $('#realtor_id').val(ui.item.id)
       $('#realtor_first_name').val(ui.item.first_name)
       $('#realtor_last_name').val(ui.item.last_name)
+      $('#realtor_phone').val(ui.item.phone)
+      $('#realtor_email').val(ui.item.email)
       false
     ).data('ui-autocomplete')._renderItem = ( ul, item ) ->
       $( "<li>" )

@@ -101,6 +101,8 @@ class BidsController < ApplicationController
             end
             @realtor.first_name = params['realtor']['first_name']
             @realtor.last_name = params['realtor']['last_name']
+            @realtor.phone = params['realtor']['phone']
+            @realtor.email = params['realtor']['email']
             @realtor.business_id = current_user.business_id
             @realtor.save
           end

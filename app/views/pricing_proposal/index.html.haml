@@ -32,11 +32,11 @@
       %div.table_row
         %div.table_cell
           Phone: 
-        %div.table_cell="#{@bid.clients.first.phone}"
+        %div.table_cell=@bid.clients.first.phone.size > 0 ? @bid.clients.first.phone : @bid.realtors.first.phone
       %div.table_row
         %div.table_cell
           Email: 
-        %div.table_cell="#{@bid.clients.first.email}"
+        %div.table_cell=@bid.clients.first.email.size > 0 ? @bid.clients.first.email : @bid.realtors.first.email
       %div.table_row
         %div.table_cell
           Date:

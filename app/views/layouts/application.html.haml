@@ -8,12 +8,40 @@
     = csrf_meta_tags
     %meta{ :name => "viewport", :content => "width=device-width, initial-scale=1" }
   %body
+    %nav.navbar.navbar-default
+      %div.navabar-header
+        %a.navbar-brand{ :href => "/" }
+          ="#{ApplicationController.business.name} Bid Buddy"
+      %div.collapse.navbar-collapse{ :id => "navbar-collapse-1" }
+        %ul.nav.navbar-nav
+          %li
+            %a{ :href => "#" }
+              Properties
+          %li
+            %a{ :href => "#" }
+              Bids
+          %li
+            %a{ :href => "#" }
+              Clients
+          %li
+            %a{ :href => "#" }
+              Realtors
+          %li
+            %a{ :href => "#" }
+              Items
+          %li
+            %a{ :href => "#" }
+              Rooms
+          %li
+            %a{ :href => "#" }
+              Items Per Room Template
+          %li
+            %a{ :href => "#" }
+              Testimonies
+          %li
+            %a{ :href => "#" }
+              Pictures
     %div.container{ :id => "main_container" }
-      %div.row
-        %div.col-xs-12
-          %div.page-header
-            %h3
-              = link_to "#{ApplicationController.business.name} Bid Buddy", "/"
       %div.row
         %div.col-xs-12
           - flash.each do |name, msg|

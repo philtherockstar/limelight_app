@@ -6,5 +6,53 @@
         - @property.errors.full_messages.each do |msg|
           %li= msg
 
+  %div.row
+    %div.col-xs-12
+      %div.form-group.has-feedback{ :id => "property_address_group"}
+        %div.col-xs-12
+          %span.help-block
+          %label.col-xs-2.control-label{ :for => "Address"}
+            Property Address:
+          %div.col-xs-4
+            =f.text_field :address, :class => "form-control"
+            =f.hidden_field :id
+            =f.hidden_field :state_id
+            =f.hidden_field :country_id
+      %div.form-group.has-feedback{ :id => "property_city_group"}
+        %div.col-xs-12
+          %label.col-xs-2.control-label{ :for => "City" }
+            City:
+          %div.col-xs-4
+            = f.select :city, @cities, :class => "form-control"
+      %div.form-group.has-feedback{ :id => "property_sqft_group"}
+        %div.col-xs-12
+          %label.col-xs-2.control-label{ :for => "Square Feet"}
+            Square Feet:
+          %div.col-xs-2
+            = f.text_field :sqft, :class => "form-control"
+      %div.form-group.has-feedback{ :id => "property_listing_price_group"}
+        %div.col-xs-12
+          %label.col-xs-2.control-label{ :for => "Listing Price"}
+            Listing Price:
+          %div.col-xs-2
+            = f.text_field :listing_price, :class => "form-control"
+      %div.form-group.has-feedback{ :id => "property_selling_price_group"}
+        %div.col-xs-12
+          %label.col-xs-2.control-label{ :for => "Selling Price"}
+            Selling Price:
+          %div.col-xs-2
+            = f.text_field :selling_price, :class => "form-control"
+      %div.form-group.has-feedback{ :id => "property_status_group"}
+        %div.col-xs-12
+          %label.col-xs-2.control-label{ :for => "Property Status"}
+            Status:
+          %div.col-xs-2
+            = select :property, :status_id, Status.all.collect{|s| [s.status,s.id]}, :class => "form-control"
+      %div.form-group.has-feedback{ :id => "property_est_closing_date_group"}
+        %div.col-xs-12
+          %label.col-xs-2.control-label{ :for => "Est Closing Date"}
+            Estimated Closing Date:
+          %div.col-xs-4
+            = date_select :property, :est_closing_date, :class => "form-control"
   .actions
     = f.submit 'Save'

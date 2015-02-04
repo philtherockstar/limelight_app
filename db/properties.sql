@@ -1,9 +1,20 @@
 PRAGMA foreign_keys=OFF;
 BEGIN TRANSACTION;
-CREATE TABLE "properties" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "address" varchar(128) , "city" varchar(128) , "state_id" integer(11), "province_id" integer(11), "country_id" integer(11) NOT NULL, "sqft" integer(11), "listing_price" integer(11), "selling_price" integer(11), "est_closing_date" date, "status" text, "business_id" integer(11) NOT NULL);
+CREATE TABLE "properties" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "address" varchar(128) , "city" varchar(128) , "state_id" integer(11), "province_id" integer(11), "country_id" integer(11) NOT NULL, "sqft" integer(11), "listing_price" integer(11), "selling_price" integer(11), "est_closing_date" date, "status_id" integer, "business_id" integer(11) NOT NULL);
+INSERT INTO "properties" VALUES(5,'5540 Grant Way','Felton',6,NULL,226,1550,NULL,NULL,NULL,NULL,1);
+INSERT INTO "properties" VALUES(6,'123 Test Road','Felton',6,NULL,226,2000,NULL,NULL,NULL,NULL,1);
+INSERT INTO "properties" VALUES(7,'100 Test Street','Aromas',6,NULL,226,2010,NULL,NULL,NULL,NULL,1);
+INSERT INTO "properties" VALUES(8,'1516 Bordeaux Street','Felton',6,NULL,226,1960,NULL,NULL,NULL,NULL,1);
+INSERT INTO "properties" VALUES(9,'170 Hyannis Court','Aptos',6,NULL,226,1844,NULL,NULL,NULL,NULL,1);
+INSERT INTO "properties" VALUES(10,'10001 test road','Felton',6,NULL,226,1500,NULL,NULL,NULL,NULL,1);
+INSERT INTO "properties" VALUES(11,'9000 test drive','Boulder Creek',6,NULL,226,2000,NULL,NULL,NULL,NULL,1);
+INSERT INTO "properties" VALUES(12,'4565 Cherryvale Avenue','Soquel',6,NULL,226,2714,NULL,NULL,NULL,NULL,1);
+INSERT INTO "properties" VALUES(13,'5540 Grant Way','Aromas',6,NULL,226,2000,NULL,NULL,NULL,NULL,1);
+INSERT INTO "properties" VALUES(14,'100010 test st','Aromas',6,NULL,226,1000,NULL,NULL,NULL,NULL,1);
 CREATE INDEX "properties_properties_idx1" ON "properties" ("business_id", "address");
 CREATE INDEX "properties_properties_fk1_idx" ON "properties" ("business_id");
 CREATE INDEX "properties_properties_fk3_idx" ON "properties" ("country_id");
 CREATE INDEX "properties_properties_fk2_idx" ON "properties" ("state_id");
 CREATE UNIQUE INDEX "properties_uidx" ON "properties" ("business_id","address","city","state_id","country_id");
 COMMIT;
+

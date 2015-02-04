@@ -16,11 +16,13 @@
         %th
           Square Feet
         %th
+          Status
+        %th
           Listing Price
         %th
           Selling Price
         %th
-          Estimated Closing_date
+          Estimated Closing Date
       %tbody
         %tr
           %td=@property.id
@@ -28,9 +30,10 @@
           %td=@property.city
           %td=@property.state.abbrev
           %td=@property.sqft
-          %td=@listing_price
-          %td=@selling_price
-          %td=@est_closing_date
+          %td=@property.status.status
+          %td=@property.listing_price
+          %td=@property.selling_price
+          %td=@property.est_closing_date
     = link_to 'Edit Property', edit_property_path(@property)
     \|
     = link_to 'Back', properties_path
@@ -67,15 +70,17 @@
           %tbody
             %tr
               %td=bid.id
-              %td=bid.bid_date
-              %td=bid.staging_fee
-              %td=bid.distribution_fee
-              %td=bid.rental
-              %td=bid.rental_weekly
+              %td=bid.bid_date.strftime("%m/%d/%Y")
+              %td=number_to_currency(bid.staging_fee)
+              %td=number_to_currency(bid.distribution_fee)
+              %td=number_to_currency(bid.rental)
+              %td=number_to_currency(bid.rental_weekly)
               %td=bid.weeks_included
-              %td=bid.rental_monthly
+              %td=number_to_currency(bid.rental_monthly)
               %td=bid.discount_percent
-              %td=bid.discount_amount
+              %td=number_to_currency(bid.discount_amount)
+              %td
+                =link_to 'Edit', "/bids/step1/#{bid.id}"
 
     
 

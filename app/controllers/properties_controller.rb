@@ -19,6 +19,8 @@ class PropertiesController < ApplicationController
   end
 
   def edit
+    @cities=['']
+    business.business_cities.each {|bc| @cities << bc.city }
   end
 
   def search
@@ -68,6 +70,6 @@ class PropertiesController < ApplicationController
     end
 
     def property_params
-      params.require(:property).permit(:address, :city, :state_id, :country_id, :business_id)
+      params.require(:property).permit(:address, :city, :state_id, :country_id, :business_id, :status_id, :sqft, :listing_price, :selling_price, :id, :est_closing_date)
     end
 end

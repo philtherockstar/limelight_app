@@ -1,7 +1,9 @@
-%h1 Editing property
+%div.panel.panel-default
+  %div.panel-heading
+    Edit Property
+  %div.panel-body
+    = render 'form'
 
-= render 'form'
-
-= link_to 'Show', @property
-\|
-= link_to 'Back', properties_path
+    = link_to 'Show', @property
+    \|
+    = link_to 'Back', properties_path

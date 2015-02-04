@@ -4,4 +4,5 @@ class Property < ActiveRecord::Base
   validates :address, :city, presence: true
   belongs_to :state
   belongs_to :country
+  belongs_to :status
 end

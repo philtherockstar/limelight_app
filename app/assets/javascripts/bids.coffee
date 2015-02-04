@@ -12,7 +12,7 @@ ready_home = ->
     console.log('no prop addr')
     $('#prop_addr').autocomplete(
       minLength: 2
-      source:'/properties/search'
+      source:'/property/search'
       select: (event,ui) ->
         console.log('ui ' + ui.item.address)
         $('#prop_id').val(ui.item.id)
@@ -65,7 +65,7 @@ ready_step1 = ->
   $('#property_city').change ->
     console.log("state_id=#{property_state_id}")
     $.ajax
-      url: "/properties/search"
+      url: "/property/search"
       data:
         address: $('#property_address').val()
         city: $(@).val()

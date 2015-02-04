@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   devise_for :admins
   devise_for :users, :controllers => { :registrations => "registrations" } 
   
-  #resources :properties
+  resources :properties
   get 'home/index'
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -36,7 +36,7 @@ Rails.application.routes.draw do
    get '/item/index' => 'item#index'
    get '/item' => 'item#index'
    get '/bids/step1' => 'bids#step1'
-   get '/properties/search' => 'properties#search'
+   get '/property/search' => 'property#search'
    get '/clients/search' => 'clients#search'
    get '/realtors/search' => 'realtors#search'
      

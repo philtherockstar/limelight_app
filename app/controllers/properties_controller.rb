@@ -46,17 +46,8 @@ class PropertiesController < ApplicationController
       Property.transaction do
         @property = Property.new(property_params)
         @property.save
-        Bid.transaction do
-          @bid = Bid.new
-          @bid.property_id = @property.id
-          @bid.save
-        end
       end
-      redirect_to("/bids/step2/"+@bid.id.to_s)
-      #respond_with(@property, location => home_path(:step2 => '') )
-    rescue
-      logger.fatal('Could not create a property and bid')
-      redirect_to "/bids/step1", notice: 'Not all the required fields were entered'
+      respond_with(@property)
       #render action: 'new'
     end
   end

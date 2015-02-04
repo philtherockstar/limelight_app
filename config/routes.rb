@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   #resources :realtors
 
-  #resources :clients
+  resources :clients
 
   resources :template_room_items
 
@@ -37,8 +37,8 @@ Rails.application.routes.draw do
    get '/item' => 'item#index'
    get '/bids/step1' => 'bids#step1'
    get '/property/search' => 'property#search'
-   get '/clients/search' => 'clients#search'
-   get '/realtors/search' => 'realtors#search'
+   get '/client/search' => 'client#search'
+   get '/realtor/search' => 'realtor#search'
      
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

@@ -5,27 +5,71 @@
       %ul
         - @client.errors.full_messages.each do |msg|
           %li= msg
-
-  .field
-    = f.label :first_name
-    = f.text_field :first_name
-  .field
-    = f.label :last_name
-    = f.text_field :last_name
-  .field
-    = f.label :address
-    = f.text_field :address
-  .field
-    = f.label :phone
-    = f.text_field :phone
-  .field
-    = f.label :email
-    = f.text_field :email
-  .field
-    = f.label :created_at
-    = f.datetime_select :created_at
-  .field
-    = f.label :updated_at
-    = f.datetime_select :updated_at
-  .actions
-    = f.submit 'Save'
+  %div.row
+    %div.col-xs-12
+      %div.form-group.has-feedback{ :id => "client_first_name_group"}
+        %div.col-xs-12
+          %span.help-block
+          %label.col-xs-2.control-label{ :for => "First Name"}
+            First name:
+          %div.col-xs-5
+            =f.text_field :first_name, :class => "form-control"
+  %div.row
+    %div.col-xs-12
+      %div.form-group.has-feedback{ :id => "client_last_name_group"}
+        %div.col-xs-12
+          %span.help-block
+          %label.col-xs-2.control-label{ :for => "Last Name"}
+            Last name:
+          %div.col-xs-5
+            =f.text_field :last_name, :class => "form-control"
+  %div.row
+    %div.col-xs-12
+      %div.form-group.has-feedback{ :id => "client_address_group"}
+        %div.col-xs-12
+          %span.help-block
+          %label.col-xs-2.control-label{ :for => "Address"}
+            Address:
+          %div.col-xs-5
+            =f.text_field :address, :class => "form-control" 
+  %div.row
+    %div.col-xs-12
+      %div.form-group.has-feedback{ :id => "client_phone_group"}
+        %div.col-xs-12
+          %span.help-block
+          %label.col-xs-2.control-label{ :for => "Phone"}
+            Phone:
+          %div.col-xs-5
+            =f.text_field :phone, :class => "form-control"
+  %div.row
+    %div.col-xs-12
+      %div.form-group.has-feedback{ :id => "client_email_group"}
+        %div.col-xs-12
+          %span.help-block
+          %label.col-xs-2.control-label{ :for => "Email"}
+            Email:
+          %div.col-xs-5
+            =f.text_field :email, :class => "form-control"
+  %div.row
+    %div.col-xs-12
+      %div.form-group.has-feedback{ :id => "client_created_at_group"}
+        %div.col-xs-12
+          %span.help-block
+          %label.col-xs-2.control-label{ :for => "Created At"}
+            Created At:
+          %div.col-xs-5
+            =f.datetime_select :created_at, :class => "form-control"
+  %div.row
+    %div.col-xs-12
+      %div.form-group.has-feedback{ :id => "client_updated_at_group"}
+        %div.col-xs-12
+          %span.help-block
+          %label.col-xs-2.control-label{ :for => "Updated At"}
+            Updated At:
+          %div.col-xs-5
+            =f.datetime_select :updated_at, :class => "form-control"  
+  %div.row
+    %div.col-xs-12
+      %div.col-xs-12
+        .actions
+        = f.submit 'Save'

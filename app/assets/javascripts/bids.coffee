@@ -99,7 +99,7 @@ ready_step1 = ->
 
   $('#client_first_name').autocomplete(
     minLength: 2
-    source:'/clients/search'
+    source:'/client/search'
     select: (event,ui) ->
       console.log('ui ' + ui.item.first_name)
       $('#client_id').val(ui.item.id)

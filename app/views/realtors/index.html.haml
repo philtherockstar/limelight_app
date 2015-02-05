@@ -1,33 +1,44 @@
-%h1 Listing realtors
-
-%table
-  %thead
-    %tr
-      %th First name
-      %th Last name
-      %th Company
-      %th Phone
-      %th Email
-      %th Created at
-      %th Updated at
-      %th
-      %th
-      %th
-      
-  %tbody
-    - @realtors.each do |realtor|
-      %tr
-        %td= realtor.first_name
-        %td= realtor.last_name
-        %td= realtor.company
-        %td= realtor.phone
-        %td= realtor.email
-        %td= realtor.created_at
-        %td= realtor.updated_at
-        %td= link_to 'Show', realtor
-        %td= link_to 'Edit', edit_realtor_path(realtor)
-        %td= link_to 'Destroy', realtor, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Realtor', new_realtor_path
+%div.panel.panel-default
+  %div.panel-heading
+    Listing Realtors
+  %div.panel-body
+    %table.table.table-striped
+      %thead
+        %tr
+          %th
+            First Name
+          %th
+            Last Name
+          %th
+            Company
+          %th
+            Phone
+          %th
+            Email
+          %th
+            Created At
+          %th
+            Updated At
+          %th
+          %th
+      %tbody
+      - @realtors.each do |realtor|
+        %tr
+          %tr
+            %td= realtor.first_name
+            %td= realtor.last_name
+            %td= realtor.company
+            %td= realtor.phone
+            %td= realtor.email
+            %td= realtor.created_at
+            %td= realtor.updated_at
+            %td
+              = link_to 'Show', realtor
+              %span.glyphicon.glyphicon-eye-open
+            %td
+              = link_to 'Edit', edit_realtor_path(realtor)
+              %span.glyphicon.glyphicon-pencil
+            <!-- %td= link_to 'Destroy', realtor, :method => :delete, :data => { :confirm => 'Are you sure?' } -->
+    %br
+    = link_to 'New Realtor', new_realtor_path
+    %span.glyphicon.glyphicon-plus

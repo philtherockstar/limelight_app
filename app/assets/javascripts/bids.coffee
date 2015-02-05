@@ -115,7 +115,7 @@ ready_step1 = ->
         .appendTo( ul )
   $('#realtor_first_name').autocomplete(
     minLength: 2
-    source:'/realtors/search'
+    source:'/realtor/search'
     select: (event,ui) ->
       console.log('ui ' + ui.item.address)
       $('#realtor_id').val(ui.item.id)

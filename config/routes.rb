@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   #resources :bids
 
-  #resources :realtors
+  resources :realtors
 
   resources :clients
 

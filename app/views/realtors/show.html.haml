@@ -1,27 +1,34 @@
 %p#notice= notice
+%div.panel.panel-default
+  %div.panel-heading
+    ="Details for Client #{@realtor.first_name} #{@realtor.last_name}"
+  %div.panel-body
+    %table.table.table
+      %tr
+        %th
+          First Name
+        %th
+          Last Name
+        %th
+          Company
+        %th
+          Phone
+        %th
+          Email
+        %th
+          Created At
+        %th
+          Updated At
+        %th
+      %tr
+        %td=@realtor.first_name
+        %td= @realtor.last_name
+        %td= @realtor.company
+        %td= @realtor.phone
+        %td= @realtor.email
+        %td= @realtor.created_at
+        %td= @realtor.updated_at
 
-%p
-  %b First name:
-  = @realtor.first_name
-%p
-  %b Last name:
-  = @realtor.last_name
-%p
-  %b Company:
-  = @realtor.company
-%p
-  %b Phone:
-  = @realtor.phone
-%p
-  %b Email:
-  = @realtor.email
-%p
-  %b Created at:
-  = @realtor.created_at
-%p
-  %b Updated at:
-  = @realtor.updated_at
-
-= link_to 'Edit', edit_realtor_path(@realtor)
-\|
-= link_to 'Back', realtors_path
+    = link_to 'Edit', edit_realtor_path(@realtor)
+    \|
+    = link_to 'Back', realtors_path

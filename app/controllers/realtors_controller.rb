@@ -4,7 +4,7 @@ class RealtorsController < ApplicationController
   respond_to :html
 
   def index
-    @realtors = Realtor.all
+    @realtors = Realtor.all.order('last_name,first_name')
     respond_with(@realtors)
   end
 

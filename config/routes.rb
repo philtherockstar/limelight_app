@@ -34,6 +34,7 @@ Rails.application.routes.draw do
    get 'bids/step3/:id' => 'bids#step3'
    post 'bids/step3proc' => 'bids#step3proc'
    get 'bids/step4' => 'bids#step4'
+   get 'bids' => 'bids#index'
    get '/item(:json)' => 'item#index'
    get '/item/index' => 'item#index'
    get '/item' => 'item#index'

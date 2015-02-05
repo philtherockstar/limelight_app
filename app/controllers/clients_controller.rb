@@ -4,7 +4,7 @@ class ClientsController < ApplicationController
   respond_to :html
 
   def index
-    @clients = Client.all
+    @clients = Client.all.order('last_name,first_name')
     respond_with(@clients)
   end
 

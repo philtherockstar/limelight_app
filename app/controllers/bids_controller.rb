@@ -4,8 +4,7 @@ class BidsController < ApplicationController
   respond_to :html
 
   def index
-    step1
-#    @bids = Bid.all
+    @bids = Bid.all
 #    respond_with(@bids)
   end
 

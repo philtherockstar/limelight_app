@@ -1,0 +1,53 @@
+%div.panel.panel-default
+  %div.panel-heading
+    Listing Bids
+  %div.panel-body
+    %table.table.table-striped
+      %thead
+        %tr
+          %th
+            Property
+          %th
+            Client
+          %th
+            Realtor
+          %th
+            Bid Date
+          %th
+            Staging Fee
+          %th
+            Distribution Fee
+          %th
+            Rental
+          %th
+            Rental Weekly
+          %th
+            Weeks Included
+          %th
+            Rental Monthly
+          %th
+          %th
+      %tbody
+      - @bids.each do |bid|
+        %tr
+          %td="#{bid.property.address}, #{bid.property.city}"
+          %td="#{bid.clients.first.first_name} #{bid.clients.first.last_name}"
+          %td="#{bid.realtors.first.first_name} #{bid.realtors.first.last_name}"
+          %td=bid.bid_date.strftime("%m/%d/%Y") if bid.bid_date
+          %td=number_to_currency(bid.staging_fee)
+          %td=number_to_currency(bid.distribution_fee)
+          %td=number_to_currency(bid.rental)
+          %td=number_to_currency(bid.rental_weekly)
+          %td=bid.weeks_included
+          %td=number_to_currency(bid.rental_monthly)
+          %td
+            =link_to 'Edit', "/bids/step1/#{bid.id}"
+            %span.glyphicon.glyphicon-pencil
+          %td
+
+        <!-- %td= link_to 'Show', bid -->
+      <!--  %td= link_to 'Destroy', bid, :method => :delete, :data => { :confirm => 'Are you sure?' } -->
+
+%br
+
+= #link_to 'New Bid', new_bid_path

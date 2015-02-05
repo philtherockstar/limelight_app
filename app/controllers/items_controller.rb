@@ -4,7 +4,7 @@ class ItemsController < ApplicationController
   respond_to :html
 
   def index
-    @items = Item.all
+    @items = Item.all.order('name')
     respond_with(@items)
   end
 

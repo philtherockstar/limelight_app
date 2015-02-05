@@ -42,6 +42,6 @@ class RoomsController < ApplicationController
     end
 
     def room_params
-      params[:room]
+      params[:room].permit(:id,:display_order,:abbr,:room)
     end
 end

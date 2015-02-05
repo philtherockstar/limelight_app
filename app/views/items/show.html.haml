@@ -1,5 +1,20 @@
 %p#notice= notice
-
+%div.panel.panel-default
+  %div.panel-heading
+    ="Details for Item #{@item.name}"
+  %div.panel-body
+    %table.table.table
+      %tr
+        %th
+          ID
+        %th
+          Name
+        %th
+          Rental Price
+      %tr
+        %td=@item.id
+        %td=@item.name
+        %td=@item.rental_price
 
 = link_to 'Edit', edit_item_path(@item)
 \|

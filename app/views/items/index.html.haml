@@ -1,19 +1,31 @@
-%h1 Listing items
-
-%table
-  %thead
-    %tr
-      %th
-      %th
-      %th
-      
-  %tbody
-    - @items.each do |item|
-      %tr
-        %td= link_to 'Show', item
-        %td= link_to 'Edit', edit_item_path(item)
-        %td= link_to 'Destroy', item, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Item', new_item_path
+%div.panel.panel-default
+  %div.panel-heading
+    Listing Items
+  %div.panel-body
+    %table.table.table-striped
+      %thead
+        %tr
+          %th
+            ID
+          %th
+            Name
+          %th
+            Rental Price
+          %th
+          %th
+      %tbody
+      - @items.each do |item|
+        %tr
+          %td= item.id
+          %td= item.name
+          %td= item.rental_price
+          %td
+            = link_to 'Show', item
+            %span.glyphicon.glyphicon-eye-open
+          %td
+            = link_to 'Edit', edit_item_path(item)
+            %span.glyphicon.glyphicon-pencil
+        <!-- %td= link_to 'Destroy', item, :method => :delete, :data => { :confirm => 'Are you sure?' } -->
+    %br
+    = link_to 'New Item', new_item_path
+    %span.glyphicon.glyphicon-plus

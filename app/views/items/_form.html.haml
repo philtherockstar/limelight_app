@@ -6,5 +6,24 @@
         - @item.errors.full_messages.each do |msg|
           %li= msg
 
+  %div.row
+    %div.col-xs-12
+      %div.form-group.has-feedback{ :id => "item_name_group"}
+        %div.col-xs-12
+          %span.help-block
+          %label.col-xs-2.control-label{ :for => "Item Name"}
+            Item Name:
+          %div.col-xs-5
+            =f.text_field :name, :class => "form-control"
+  %div.row
+    %div.col-xs-12
+      %div.form-group.has-feedback{ :id => "item_rental_price_group"}
+        %div.col-xs-12
+          %span.help-block
+          %label.col-xs-2.control-label{ :for => "Rental Price"}
+            Rental Price:
+          %div.col-xs-5
+            =f.text_field :rental_price, :class => "form-control"
+
   .actions
     = f.submit 'Save'

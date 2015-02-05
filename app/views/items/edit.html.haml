@@ -1,7 +1,9 @@
-%h1 Editing item
+%div.panel.panel-default
+  %div.panel-heading
+    Edit Item
+  %div.panel-body
+    = render 'form'
 
-= render 'form'
-
-= link_to 'Show', @item
-\|
-= link_to 'Back', items_path
+    = link_to 'Show', @item
+    \|
+    = link_to 'Back', items_path

@@ -124,7 +124,7 @@ class BidsController < ApplicationController
   def step2 
     @bid = Bid.find(params[:id])
     @bid_rooms = BidRoom.where("bid_id = #{@bid.id}")
-    @rooms = Room.find_by_sql("SELECT r.*, rp.price FROM rooms AS r LEFT JOIN room_prices AS rp ON rp.room_id = r.id AND rp.business_id = #{current_user.business_id}")
+    @rooms = Room.find_by_sql("SELECT r.*, rp.price FROM rooms AS r LEFT JOIN room_prices AS rp ON rp.room_id = r.id AND rp.business_id = #{current_user.business_id} order by r.display_order")
     @bid_rooms_total=0
     @bid_rooms.each {|br| @bid_rooms_total += (br.price * br.num_rooms)}
   end
@@ -142,6 +142,7 @@ class BidsController < ApplicationController
            br.room_id = room[0]
            br.num_rooms = room[1]
            br.price = params[:room_prices][room[0]]
+           br.display_order = params[:room_order][room[0]]
            br.save
            staging_fee += (br.price * br.num_rooms)
         else
@@ -163,7 +164,7 @@ class BidsController < ApplicationController
 
   def step3 
     @bid = Bid.find(params[:id])
-    @bid_rooms = BidRoom.where("bid_id = #{@bid.id}")
+    @bid_rooms = BidRoom.where("bid_id = #{@bid.id}").order('display_order')
     @bid_room_items = BidRoomItem.all.where( "bid_id = #{@bid.id}")
   end
 

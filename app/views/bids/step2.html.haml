@@ -1,5 +1,5 @@
 %div.row
-  %div.col-xs-8
+  %div.col-xs-8 
     %ol.breadcrumb
       %li
         = link_to "Home", "/"
@@ -39,17 +39,18 @@
 
           
           %div.form-group.has-feedback{ :id => "bids_step2_labels_group"}
-            %label.col-xs-2
+            %label.col-xs-3
               \#Rooms
-            %label.col-xs-3
+            %label.col-xs-4
               Name
-            %label.col-xs-2
-              Fee
             %label.col-xs-3
+              Fee
+            %label.col-xs-2
               Total
           - @rooms.each do |room|
             - num_rooms=0
             - room_price = room.price
+            - display_order = room.display_order
             - if @bid_rooms.size > 0
               - @bid_rooms.each do |br| 
                 - if br.room_id == room.id
@@ -61,15 +62,17 @@
                   - num_rooms=1
                 - when /^Bathroom$/
                   - num_rooms=2
+            %input{ :type => "hidden", :id => "bid_room_display_order_#{room.id}", :name => "room_order[#{room.id}]", :value => "#{display_order}"}
             %div.form-group
-              %div.col-xs-2.has-feedback{ :id => "bids_step2_room_number_group_#{room.id}"}
+              %div.col-xs-3.has-feedback{ :id => "bids_step2_room_number_group_#{room.id}"}
                 =text_field_tag "rooms[#{room.id}]", num_rooms, {:size => 6, :class => "number_of_rooms form-control"}
                 =#text_field_tag "room_prices[#{room.id}]",  {:size => 4}
-              %div.col-xs-3
+              %div.col-xs-4
                 = room.name
-              %div.col-xs-2.form-group.has-feedback{ :id => "bids_step2_room_price_group_#{room.id}"}
+              %div.col-xs-3.form-group.has-feedback{ :id => "bids_step2_room_price_group_#{room.id}"}
                 =text_field_tag "room_prices[#{room.id}]", room_price,  {:size => 6, :class => "room_prices form-control"}
-              %div.col-xs-3.bid_room_fee_total{ :id => "bid_room_fee_total_#{room.id}" }
+              %div.col-xs-2.bid_room_fee_total{ :id => "bid_room_fee_total_#{room.id}" }
                 = num_rooms * room_price
+
           %button{ :class => "step2_form_button", :name => "commit", :type => "button", :id => "step2_next_button" }Next >
 

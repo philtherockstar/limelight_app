@@ -271,7 +271,7 @@ ready_step3 = ->
                   <input class='bid_room_item_quantity' id='bid_rooms_item_quantity_#{room_id}_#{room_number}_#{new_row_number}' name='bid_rooms_item_quantity[#{room_id}][#{room_number}][0]' size='3' type='text' value='0'>
                 </div>
                 <div class='table_cell'>
-                  <input class='bid_room_item_rental_price' id='bid_rooms_item_rental_price_#{room_id}_#{room_number}_#{new_row_number}' name='bid_rooms_item_rental_price[#{room_id}][#{room_number}][0]' size='3' type='text' value='0'>
+                  <input class='bid_room_item_rental_price' id='bid_rooms_item_rental_price_#{room_id}_#{room_number}_#{new_row_number}' name='bid_rooms_item_rental_price[#{room_id}][#{room_number}][0]' size='5' type='text' value='0'>
                 </div>
                 <div class='table_cell bid_room_item_total' id='bid_rooms_item_total_#{room_id}_#{room_number}_#{new_row_number}'>
                   0

@@ -19,7 +19,33 @@
         %td=@room.abbr
         %td=@room.display_order
 
+%p
+  = link_to 'Edit', edit_room_path(@room)
+  \|
+  = link_to 'Back', rooms_path
 
-= link_to 'Edit', edit_room_path(@room)
-\|
-= link_to 'Back', rooms_path
+
+%div.panel.panel-default
+  %div.panel-heading
+    ="Default Items for #{@room.name}"
+  %div.panel-body
+    %table.table.table
+      %tr
+        %th
+          Item name
+        %th
+          Rental Price
+        %th
+          Quantity
+        %th
+          Item Total
+      - total_room_cost=0
+      - @room.template_room_items.each do |tri|
+        %tr
+          %td=tri.item.name
+          %td=number_to_currency(tri.item.rental_price)
+          %td=tri.quantity
+          %td=number_to_currency(tri.item.rental_price * tri.quantity)
+          - total_room_cost += (tri.item.rental_price * tri.quantity)
+      %tr
+        %td{ :colspan => "4" }="Total Rental Cost for Room = #{number_to_currency(total_room_cost)}"      

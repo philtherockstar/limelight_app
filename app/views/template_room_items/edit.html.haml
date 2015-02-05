@@ -1,7 +1,10 @@
-%h1 Editing template_room_item
+%div.panel.panel-default
+  %div.panel-heading
+    Edit Room Item
+  %div.panel-body
+    = render 'form'
 
-= render 'form'
 
-= link_to 'Show', @template_room_item
-\|
-= link_to 'Back', template_room_items_path
+    = link_to 'Show', @template_room_item
+    \|
+    = link_to 'Back', template_room_items_path

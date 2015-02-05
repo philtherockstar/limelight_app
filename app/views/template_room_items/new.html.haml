@@ -1,5 +1,7 @@
-%h1 New template_room_item
+%div.panel.panel-default
+  %div.panel-heading
+    New Item for Room
+  %div.panel-body
+    = render 'form'
 
-= render 'form'
-
-= link_to 'Back', template_room_items_path
+    = link_to 'Back', template_room_items_path

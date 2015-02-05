@@ -6,5 +6,32 @@
         - @template_room_item.errors.full_messages.each do |msg|
           %li= msg
 
+  %div.row
+    %div.col-xs-12
+      %div.form-group.has-feedback{ :id => "template_room_item_room_id_group"}
+        %div.col-xs-12
+          %span.help-block
+          %label.col-xs-2.control-label{ :for => "Room ID"}
+            Room
+          %div.col-xs-5
+            = select :template_room_item, :room_id, @rooms.collect{|r| [r.name,r.id]}, :class => "form-control"
+  %div.row
+    %div.col-xs-12
+      %div.form-group.has-feedback{ :id => "template_room_item_item_id_group"}
+        %div.col-xs-12
+          %span.help-block           
+          %label.col-xs-2.control-label{ :for => "Item ID"}
+            Item
+          %div.col-xs-5
+            = select :template_room_item, :item_id, @items.collect{|i| ["#{i.name}: #{number_to_currency(i.rental_price)}",i.id]}, :class => "form-control"
+  %div.row
+    %div.col-xs-12
+      %div.form-group.has-feedback{ :id => "template_room_item_quantity_group"}
+        %div.col-xs-12
+          %span.help-block           
+          %label.col-xs-2.control-label{ :for => "Quantiy"}
+            Quantity
+          %div.col-xs-2
+            = select :template_room_item, :quantity, [1,2,3,4,5,6,7,8,9,10], :class => "form-control"
   .actions
     = f.submit 'Save'

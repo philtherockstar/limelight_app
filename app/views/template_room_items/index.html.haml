@@ -1,19 +1,34 @@
-%h1 Listing template_room_items
-
-%table
-  %thead
-    %tr
-      %th
-      %th
-      %th
+%div.panel.panel-default
+  %div.panel-heading
+    Listing Room Items
+  %div.panel-body
+    %table.table.table-striped
+      %thead
+        %tr
+          %th
+            ID
+          %th
+            Room Name
+          %th
+            Item
+          %th
+            Rental Price
+          %th
+            Quantity
       
-  %tbody
-    - @template_room_items.each do |template_room_item|
-      %tr
-        %td= link_to 'Show', template_room_item
-        %td= link_to 'Edit', edit_template_room_item_path(template_room_item)
-        %td= link_to 'Destroy', template_room_item, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      %tbody
+      - @template_room_items.each do |template_room_item|
+        %tr
+          %td=template_room_item.id
+          %td=template_room_item.room.name
+          %td=template_room_item.item.name
+          %td=number_to_currency(template_room_item.item.rental_price)
+          %td=template_room_item.quantity
+          %td
+            = link_to 'Remove', template_room_item, :method => :delete, :data => { :confirm => 'Are you sure?' }
+            %span.glyphicon.glyphicon-remove
 
 %br
 
-= link_to 'New Template room item', new_template_room_item_path
+= link_to 'New Item for Room', new_template_room_item_path
+%span.glyphicon.glyphicon-plus

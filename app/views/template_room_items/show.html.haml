@@ -1,5 +1,23 @@
 %p#notice= notice
-
+%div.panel.panel-default
+  %div.panel-heading
+    ="Details for Room Item"
+  %div.panel-body
+    %table.table.table
+      %tr
+        %th
+          ID
+        %th
+          Room
+        %th
+          Item
+        %th
+          Quantity
+      %tr
+        %td=@template_room_item.id
+        %td=@template_room_item.room.name
+        %td=@template_room_item.item.name
+        %td=@template_room_item.quantity
 
 = link_to 'Edit', edit_template_room_item_path(@template_room_item)
 \|

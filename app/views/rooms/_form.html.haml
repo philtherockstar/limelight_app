@@ -1,0 +1,37 @@
+= form_for @room do |f|
+  - if @room.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@room.errors.count, "error")} prohibited this room from being saved:"
+      %ul
+        - @room.errors.full_messages.each do |msg|
+          %li= msg
+
+  %div.row
+    %div.col-xs-12
+      %div.form-group.has-feedback{ :id => "room_name_group"}
+        %div.col-xs-12
+          %span.help-block
+          %label.col-xs-2.control-label{ :for => "Room Name"}
+            Room Name:
+          %div.col-xs-5
+            =f.text_field :name, :class => "form-control"
+  %div.row
+    %div.col-xs-12
+      %div.form-group.has-feedback{ :id => "room_abbr_group"}
+        %div.col-xs-12
+          %span.help-block
+          %label.col-xs-2.control-label{ :for => "Room Abbr"}
+            Room Abbreviation:
+          %div.col-xs-5
+            =f.text_field :abbr, :class => "form-control"
+  %div.row
+    %div.col-xs-12
+      %div.form-group.has-feedback{ :id => "room_display_order_group"}
+        %div.col-xs-12
+          %span.help-block
+          %label.col-xs-2.control-label{ :for => "Room Display Order"}
+            Display Order:
+          %div.col-xs-5
+            =f.text_field :display_order, :class => "form-control"
+  .actions
+    = f.submit 'Save'

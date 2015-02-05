@@ -1,0 +1,25 @@
+%p#notice= notice
+%div.panel.panel-default
+  %div.panel-heading
+    ="Details for Room #{@room.name}"
+  %div.panel-body
+    %table.table.table
+      %tr
+        %th
+          ID
+        %th
+          Name
+        %th
+          Abbr
+        %th
+          Display Order
+      %tr
+        %td=@room.id
+        %td=@room.name
+        %td=@room.abbr
+        %td=@room.display_order
+
+
+= link_to 'Edit', edit_room_path(@room)
+\|
+= link_to 'Back', rooms_path

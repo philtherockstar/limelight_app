@@ -1,0 +1,35 @@
+%div.panel.panel-default
+  %div.panel-heading
+    Listing Items
+  %div.panel-body
+    %table.table.table-striped
+      %thead
+        %tr
+          %th
+            ID
+          %th
+            Name
+          %th
+            abbr
+          %th
+            Display Order
+          %th
+          %th
+      %tbody
+      - @rooms.each do |room|
+        %tr
+          %td= room.id
+          %td= room.name
+          %td= room.abbr
+          %td= room.display_order
+          %td
+            = link_to 'Show', room
+            %span.glyphicon.glyphicon-eye-open
+          %td
+            = link_to 'Edit', edit_room_path(room)
+            %span.glyphicon.glyphicon-pencil
+        <!-- %td= link_to 'Destroy', room, :method => :delete, :data => { :confirm => 'Are you sure?' } -->
+
+    %br
+    = link_to 'New Room', new_room_path
+    %span.glyphicon.glyphicon-plus

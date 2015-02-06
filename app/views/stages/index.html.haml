@@ -1,0 +1,39 @@
+%div.panel.panel-default
+  %div.panel-heading
+    Listing Stages
+  %div.panel-body
+    %table.table.table-striped
+      %thead
+        %tr
+          %th
+            ID
+          %th
+            Address
+          %th
+            Date of Stage
+          %th
+            Total
+          %th
+            Rent
+
+      
+      %tbody
+      - @stages.each do |stage|
+        %tr
+          %td=stage.id
+          %td="#{stage.property.address}, #{stage.property.city}"
+          %td=stage.stage_date.strftime("%m/%d/%Y") if stage.stage_date
+          %td=number_to_currency(stage.total)
+          %td=number_to_currency(stage.rent)
+          %td
+            = link_to 'Show', stage
+            %span.glyphicon.glyphicon-eye-open
+          %td
+            = link_to 'Edit', edit_stage_path(stage)
+            %span.glyphicon.glyphicon-pencil
+          %td= #link_to 'Destroy', stage, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Stage', new_stage_path
+%span.glyphicon.glyphicon-plus

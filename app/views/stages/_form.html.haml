@@ -1,0 +1,46 @@
+= form_for @stage do |f|
+  - if @stage.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@stage.errors.count, "error")} prohibited this stage from being saved:"
+      %ul
+        - @stage.errors.full_messages.each do |msg|
+          %li= msg
+  =#debug(@stage)
+  %div.row
+    %div.col-xs-12
+      %div.form-group.has-feedback{ :id => "stage_date_group"}
+        %div.col-xs-12
+          %span.help-block
+          %label.col-xs-2.control-label{ :for => "Stage Date"}
+            Stage Date:
+          %div.col-xs-5
+            = date_select :stage, :stage_date, :prompt => { :day => '', :month => '', :year => '' }, :class => "form-control"
+  %div.row
+    %div.col-xs-12
+      %div.form-group.has-feedback{ :id => "destage_date_group"}
+        %div.col-xs-12
+          %span.help-block
+          %label.col-xs-2.control-label{ :for => "DeStage Date"}
+            De-stage Date:
+          %div.col-xs-5
+            = date_select :stage, :destage_date, :default => nil, :prompt => { :day => '', :month => '', :year => '' }, :class => "form-control"
+  %div.row
+    %div.col-xs-12
+      %div.form-group.has-feedback{ :id => "stage_total_group"}
+        %div.col-xs-12
+          %span.help-block
+          %label.col-xs-2.control-label{ :for => "Stage Total"}
+            Stage Amount:
+          %div.col-xs-5
+            =f.text_field :total, :class => "form-control"
+  %div.row
+    %div.col-xs-12
+      %div.form-group.has-feedback{ :id => "stage_rent_group"}
+        %div.col-xs-12
+          %span.help-block
+          %label.col-xs-2.control-label{ :for => "Stage Rent"}
+            Stage Rent:
+          %div.col-xs-5
+            =f.text_field :rent, :class => "form-control"
+  .actions
+    = f.submit 'Save'

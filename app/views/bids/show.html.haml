@@ -1,9 +1,10 @@
 %p#notice= notice
+%div.panel.panel-default
+  %div.panel-heading
+    ="BidDetails for #{@bid.property.address}, #{@bid.property.city}"
+  %div.panel-body
+    %table.table.table
+      %thead
+        %tr
 
-%p
-  %b Index:
-  = @bid.index
-
-= link_to 'Edit', edit_bid_path(@bid)
-\|
 = link_to 'Back', bids_path

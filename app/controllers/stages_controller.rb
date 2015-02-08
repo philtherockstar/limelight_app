@@ -4,7 +4,7 @@ class StagesController < ApplicationController
   respond_to :html
 
   def index
-    @stages = Stage.all
+    @stages = Stage.all.order('stage_date desc')
     respond_with(@stages)
   end
 

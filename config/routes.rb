@@ -28,8 +28,12 @@ Rails.application.routes.draw do
 
    get 'pricing_proposal/:id' => 'pricing_proposal#index'
    post 'home/find_bids' => 'home#find_bids'
+   get 'bids/edit/:id' => 'bids#edit'
+   get 'bids/show/:id' => 'bids#show'
    get 'bids/step1/:id' => 'bids#step1'
    get 'bids/step2/:id' => 'bids#step2'
+   get 'stages/edit/:id' => 'stages#edit'
+   post 'bids/editproc' => 'bids#editproc'
    post 'bids/step2proc' => 'bids#step2proc'
    post 'bids/step1proc' => 'bids#step1proc'
    get 'bids/step3' => 'bids#step3'

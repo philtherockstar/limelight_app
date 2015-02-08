@@ -331,6 +331,9 @@ load_my_js = ->
   else if url.match(/step3/)
     console.log('matched step 3')
     ready_step3()
+  else if url.match(/bids\/edit/)
+    console.log('I matched bids/edit')
+    ready_step1()
   else
     console.log('no url matched')
     ready_home()

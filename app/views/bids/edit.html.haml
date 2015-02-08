@@ -1,7 +1,79 @@
-%h1 Editing bid
+%div.row
+  %div.col-xs-12
+    %div.panel.panel-default
+      %div.panel-heading
+        Edit Bid Summary
+      %div.panel-body
+        %form{ :action => "/bids/editproc", :method => "post", :class => "form-horizontal", :role => "form", :id => "step1_form"}
+          = render 'new_property_form' 
+          %div.form-group.has-feedback{ :id => "bid_date_group"}
+            %div.col-xs-12
+              %label.col-xs-2.control-label{ :for => "Bid Date"}
+                Bid Date:
+              %div.col-xs-10
+                = date_select :bid, :bid_date, :value => @bid.bid_date, :prompt => { :day => '', :month => '', :year => '' }, :class => "form-control"
+          %div.form-group.has-feedback{ :id => "bid_total_group"}
+            %div.col-xs-12
+              %label.col-xs-2.control-label{ :for => "Bid Total"}
+                Bid Total:
+              %div.col-xs-2
+                = text_field :bid, :bid_total, :value => @bid.bid_total, :class => "form-control"
+          %div.form-group.has-feedback{ :id => "bid_staging_fee_group"}
+            %div.col-xs-12
+              %label.col-xs-2.control-label{ :for => "Staging Fee"}
+                Staging Fee:
+              %div.col-xs-2
+                = text_field :bid, :staging_fee, :value => @bid.staging_fee, :class => "form-control"
+          %div.form-group.has-feedback{ :id => "bid_distribution_fee_group"}
+            %div.col-xs-12
+              %label.col-xs-2.control-label{ :for => "Distribution Fee"}
+                Distribution Fee:
+              %div.col-xs-2
+                = text_field :bid, :distribution_fee, :value => @bid.distribution_fee, :class => "form-control"
+          %div.form-group.has-feedback{ :id => "bid_rental_group"}
+            %div.col-xs-12
+              %label.col-xs-2.control-label{ :for => "Rental"}
+                Rental:
+              %div.col-xs-2
+                = text_field :bid, :rental, :value => @bid.rental, :class => "form-control"
+          %div.form-group.has-feedback{ :id => "bid_rental_weekly_group"}
+            %div.col-xs-12
+              %label.col-xs-2.control-label{ :for => "Rental Weekly"}
+                Rental Weekly:
+              %div.col-xs-2
+                = text_field :bid, :rental_weekly, :value => @bid.rental_weekly, :class => "form-control"
+          %div.form-group.has-feedback{ :id => "bid_rental_monthly_group"}
+            %div.col-xs-12
+              %label.col-xs-2.control-label{ :for => "Rental Monthly"}
+                Rental Monthly:
+              %div.col-xs-2
+                = text_field :bid, :rental_monthly, :value => @bid.rental_monthly, :class => "form-control"
+          %div.form-group.has-feedback{ :id => "bid_weeks_included_group"}
+            %div.col-xs-12
+              %label.col-xs-2.control-label{ :for => "Weeks Included"}
+                Weeks Included:
+              %div.col-xs-2
+                = text_field :bid, :weeks_included, :value => @bid.weeks_included, :class => "form-control"
+          %div.form-group.has-feedback{ :id => "bid_discount_percent_group"}
+            %div.col-xs-12
+              %label.col-xs-2.control-label{ :for => "Discount Percent"}
+                Discount Percent:
+              %div.col-xs-2
+                = text_field :bid, :discount_percent, :value => @bid.discount_percent, :class => "form-control"
+          %div.form-group.has-feedback{ :id => "bid_discount_amount_group"}
+            %div.col-xs-12
+              %label.col-xs-2.control-label{ :for => "Discount Amount"}
+                Discount Amount:
+              %div.col-xs-2
+                = text_field :bid, :discount_amount, :value => @bid.discount_amount, :class => "form-control"
+          %div.form-group.has-feedback{ :id => "bid_status_group"}
+            %div.col-xs-12
+              %label.col-xs-2.control-label{ :for => "Bid Status"}
+                Status:
+              %div.col-xs-2
+                = select :bid, :bidstatus_id, Bidstatus.all.collect{|s| [s.status,s.id]}, :default => "1", :class => "form-control"
+          %div.form-group.has-feedback{ :id => "bids_edit_button"}
+            %div.col-xs-12
+              %button{ :class => "step1_form_button", :name => "commit", :type => "button", :id => "step1_next_button" }Submit
 
-= render 'form'
-
-= link_to 'Show', @bid
-\|
-= link_to 'Back', bids_path
+= link_to 'Back', '/bids'

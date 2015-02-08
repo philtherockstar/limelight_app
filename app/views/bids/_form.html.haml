@@ -1,13 +1,10 @@
-= form_for @bid do |f|
-  - if @bid.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@bid.errors.count, "error")} prohibited this bid from being saved:"
-      %ul
-        - @bid.errors.full_messages.each do |msg|
-          %li= msg
-
-  .field
-    = f.label :index
-    = f.text_field :index
-  .actions
-    = f.submit 'Save'
+%div.row
+  %div.col-xs-12
+    %div.form-group.has-feedback{ :id => "bid_status_group"}
+      %div.col-xs-12
+        %label.col-xs-2.control-label{ :for => "Bid Status"}
+          Status:
+        %div.col-xs-2
+          = select :bid, :bidstatus_id, Bidstatus.all.collect{|s| [s.status,s.id]}, :default => "1", :class => "form-control"
+.actions
+  = #f.submit 'Save'

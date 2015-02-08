@@ -1,0 +1,19 @@
+%h1 Listing rents
+
+%table
+  %thead
+    %tr
+      %th
+      %th
+      %th
+      
+  %tbody
+    - @rents.each do |rent|
+      %tr
+        %td= link_to 'Show', rent
+        %td= link_to 'Edit', edit_rent_path(rent)
+        %td= link_to 'Destroy', rent, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Rent', new_rent_path

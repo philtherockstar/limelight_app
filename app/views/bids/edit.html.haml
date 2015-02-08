@@ -4,6 +4,7 @@
       %div.panel-heading
         Edit Bid Summary
       %div.panel-body
+        =#debug(@bid)
         %form{ :action => "/bids/editproc", :method => "post", :class => "form-horizontal", :role => "form", :id => "step1_form"}
           = render 'new_property_form' 
           %div.form-group.has-feedback{ :id => "bid_date_group"}

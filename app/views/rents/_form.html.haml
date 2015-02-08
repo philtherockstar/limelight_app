@@ -1,0 +1,10 @@
+= form_for @rent do |f|
+  - if @rent.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@rent.errors.count, "error")} prohibited this rent from being saved:"
+      %ul
+        - @rent.errors.full_messages.each do |msg|
+          %li= msg
+
+  .actions
+    = f.submit 'Save'

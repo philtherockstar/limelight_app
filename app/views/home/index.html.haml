@@ -36,7 +36,7 @@
             %div.panel.panel-default
               %div.panel-heading
                 Change or Duplicate an Existing Bid
-              %dev.panel-body
+              %div.panel-body
                 %div.form-group
                   %div.col-xs-12
                     %div.col-xs-11
@@ -60,4 +60,34 @@
                     %span.help-block
                     %input{ :type => "hidden", :id => "prop_id", :name => "property[id]", :value => '0' }
                     %button{ :class => "home_form_button", :name => "Save", :type => "button", :id => "home_go_button" }Go
+        %div.row
+          %div.col-xs-12
+            %div.panel-heading
+              Active Stages
+            %div.panel-body
+              %table.table.table-striped
+                %thead
+                  %tr
+                    %th
+                      ID
+                    %th
+                      Address
+                    %th
+                      Date of Stage
+                    %th
+                      Total
+                    %th
+                      Rent
+
+                
+                %tbody
+                - stage_number = 0
+                - @active_stages.each do |stage|
+                  - stage_number += 1
+                  %tr
+                    %td=stage_number
+                    %td="#{stage.property.address}, #{stage.property.city}"
+                    %td=stage.stage_date.strftime("%m/%d/%Y") if stage.stage_date
+                    %td=number_to_currency(stage.total)
+                    %td=number_to_currency(stage.rent)
 

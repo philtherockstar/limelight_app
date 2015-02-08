@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :rents
+
   resources :stages
 
   resources :rooms

@@ -1,4 +1,5 @@
 = form_for @template_room_item do |f|
+  =f.hidden_field :business_id
   - if @template_room_item.errors.any?
     #error_explanation
       %h2= "#{pluralize(@template_room_item.errors.count, "error")} prohibited this template_room_item from being saved:"

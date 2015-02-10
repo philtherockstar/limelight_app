@@ -4,7 +4,7 @@ class TemplateRoomItemsController < ApplicationController
   respond_to :html
 
   def index
-    @template_room_items = TemplateRoomItem.all.order("room_id, item_id")
+    @template_room_items = TemplateRoomItem.all.where("business_id = ?", current_user.business_id).order("room_id, item_id")
     respond_with(@template_room_items)
   end
 
@@ -16,6 +16,7 @@ class TemplateRoomItemsController < ApplicationController
     @rooms=Room.all.order('display_order')
     @items=Item.all
     @template_room_item = TemplateRoomItem.new
+    @template_room_item.business_id = current_user.business_id
     respond_with(@template_room_item)
   end
 
@@ -26,6 +27,7 @@ class TemplateRoomItemsController < ApplicationController
 
   def create
     @template_room_item = TemplateRoomItem.new(template_room_item_params)
+    @tem
     @template_room_item.save
     respond_with(@template_room_item)
   end
@@ -46,6 +48,6 @@ class TemplateRoomItemsController < ApplicationController
     end
 
     def template_room_item_params
-      params[:template_room_item].permit(:room_id,:item_id,:quantity,:id)
+      params[:template_room_item].permit(:room_id,:item_id,:quantity,:id, :business_id)
     end
 end

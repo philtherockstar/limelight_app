@@ -8,7 +8,7 @@
           Edit Bid Details
       %div.panel-body
         %form{ :action => "/bids/step1proc", :method => "post", :class => "form-horizontal", :role => "form", :id => "step1_form"}
-        = render 'new_property_form' 
-        %div.form-group.has-feedback{ :id => "bids_step1_button"}
-          %div.col-xs-12
-            %button{ :class => "step1_form_button", :name => "commit", :type => "button", :id => "step1_next_button" }Next >
+          = render 'new_property_form' 
+          %div.form-group.has-feedback{ :id => "bids_step1_button"}
+            %div.col-xs-12
+              %button{ :class => "step1_form_button", :name => "commit", :type => "button", :id => "step1_next_button" }Next >

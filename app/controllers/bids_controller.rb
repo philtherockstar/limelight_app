@@ -175,38 +175,44 @@ class BidsController < ApplicationController
             @bid = Bid.find(params[:bid][:id])
           else
             @bid = Bid.new
+            @bid.bidstatus_id = Bidstatus.where("status = 'New'")[0].id
           end
           @bid.property_id = @property.id
-          Client.transaction do
-            if params['client']['id'].to_i > 0
-              @client = Client.find(params['client']['id'])
-            else
-              @client = Client.new
+          if params['client']['first_name'].size > 0 || params['client']['last_name'].size > 0
+            Client.transaction do
+              if params['client']['id'].to_i > 0
+                @client = Client.find(params['client']['id'])
+              else
+                @client = Client.new
+              end
+              @client.first_name = params['client']['first_name']
+              @client.last_name = params['client']['last_name']
+              @client.phone = params['client']['phone']
+              @client.email = params['client']['email']
+              @client.business_id = current_user.business_id
+              @client.save
+              @bid.clients << @client
             end
-            @client.first_name = params['client']['first_name']
-            @client.last_name = params['client']['last_name']
-            @client.phone = params['client']['phone']
-            @client.email = params['client']['email']
-            @client.business_id = current_user.business_id
-            @client.save
           end
-          Realtor.transaction do
-            if params['realtor']['id'].to_i > 0
-              @realtor = Realtor.find(params['realtor']['id'])
-            elsif @bid.realtors.size > 0
-              @realtor = @bid.realtors[0]
-            else
-              @realtor = Realtor.new
+          if params['realtor']['first_name'].size > 0 || params['realtor']['last_name'].size > 0
+            Realtor.transaction do
+              if params['realtor']['id'].to_i > 0
+                @realtor = Realtor.find(params['realtor']['id'])
+              elsif @bid.realtors.size > 0
+                @realtor = @bid.realtors[0]
+              else
+                @realtor = Realtor.new
+              end
+              @realtor.first_name = params['realtor']['first_name']
+              @realtor.last_name = params['realtor']['last_name']
+              @realtor.phone = params['realtor']['phone']
+              @realtor.email = params['realtor']['email']
+              @realtor.business_id = current_user.business_id
+              @realtor.save
+              @bid.realtors << @realtor
             end
-            @realtor.first_name = params['realtor']['first_name']
-            @realtor.last_name = params['realtor']['last_name']
-            @realtor.phone = params['realtor']['phone']
-            @realtor.email = params['realtor']['email']
-            @realtor.business_id = current_user.business_id
-            @realtor.save
-          end
-          @bid.clients << @client
-          @bid.realtors << @realtor
+          end          
+
           @bid.save
         end
       end

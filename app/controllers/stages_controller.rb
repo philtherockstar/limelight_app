@@ -28,6 +28,12 @@ class StagesController < ApplicationController
 
   def update
     @stage.update(stage_params)
+    if params[:stage]['destage_date(1i)'].to_i > 0
+      logger.info("destage_date =  #{params[:stage]['destage_date(1i)']}")
+      property = Property.where("id = ?",@stage.property_id).first
+      property.status_id = Status.where("status = 'De-Staged'").first.id
+      property.save
+    end
     respond_with(@stage)
   end
 

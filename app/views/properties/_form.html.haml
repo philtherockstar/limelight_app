@@ -53,6 +53,6 @@
           %label.col-xs-2.control-label{ :for => "Est Closing Date"}
             Estimated Closing Date:
           %div.col-xs-4
-            = date_select :property, :est_closing_date, :class => "form-control"
+            = date_select :property, :est_closing_date, :default => nil, :prompt => { :day => '', :month => '', :year => '' }, :class => "form-control"
   .actions
     = f.submit 'Save'

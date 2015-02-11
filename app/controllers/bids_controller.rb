@@ -4,7 +4,7 @@ class BidsController < ApplicationController
   respond_to :html
 
   def index
-    @bids = Bid.all.order('bid_date desc')
+    @bids = Bid.all.order('id desc')
 #    respond_with(@bids)
   end
 
@@ -19,7 +19,7 @@ class BidsController < ApplicationController
   end
 
   def edit
-    @bid = Bid.find(params[:id])
+    @bid = Bid.where("id = ?",params[:id].to_i).first
     @cities=['']
     business.business_cities.each {|bc| @cities << bc.city }
   end
@@ -43,7 +43,7 @@ class BidsController < ApplicationController
   def step1 
     if params[:id] # bid_id
       #@property = Property.new
-      @bid = Bid.find(params[:id])
+      @bid = Bid.where("id = ?",params[:id].to_i).first
     else
       @bid = Bid.new
     end
@@ -62,7 +62,7 @@ class BidsController < ApplicationController
         
         #logger.info('property_id=' + params['property']['id'])
         if params['property']['id'].to_i > 0 
-          @property = Property.find(params['property']['id'])
+          @property = Property.where("id = ?",params['property']['id'].to_i).first
           #logger.info('prop addr from db is ' + @property.address)
         else
           @property = Property.new
@@ -76,7 +76,7 @@ class BidsController < ApplicationController
         @property.business_id = current_user.business_id
         @property.save
         Bid.transaction do
-          @bid = Bid.find(params[:bid][:id])
+          @bid = Bid.where("id = ?",params[:bid][:id].to_i).first
           contract_signed = Bidstatus.where("status == 'Contract Signed'").first
           if @bid.bidstatus != contract_signed.id && (params[:bid][:bidstatus_id]).to_i == contract_signed.id
             new_stage = true

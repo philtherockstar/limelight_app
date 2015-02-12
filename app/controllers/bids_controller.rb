@@ -132,7 +132,7 @@ class BidsController < ApplicationController
         stage.property_id = @bid.property_id
         stage.realtor_id = @bid.realtors.first.id
         stage.total = @bid.bid_total
-        stage.rent = @bid.rental_monthly
+        stage.monthly_rental = @bid.rental_monthly
         stage.save
         redirect_to "/stages/edit/#{stage.id}", alert: 'Congrats on a new contract! I created a new stage for you. Please enter the estimated date of the Stage and sumbit the form!'
       else

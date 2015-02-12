@@ -16,7 +16,7 @@
       %tr
         %td=@stage.stage_date.strftime("%m/%d/%Y") if @stage.stage_date
         %td=number_to_currency(@stage.total)
-        %td=number_to_currency(@stage.rent)
+        %td=number_to_currency(@stage.monthly_rental)
         %td=@stage.destage_date.strftime("%m/%d/%Y") if @stage.destage_date
 
 = link_to 'Edit', edit_stage_path(@stage)

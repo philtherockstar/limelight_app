@@ -82,6 +82,8 @@
                       Rent 
                     %th
                       Rent Due?
+                    %th
+                      Rent Due On
                     %th           
                 %tbody
                 - stage_number = 0
@@ -96,7 +98,9 @@
                     %td=number_to_currency(stage.monthly_rental)
                     %td
                       - if stage.rent_due?
-                        Rent is Due!
+                        Rent Due!
+                    %td
+                      = stage.rent_due_on.strftime("%m/%d/%Y")
                     %td
                       = link_to 'Edit', "/stages/edit/#{stage.id}"
                       %span.glyphicon.glyphicon-pencil

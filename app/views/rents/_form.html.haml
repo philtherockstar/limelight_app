@@ -6,5 +6,50 @@
         - @rent.errors.full_messages.each do |msg|
           %li= msg
 
+  %div.row
+    %div.col-xs-12
+      %div.form-group.has-feedback{ :id => "rent_due_group"}
+        %div.col-xs-12
+          %span.help-block
+          %label.col-xs-2.control-label{ :for => "Rent Due"}
+            Rent Due:
+          %div.col-xs-5
+            =f.text_field :rent_due, :class => "form-control"
+  %div.row
+    %div.col-xs-12
+      %div.form-group.has-feedback{ :id => "rent_due_on_group"}
+        %div.col-xs-12
+          %span.help-block
+          %label.col-xs-2.control-label{ :for => "Rent Due On"}
+            Rent Due On:
+          %div.col-xs-5
+            = date_select :rent, :rent_due_on, :prompt => { :day => '', :month => '', :year => '' }, :class => "form-control"
+  %div.row
+    %div.col-xs-12
+      %div.form-group.has-feedback{ :id => "rent_paid_group"}
+        %div.col-xs-12
+          %span.help-block
+          %label.col-xs-2.control-label{ :for => "Rent Paid"}
+            Rent Paid:
+          %div.col-xs-5
+            =f.text_field :rent_paid, :class => "form-control"
+  %div.row
+    %div.col-xs-12
+      %div.form-group.has-feedback{ :id => "rent_paid_on_group"}
+        %div.col-xs-12
+          %span.help-block
+          %label.col-xs-2.control-label{ :for => "Rent Paid On"}
+            Rent Paid On:
+          %div.col-xs-5
+            = date_select :rent, :rent_paid_on, :prompt => { :day => '', :month => '', :year => '' }, :class => "form-control"
+  %div.row
+    %div.col-xs-12
+      %div.form-group.has-feedback{ :id => "rent_payment_method_group"}
+        %div.col-xs-12
+          %span.help-block
+          %label.col-xs-2.control-label{ :for => "Rent Payment Method"}
+            Payment Method:
+          %div.col-xs-5
+            = select :rent, :rent_payment_method, ['','Paypal','Check','Cash'], :class => "form-control"
   .actions
     = f.submit 'Save'

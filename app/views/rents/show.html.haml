@@ -1,5 +1,26 @@
 %p#notice= notice
-
+%div.panel.panel-default
+  %div.panel-heading
+    ="Details for Rent for stage of #{@rent.stage.property.address}, #{@rent.stage.property.city}"
+  %div.panel-body
+    %table.table.table
+      %tr
+        %th
+          Rent Due
+        %th
+          Rent Due On
+        %th
+          Rent Paid
+        %th
+          Rent Paid On
+        %th
+          Payment Method
+      %tr
+        %td=number_to_currency(@rent.rent_due)
+        %td=@rent.rent_due_on.strftime("%m/%d/%Y") if @rent.rent_due_on
+        %td=number_to_currency(@rent.rent_paid)
+        %td=@rent.rent_paid_on.strftime("%m/%d/%Y") if @rent.rent_paid_on
+        %td=@rent.rent_payment_method
 
 = link_to 'Edit', edit_rent_path(@rent)
 \|

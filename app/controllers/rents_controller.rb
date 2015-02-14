@@ -42,6 +42,6 @@ class RentsController < ApplicationController
     end
 
     def rent_params
-      params[:rent]
+      params[:rent].permit(:id,:rent_due,:rent_due_on,:rent_paid,:rent_paid_on,:rent_payment_method)
     end
 end

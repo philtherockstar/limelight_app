@@ -1,6 +1,8 @@
-%h1 Editing rent
-
-= render 'form'
+%div.panel.panel-default
+  %div.panel-heading
+    ="Edit Rent for stage of #{@rent.stage.property.address}, #{@rent.stage.property.city}"
+  %div.panel-body
+    = render 'form'
 
 = link_to 'Show', @rent
 \|

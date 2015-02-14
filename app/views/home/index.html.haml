@@ -99,7 +99,7 @@
                     %td
                       - if stage.rent_due?
                         Rent Due!
-                        = link_to 'Edit Rent', "/rents/#{stage.rents.last.id}/edit"
+                        = link_to 'Edit Rent', "/rents/#{stage.rents.last.id}/edit" if stage.rents.last
                         %span.glyphicon.glyphicon-pencil
                     %td
                       = stage.rent_due_on.strftime("%m/%d/%Y")

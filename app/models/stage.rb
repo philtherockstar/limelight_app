@@ -42,7 +42,8 @@ class Stage < ActiveRecord::Base
         	puts "count > 0. last record is #{rents.last.inspect}"
             if rents.last.rent_paid.nil?
             	puts "last rent was not paid"
-            	@rent_due_on = stage_date.advance(:months => 2)
+            	#@rent_due_on = stage_date.advance(:months => rents_count + 1)
+                @rent_due_on = rents.last.rent_due_on
             	rent_is_due = true
             else
             	puts "last rent was paid"

@@ -20,7 +20,7 @@
           %button{ :class => "items_form_button", :name => "Save", :type => "button" }Save Work
           or
           %button{ :class => "items_form_button", :name => "Finish", :type => "button" }Finish >
-          %div.table
+          %div.table.table-striped
             %div.table_row
               %div.table_cell.table_heading
                 Total Rental:
@@ -51,7 +51,7 @@
               %div.table_cell
                 =text_field_tag "bid[weeks_included]", @bid.weeks_included, {:size => 6}
 
-          %div.table
+          %div.table.table-striped
             = hidden_field_tag('bid_id',@bid.id)
             - @bid_rooms.each do |br|
               - room_number=1

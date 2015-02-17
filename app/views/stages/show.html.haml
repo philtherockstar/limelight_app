@@ -22,3 +22,30 @@
 = link_to 'Edit', edit_stage_path(@stage)
 \|
 = link_to 'Back', stages_path
+%p
+%div.panel.panel-default
+  %div.panel-heading
+    Rent History
+  %div.panel-body
+    %table.table.table
+      %tr
+        %th
+          Amount Due
+        %th
+          Rent Due On
+        %th
+          Amount Paid
+        %th
+          Rent Paid On
+        %th
+          Payment Method
+      - @stage.rents.each do |rent|
+        %tr
+          %td=number_to_currency(rent.rent_due)
+          %td=rent.rent_due_on.strftime("%m/%d/%Y") if rent.rent_due_on
+          %td=number_to_currency(rent.rent_paid)
+          %td=rent.rent_paid_on.strftime("%m/%d/%Y") if rent.rent_paid_on
+          %td=rent.rent_payment_method
+          %td
+            = link_to 'Edit', "/rents/#{rent.id}/edit"
+            %span.glyphicon.glyphicon-pencil

@@ -30,7 +30,7 @@
           %td=@property.city
           %td=@property.state.abbrev
           %td=@property.sqft
-          %td=@property.status.status
+          %td=@property.status.status if @property.status
           %td=@property.listing_price
           %td=@property.selling_price
           %td=@property.est_closing_date

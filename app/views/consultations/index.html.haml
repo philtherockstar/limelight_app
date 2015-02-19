@@ -1,0 +1,20 @@
+%div.panel.panel-default
+  %div.panel-heading
+    Listing Consultations
+  %div.panel-body
+    %table.table.table-striped
+      %thead
+        %tr
+          %th
+          %th
+          %th     
+      %tbody
+      - @consultations.each do |consultation|
+        %tr
+          %td= link_to 'Show', consultation
+          %td= link_to 'Edit', edit_consultation_path(consultation)
+          %td= link_to 'Destroy', consultation, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Consultation', new_consultation_path

@@ -35,7 +35,7 @@
       - @bids.each do |bid|
         %tr
           %td="#{bid.property.address}, #{bid.property.city}"
-          %td=bid.bidstatus.status
+          %td=bid.bidstatus.status if bid.bidstatus
           %td="#{bid.clients.first.first_name} #{bid.clients.first.last_name}"
           %td="#{bid.realtors.first.first_name} #{bid.realtors.first.last_name}"
           %td=bid.bid_date.strftime("%m/%d/%Y") if bid.bid_date

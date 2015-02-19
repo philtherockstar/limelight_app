@@ -213,11 +213,23 @@ class BidsController < ApplicationController
               @realtor.email = params['realtor']['email']
               @realtor.business_id = current_user.business_id
               @realtor.save
-              @bid.realtors << @realtor
+              begin
+                @bid.realtors << @realtor
+              rescue ActiveRecord::RecordNotUnique => e
+                logger.info(e.message)
+                logger.info('ok. move on')
+              end
+
             end
           end          
 
-          @bid.save
+          begin
+            @bid.save
+          rescue ActiveRecord::RecordNotUnique => e
+            if e.message.match(/bids_realtors/)
+              logger.info('bids_realtors')
+            end
+          end
         end
       end
       redirect_to("/bids/step2/"+@bid.id.to_s)

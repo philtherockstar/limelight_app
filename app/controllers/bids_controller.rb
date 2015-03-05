@@ -92,7 +92,7 @@ class BidsController < ApplicationController
           @bid.weeks_included = params[:bid][:weeks_included]
           @bid.discount_percent = params[:bid][:discount_percent]
           @bid.discount_amount = params[:bid][:discount_amount]
-          if params['client']['first_name'].size > 0 || params['client']['last_name'].size > 0
+          if params['client']['first_name'].size > 0 #|| params['client']['last_name'].size > 0
             Client.transaction do
               if params['client']['id'].to_i > 0
                 @client = Client.find(params['client']['id'])
@@ -105,10 +105,15 @@ class BidsController < ApplicationController
               @client.email = params['client']['email']
               @client.business_id = current_user.business_id
               @client.save
-              @bid.clients << @client 
+              begin
+                @bid.clients << @client
+              rescue ActiveRecord::RecordNotUnique => e
+                logger.info(e.message)
+                logger.info('ok. move on')
+              end  
             end
           end
-          if params['realtor']['first_name'].size > 0 || params['realtor']['last_name'].size > 0
+          if params['realtor']['first_name'].size > 0 #|| params['realtor']['last_name'].size > 0
             Realtor.transaction do
               if params['realtor']['id'].to_i > 0
                 @realtor = Realtor.find(params['realtor']['id'])
@@ -123,10 +128,21 @@ class BidsController < ApplicationController
               @realtor.email = params['realtor']['email']
               @realtor.business_id = current_user.business_id
               @realtor.save
-              @bid.realtors << @realtor
+              begin
+                @bid.realtors << @realtor
+              rescue ActiveRecord::RecordNotUnique => e
+                logger.info(e.message)
+                logger.info('ok. move on')
+              end
             end
           end                 
-          @bid.save
+          begin
+            @bid.save
+          rescue ActiveRecord::RecordNotUnique => e
+            if e.message.match(/bids_realtors|bids_clients/)
+              logger.info('bids_realtors')
+            end
+          end
         end
       end
       #redirect_to("/bids/show/"+@bid.id.to_s)

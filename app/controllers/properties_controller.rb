@@ -5,7 +5,7 @@ class PropertiesController < ApplicationController
   respond_to :html
 
   def index
-    @properties = Property.all
+    @properties = Property.all.order("ID desc")
     respond_with(@properties)
   end
 

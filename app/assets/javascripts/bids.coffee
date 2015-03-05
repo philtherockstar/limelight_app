@@ -61,6 +61,78 @@ ready_home = ->
       console.log('yes')
       $('form').submit()
 
+ready_consultations = ->
+  $('#property_city').change ->
+    console.log("state_id=#{property_state_id}")
+    $.ajax
+      url: "/property/search"
+      data:
+        address: $('#property_address').val()
+        city: $(@).val()
+        state_id: $('#property_state_id').val()
+      success: (data,status,response) ->
+        if data.error == true
+          console.log('success but error')
+        else
+          if data.length > 0 
+            console.log('got addr')
+            $("#consultations_prop_addr_group").removeClass('has-success').addClass('has-error')
+            $("#consultations_prop_city_group").removeClass('has-success').addClass('has-error')
+            $('.help-block').html("This property is already in the database")
+          else
+            console.log('address not found')
+            $("#consultations_prop_addr_group").removeClass('has-error').addClass('has-success')
+            $("#consultations_prop_city_group").removeClass('has-error').addClass('has-success')
+            $('.help-block').html("")
+      error: ->
+        console.log('error')
+      dataType: "json"
+  $('#property_sqft').change ->
+    sqft=$(@).val()
+    if isFinite(sqft) and parseInt(sqft) < 20000
+      console.log("sqft=#{sqft}")
+      $("#consultations_prop_sqft_group").removeClass('has-error').addClass('has-success')
+      $('.help-block').html("")
+    else
+      $("#consultations_prop_sqft_group").removeClass('has-success').addClass('has-error')
+      $('.help-block').html("Square Feet must be a number < 20,000")
+
+  $('#client_first_name').autocomplete(
+    minLength: 2
+    source:'/client/search'
+    select: (event,ui) ->
+      console.log('ui ' + ui.item.first_name)
+      $('#client_id').val(ui.item.id)
+      $('#client_first_name').val(ui.item.first_name)
+      $('#client_last_name').val(ui.item.last_name)
+      $('#client_phone').val(ui.item.phone)
+      $('#client_email').val(ui.item.email)
+      false
+    ).data('ui-autocomplete')._renderItem = ( ul, item ) ->
+      $( "<li>" )
+        .data( "item.autocomplete", item)
+        .append( item.first_name + " " + item.last_name )
+        .appendTo( ul )
+  $('#realtor_first_name').autocomplete(
+    minLength: 2
+    source:'/realtor/search'
+    select: (event,ui) ->
+      console.log('ui ' + ui.item.address)
+      $('#realtor_id').val(ui.item.id)
+      $('#realtor_first_name').val(ui.item.first_name)
+      $('#realtor_last_name').val(ui.item.last_name)
+      $('#realtor_phone').val(ui.item.phone)
+      $('#realtor_email').val(ui.item.email)
+      false
+    ).data('ui-autocomplete')._renderItem = ( ul, item ) ->
+      $( "<li>" )
+        .data( "item.autocomplete", item)
+        .append( item.first_name + " " + item.last_name)
+        .appendTo( ul )
+  $('#consultations_save_button').click (e) ->
+    console.log('consultations_save_button clicked')
+    $('#consultations_form').submit()
+
 ready_step1 = -> 
   $('#property_city').change ->
     console.log("state_id=#{property_state_id}")
@@ -334,6 +406,9 @@ load_my_js = ->
   else if url.match(/bids\/edit/)
     console.log('I matched bids/edit')
     ready_step1()
+  else if url.match(/consultations\/[\d*][\/*][new|edit]/)
+    console.log('I matched consultations/new or edit')
+    ready_consultations()
   else
     console.log('no url matched')
     ready_home()

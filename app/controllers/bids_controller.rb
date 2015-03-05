@@ -147,15 +147,15 @@ class BidsController < ApplicationController
       
       logger.fatal('Could not create a property and bid')
       logger.fatal(e.message)
-      redirect_to "/bids/edit", alert: 'Could not save to the databases. Maybe not all the required fields were entered?'
+      redirect_to "/bids/edit", alert: 'Effin crap! Something went wrong. Call Phil!'
       #render action: 'new'
     end
   end
 
   def step1proc
-    @property=nil
     @client=nil
     @realtor=nil
+    @property=nil
     begin
       Property.transaction do
         
@@ -195,7 +195,12 @@ class BidsController < ApplicationController
               @client.email = params['client']['email']
               @client.business_id = current_user.business_id
               @client.save
-              @bid.clients << @client
+              begin
+                @bid.clients << @client
+              rescue ActiveRecord::RecordNotUnique => e
+                logger.info(e.message)
+                logger.info('ok. move on')
+              end              
             end
           end
           if params['realtor']['first_name'].size > 0 || params['realtor']['last_name'].size > 0
@@ -226,7 +231,7 @@ class BidsController < ApplicationController
           begin
             @bid.save
           rescue ActiveRecord::RecordNotUnique => e
-            if e.message.match(/bids_realtors/)
+            if e.message.match(/bids_realtors|bids_clients/)
               logger.info('bids_realtors')
             end
           end
@@ -238,7 +243,7 @@ class BidsController < ApplicationController
       
       logger.fatal('Could not create a property and bid')
       logger.fatal(e.message)
-      redirect_to "/bids/step1", alert: 'Could not save to the databases. Maybe not all the required fields were entered?'
+      redirect_to "/bids/step1", alert: 'Effin crap! Something went wrong. Call Phil!'
       #render action: 'new'
     end
   end

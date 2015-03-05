@@ -6,15 +6,43 @@
       %thead
         %tr
           %th
+            Property
           %th
-          %th     
+            Client
+          %th 
+            Realtor
+          %th
+            Minutes
+          %th
+            Fee
+          %th
+            Date
+          %th
+          %th
+          %th    
       %tbody
       - @consultations.each do |consultation|
         %tr
-          %td= link_to 'Show', consultation
-          %td= link_to 'Edit', edit_consultation_path(consultation)
-          %td= link_to 'Destroy', consultation, :method => :delete, :data => { :confirm => 'Are you sure?' }
+          %td="#{consultation.property.address} #{consultation.property.city}"
+          %td
+            - if consultation.client
+              ="#{consultation.client.first_name} #{consultation.client.last_name}"
+          %td
+            - if consultation.realtor
+              ="#{consultation.realtor.first_name} #{consultation.realtor.last_name}"
+          %td=consultation.minutes
+          %td=number_to_currency(consultation.fee)
+          %td=consultation.consultation_date.strftime("%m/%d/%Y") if consultation.consultation_date
+          %td
+            = link_to 'Show', consultation
+            %span.glyphicon.glyphicon-eye-open
+          %td
+            = link_to 'Edit', edit_consultation_path(consultation)
+            %span.glyphicon.glyphicon-pencil
+          %td
+            = #link_to 'Destroy', consultation, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
 
 = link_to 'New Consultation', new_consultation_path
+%span.glyphicon.glyphicon-plus

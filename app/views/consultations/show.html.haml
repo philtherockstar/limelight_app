@@ -1,4 +1,33 @@
 %p#notice= notice
+%div.panel.panel-default
+  %div.panel-heading
+    ="Details for consultation of #{@consultation.property.address}, #{@consultation.property.city}"
+  %div.panel-body
+    %table.table.table
+      %thead
+        %tr
+          %th
+            Consultation Date
+          %th
+            Minutes
+          %th
+            Fee
+          %th
+            Client
+          %th
+            Realtor
+      %tbody
+        %tr
+          %td=@consultation.consultation_date.strftime("%m/%d/%Y") if @consultation.consultation_date
+          %td=@consultation.minutes
+          %td=@consultation.fee
+          %td
+            - if @consultation.client
+              ="#{@consultation.client.first_name} #{@consultation.client.last_name}"
+          %td
+            - if @consultation.realtor
+              ="#{@consultation.realtor.first_name} #{@consultation.realtor.last_name}"
+
 
 
 = link_to 'Edit', edit_consultation_path(@consultation)

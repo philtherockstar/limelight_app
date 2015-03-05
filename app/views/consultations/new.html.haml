@@ -1,5 +1,14 @@
-%h1 New consultation
+%div.row
+  %div.col-xs-12
+    %div.panel.panel-default
+      %div.panel-heading
+        New Consultation
+      %div.panel-body
+        %form{ :action => "/consultations", :method => "post", :class => "form-horizontal", :role => "form", :id => "consultations_form"}
+          = render 'form' 
+          %div.form-group.has-feedback{ :id => "consultations_button"}
+            %div.col-xs-12
+              %button{ :class => "step1_form_button", :name => "commit", :type => "button", :id => "consultations_save_button" }Save
 
-= render 'form'
 
 = link_to 'Back', consultations_path

@@ -1,10 +1,150 @@
-= form_for @consultation do |f|
-  - if @consultation.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@consultation.errors.count, "error")} prohibited this consultation from being saved:"
-      %ul
-        - @consultation.errors.full_messages.each do |msg|
-          %li= msg
+= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token)
 
-  .actions
-    = f.submit 'Save'
+- if @consultation.id?
+  - property_id = @consultation.property.id
+  - property_address = @consultation.property.address
+  - property_city = @consultation.property.city
+  - property_sqft = @consultation.property.sqft
+  - property_state_id = @consultation.property.state_id
+  - property_country_id = @consultation.property.country_id
+  - consultation_fee = @consultation.fee
+  - consultation_minutes = @consultation.minutes
+- else
+  - property_id = 0
+  - property_address = ''
+  - property_city = ''
+  - property_sqft = ''
+  - property_state_id = 6
+  - property_country_id = 226
+  - consultation_fee = 150
+  - consultation_minutes = 60
+
+-unless @consultation.client.nil?
+  - client_id = @consultation.client.id
+  - client_first_name = @consultation.client.first_name
+  - client_last_name = @consultation.client.last_name
+  - client_phone = @consultation.client.phone
+  - client_email = @consultation.client.email
+- else
+  - client_id = 0
+  - client_first_name = ''
+  - client_last_name = ''
+  - client_phone = ''
+  - client_email = ''
+
+-unless @consultation.realtor.nil?
+  - realtor_id = @consultation.realtor.id
+  - realtor_first_name = @consultation.realtor.first_name
+  - realtor_last_name = @consultation.realtor.last_name
+  - realtor_phone = @consultation.realtor.phone
+  - realtor_email = @consultation.realtor.email
+- else
+  - realtor_id = 0
+  - realtor_first_name = ''
+  - realtor_last_name = ''
+  - realtor_phone = ''
+  - realtor_email = ''
+
+%div.row
+  %div.col-xs-12
+    %div.form-group.has-feedback{ :id => "consultations_prop_addr_group"}
+      %div.col-xs-12
+        %span.help-block
+        %label.col-xs-2.control-label{ :for => "Address"}
+          Property Address:
+        %div.col-xs-4
+          = hidden_field :property, :id, :value => property_id
+          = hidden_field :property, :state_id, :value => property_state_id
+          = hidden_field :property, :country_id, :value => property_country_id 
+          = hidden_field :client, :id, :value => client_id
+          = hidden_field :realtor, :id, :value => realtor_id
+          - if @consultation.id?
+            = hidden_field :consultation, :id, :value => @consultation.id
+          %input.form-control{ :type => "text", :id => "property_address", :value => property_address, :name => "property[address]"}            
+    %div.form-group.has-feedback{ :id => "consultations_prop_city_group"}
+      %div.col-xs-12
+        %label.col-xs-2.control-label{ :for => "City"}
+          City:
+        %div.col-xs-4
+          = select :property, :city, @cities, :selected => property_city, :class => "form-control"
+    %div.form-group.has-feedback{ :id => "consultations_prop_sqft_group"}
+      %div.col-xs-12
+        %label.col-xs-2.control-label{ :for => "Square Feet"}
+          Square Feet:
+        %div.col-xs-2
+          = text_field :property, :sqft, :value => property_sqft, :class => "form-control"
+    %div.row
+      %div.col-xs-12
+        %div.form-group.has-feedback{ :id => "consultation_date_group"}
+          %div.col-xs-12
+            %span.help-block
+            %label.col-xs-2.control-label{ :for => "Consultation Date"}
+              Consultation Date:
+            %div.col-xs-5
+              = date_select :consultation, :consultation_date, :prompt => { :day => '', :month => '', :year => '' }, :class => "form-control"
+    %div.row
+      %div.col-xs-12
+        %div.form-group.has-feedback{ :id => "consultation_minutes_group"}
+          %div.col-xs-12
+            %span.help-block
+            %label.col-xs-2.control-label{ :for => "Consultation Minutes"}
+              Minutes:
+            %div.col-xs-5
+              =text_field :consultation, :minutes, :value => consultation_minutes, :class => "form-control"
+    %div.row
+      %div.col-xs-12
+        %div.form-group.has-feedback{ :id => "consultation_fee_group"}
+          %div.col-xs-12
+            %span.help-block
+            %label.col-xs-2.control-label{ :for => "Consultation Fee"}
+              Consultation Fee:
+            %div.col-xs-5
+              = text_field :consultation, :fee, :value => consultation_fee, :class => "form-control"
+    %div.form-group.has-feedback{ :id => "consultations_client_first_name"}
+      %div.col-xs-12
+        %label.col-xs-2.control-label{ :for => "Client First Name"}
+          Client First Name:
+        %div.col-xs-4
+          = text_field :client, :first_name, :value => client_first_name, :class => "form-control"
+    %div.form-group.has-feedback{ :id => "consultations_client_last_name"}
+      %div.col-xs-12
+        %label.col-xs-2.control-label{ :for => "Client Last Name"}
+          Client Last Name:
+        %div.col-xs-4
+          = text_field :client, :last_name, :value => client_last_name, :class => "form-control"
+    %div.form-group.has-feedback{ :id => "consultations_client_phone"}
+      %div.col-xs-12
+        %label.col-xs-2.control-label{ :for => "Client Phone"}
+          Client Phone:
+        %div.col-xs-4
+          = phone_field :client, :phone, :value => client_phone, :class => "form-control"
+    %div.form-group.has-feedback{ :id => "consultations_client_email"}
+      %div.col-xs-12
+        %label.col-xs-2.control-label{ :for => "Client Email"}
+          Client Email:
+        %div.col-xs-4
+          = email_field :client, :email, :value => client_email, :class => "form-control"
+    %div.form-group.has-feedback{ :id => "consultations_realtor_first_name"}
+      %div.col-xs-12
+        %label.col-xs-2.control-label{ :for => "Realtor First Name"}
+          Realtor First Name:
+        %div.col-xs-4
+          = text_field :realtor, :first_name, :value => realtor_first_name, :class => "form-control"
+    %div.form-group.has-feedback{ :id => "consultations_realtor_last_name"}
+      %div.col-xs-12
+        %label.col-xs-2.control-label{ :for => "Realtor Last Name"}
+          Realtor Last Name:
+        %div.col-xs-4
+          = text_field :realtor, :last_name, :value => realtor_last_name, :class => "form-control"
+    %div.form-group.has-feedback{ :id => "consultations_realtor_phone"}
+      %div.col-xs-12
+        %label.col-xs-2.control-label{ :for => "Realtor Phone"}
+          Realtor Phone:
+        %div.col-xs-4
+          = phone_field :realtor, :phone, :value => realtor_phone, :class => "form-control"
+    %div.form-group.has-feedback{ :id => "consultations_realtor_email"}
+      %div.col-xs-12
+        %label.col-xs-2.control-label{ :for => "Realtor Email"}
+          Realtor Email:
+        %div.col-xs-4
+          = email_field :realtor, :email, :value => realtor_email, :class => "form-control"

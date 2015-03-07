@@ -80,8 +80,6 @@ class ConsultationsController < ApplicationController
             Realtor.transaction do
               if params['realtor']['id'].to_i > 0
                 @realtor = Realtor.find(params['realtor']['id'])
-              elsif @consultation.realtors.size > 0
-                @realtor = @consultation.realtors[0]
               else
                 @realtor = Realtor.new
               end
@@ -176,7 +174,7 @@ class ConsultationsController < ApplicationController
               @realtor.email = params['realtor']['email']
               @realtor.business_id = current_user.business_id
               @realtor.save
-              @consultation.realtors << @realtor
+              @consultation.realtor_id = @realtor.id
             end
           end                 
           @consultation.save

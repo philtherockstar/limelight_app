@@ -12,6 +12,14 @@
           %th
             City
           %th
+            SQFT
+          %th
+            Listing Price
+          %th
+            Selling Price
+          %th
+            Status
+          %th
           %th
           %th
       %tbody
@@ -20,6 +28,10 @@
           %td=property.id
           %td=property.address
           %td=property.city
+          %td=property.sqft
+          %td=number_to_currency(property.listing_price) if property.listing_price
+          %td=number_to_currency(property.selling_price) if property.selling_price
+          %td=property.status.status if property.status_id
           %td
             = link_to 'Show', property
             %span.glyphicon.glyphicon-eye-open

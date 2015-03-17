@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :contracts
+
   resources :consultations
 
   resources :rents
@@ -30,6 +32,8 @@ Rails.application.routes.draw do
   # root 'welcome#index'
   root 'home#index'
 
+   get 'contract/:id' => 'contract#print'
+   get 'contracts/new/:id' => 'contracts#new'
    get 'pricing_proposal/:id' => 'pricing_proposal#index'
    post 'home/find_bids' => 'home#find_bids'
    get 'bids/edit/:id' => 'bids#edit'

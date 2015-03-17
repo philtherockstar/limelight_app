@@ -31,6 +31,7 @@
             Bid Total
           %th
           %th
+          %th
       %tbody
       - @bids.each do |bid|
         %tr
@@ -55,6 +56,9 @@
             %span.glyphicon.glyphicon-pencil
           %td
             =link_to 'Edit Bid Details', "/bids/step1/#{bid.id}"
+            %span.glyphicon.glyphicon-pencil
+          %th
+            =link_to 'New Contract', "/contracts/new/#{bid.id}"
             %span.glyphicon.glyphicon-pencil
 
         <!-- %td= link_to 'Show', bid -->

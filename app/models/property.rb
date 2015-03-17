@@ -4,6 +4,7 @@ class Property < ActiveRecord::Base
   has_many :stages
   has_many :rents
   has_many :consultations
+  has_many :contracts
   validates :address, :city, presence: true
   belongs_to :state
   belongs_to :country

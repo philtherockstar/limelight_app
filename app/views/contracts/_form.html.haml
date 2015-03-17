@@ -1,0 +1,102 @@
+= form_for @contract do |f|
+  - if @contract.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@contract.errors.count, "error")} prohibited this contract from being saved:"
+      %ul
+        - @contract.errors.full_messages.each do |msg|
+          %li= msg
+  =f.hidden_field :property_id
+  =f.hidden_field :bid_id
+  =f.hidden_field :client_id
+  %div.row
+    %div.col-xs-12
+      %div.form-group.has-feedback{ :id => "contract_legal_name_group"}
+        %div.col-xs-12
+          %span.help-block
+          %label.col-xs-2.control-label{ :for => "Legal Name"}
+            Legal Name:
+          %div.col-xs-5
+            =f.text_field :legal_name, :class => "form-control"
+  %div.row
+    %div.col-xs-12
+      %div.form-group.has-feedback{ :id => "contract_proposal_filename_group"}
+        %div.col-xs-12
+          %span.help-block
+          %label.col-xs-2.control-label{ :for => "Proposal Filename"}
+            Proposal Filename:
+          %div.col-xs-5
+            =f.text_field :proposal_filename, :class => "form-control"
+  %div.row
+    %div.col-xs-12
+      %div.form-group.has-feedback{ :id => "contract_proposal_mailed_to_group"}
+        %div.col-xs-12
+          %span.help-block
+          %label.col-xs-2.control-label{ :for => "Proposal Mailed To"}
+            Proposal Mailed To:
+          %div.col-xs-5
+            =f.text_field :proposal_mailed_to, :class => "form-control"
+  %div.row
+    %div.col-xs-12
+      %div.form-group.has-feedback{ :id => "contract_proposal_mail_date_group"}
+        %div.col-xs-12
+          %span.help-block
+          %label.col-xs-2.control-label{ :for => "Proposal Mail Date"}
+            Proposal Maied On:
+          %div.col-xs-5
+            = date_select :contract, :proposal_mail_date, :default => nil, :prompt => { :day => '', :month => '', :year => '' }, :class => "form-control"
+  %div.row
+    %div.col-xs-12
+      %div.form-group.has-feedback{ :id => "contract_proposed_rooms_group"}
+        %div.col-xs-12
+          %span.help-block
+          %label.col-xs-2.control-label{ :for => "Proposed Rooms"}
+            Proposed Rooms:
+          %div.col-xs-10
+            =f.text_field :proposed_rooms, :class => "form-control"
+  %div.row
+    %div.col-xs-12
+      %div.form-group.has-feedback{ :id => "contract_staging_dates_group"}
+        %div.col-xs-12
+          %span.help-block
+          %label.col-xs-2.control-label{ :for => "Staging Dates"}
+            Staging Dates:
+          %div.col-xs-5
+            =f.text_field :staging_dates, :class => "form-control"
+  %div.row
+    %div.col-xs-12
+      %div.form-group.has-feedback{ :id => "contract_nonmovable_items_group"}
+        %div.col-xs-12
+          %span.help-block
+          %label.col-xs-2.control-label{ :for => "Nonmovable Items"}
+            Nonmovable Items:
+          %div.col-xs-5
+            =f.text_field :nonmovable_items, :class => "form-control"
+  %div.row
+    %div.col-xs-12
+      %div.form-group.has-feedback{ :id => "contract_staging_cost_group"}
+        %div.col-xs-12
+          %span.help-block
+          %label.col-xs-2.control-label{ :for => "Staging Cost"}
+            Staging Cost:
+          %div.col-xs-5
+            =f.text_field :staging_cost, :class => "form-control"
+  %div.row
+    %div.col-xs-12
+      %div.form-group.has-feedback{ :id => "contract_included_rental_group"}
+        %div.col-xs-12
+          %span.help-block
+          %label.col-xs-2.control-label{ :for => "Included Rental"}
+            Included Rental:
+          %div.col-xs-5
+            =f.text_field :included_rental, :class => "form-control"
+  %div.row
+    %div.col-xs-12
+      %div.form-group.has-feedback{ :id => "contract_weekly_rental_group"}
+        %div.col-xs-12
+          %span.help-block
+          %label.col-xs-2.control-label{ :for => "Weekly Rental"}
+            Weekly Rental:
+          %div.col-xs-5
+            =f.text_field :weekly_rental, :class => "form-control"
+  .actions
+    = f.submit 'Save'

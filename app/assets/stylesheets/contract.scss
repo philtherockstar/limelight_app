@@ -1,0 +1,69 @@
+// Place all the styles related to the pricing_proposal controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+@page { size:8.5in 11in; margin: 2cm }
+@page :first {
+  margin-top: 50cm    /* Top margin on first page 10cm */
+}
+#contract_header{
+  width: 658px;
+}
+#contract_logo{
+	height: 75px;
+	/*background-color: #9af80e;*/
+}
+h1,h2,h3,h4{
+	text-align: center;
+}
+p,pre{
+	width: 658px;
+	margin: 10px 10px 0px 10px;
+	background-color: #fff;
+
+}
+pre{
+	padding: 10px 10px 0px 10px;
+}
+ol > li > ol > li > ol {list-style-type:lower-alpha;width: 658px;}
+ol > li {
+    counter-increment: root;
+    width: 648px;
+}
+
+ol > li > ol {
+    counter-reset: subsection;
+    list-style-type: lower-alpha;
+}
+
+ol > li > ol > li {
+    counter-increment: subsection;
+    width: 628px;
+}
+
+ol > li > ol > li > ol{
+    counter-reset: subsection;
+    list-style-type: lower-roman;
+}
+ol > li > ol > li > ol > li{
+    counter-increment: subsection;
+    width: 588px;
+}
+
+
+#contract_agreement{
+	width: 658px;
+	text-align: center;
+	font-style: italic;
+	margin: 10px 0px 15px 0px;
+	/*font-weight: bold;*/
+	font-size: 1.4em;
+}
+#contract_property_address{
+	width: 658px;
+	text-align: center;
+	margin: 10px 0px 10px 0px;
+}
+#contact_language{
+	width: 658px;
+	margin: 10px 10px 0px 10px;
+}

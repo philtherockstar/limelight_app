@@ -1,0 +1,157 @@
+%div#contract_header
+  %div#contract_logo
+    %h1
+      Limelight Home Staging
+    %h4
+      (831) 708-8081
+#div#contract_agreement
+  Agreement for Professional Home Staging® & Design Services
+%p
+  ="This Agreement for Professional Home Staging Services is made by and between "
+  %u
+    =@contract.legal_name
+  ="and #{current_user.business.name} of #{current_user.business.address}, #{current_user.business.city}, CA.  In this Agreement, the party who is contracting to receive the services shall be referred to as \“Client\”, and the party who will be providing the services shall be referred to as \“#{current_user.business.name}\”. This agreement shall be made effective on "
+  %u
+    the date the Client signs this agreement."
+%div#contract_property_address
+  Address of Property to Be Staged:<br/>
+  ="#{@contract.property.address}"
+  %br
+    ="#{@contract.property.city}, #{@contract.property.state.abbrev}"
+%p
+  ="DESCRIPTION OF SERVICES. Limelight Home Staging will provide the staging services as detailed in the pricing proposal (titled: #{@contract.proposal_filename}) e-mailed to, #{@contract.proposal_mailed_to}, on #{@contract.proposal_mail_date}. The staging will include staging in [#{@contract.proposed_rooms}]"
+%div#contract_language
+  %ol
+    %li
+      CLIENT CONSENT
+      %ol    
+        %li
+          ="Client hereby grants Limelight Home Staging, and its employees, agents, independent contractors and suppliers, permission to enter upon and use the Property for the purpose of providing the Home Staging Services.  The staging is scheduled to take place on #{@contract.staging_dates}. Any delay caused by events beyond the control of Limelight Home Staging shall not constitute abandonment and shall not be included in calculating time frames for payment or performance."
+        %li
+          Client agrees to protect any and all valuables in or about the property that are not to be used in the staging process by removing them to safe storage before the agreed upon staging time.
+        %li
+          ="Client acknowledges and agrees that the Client’s belongings may or may not be moved from room to room, or rearranged, or removed for storage (in the garage) at the sole discretion of #{current_user.business.name}.   Client further acknowledges and agrees that #{current_user.business.name} may use nails or other similar materials to hang or display accessories as part of the Home Staging Services."
+        %li
+          ="Client hereby grants permission to #{current_user.business.name} for anything on the Property to be moved or rearranged, including furniture or items from cupboards, pantries, closets, drawers, and the like as #{current_user.business.name} deems necessary in its sole discretion to prepare the Property for sale except for the following item(s): "
+          ="#{@contract.nonmovable_items}"
+    %li
+      ="PHOTOGRAPHY & PUBLICITY RELEASE. Client agrees to allow #{current_user.business.name} to photograph staged areas of the Property before and after the work is completed and to use all such photographs for reference and marketing purposes."
+    %li
+      RELEASE & WAIVER
+      %ol
+        %li
+          Assumption of Risk
+          %ol
+            %li
+              Client assumes responsibility for any inventory rented from Limelight Home Staging.  In the event that rented items are lost, destroyed, damaged or stolen, the Client will be assessed a replacement fee for the lost, destroyed, damaged or stolen rental items. The replacement fee will include any fees associated with replacing the lost, destroyed, damaged or stolen rental items.  The fees could include labor costs, taxes and shipping costs. The client will be charged the full new retail replacement value for the lost, destroyed, damaged or stolen rental items. Should any item be discontinued, client will be charged the full new retail replacement value for a comparable item at the discretion of Limelight Home Staging.
+            %li
+              Client acknowledges and agrees that furnishings and accessories leased by Limelight Home Staging are for display purposes only while the property remains Staged and are not to be used in any other fashion. Client acknowledges and agrees that any area of the property that is staged by Limelight Home Staging will be treated as a vacant area of the property and is not to be used by anyone other than for the purpose of showing the home to potential home buyers. Should the staged items be used for any purpose other than display only, Client hereby assumes all liability for the cost of repairing or replacing any rented item that has received major or minor damage or markings. The Client will be assessed a repairing fee, cleaning fee or a replacement fee for the damage to rental items used outside the terms outlined in this contract. The replacement fee for any damaged item will include any fees associated with replacing the damaged rental items.  The fees could include labor costs, taxes and shipping costs. The client will be charged the full new retail replacement value for the lost, destroyed, damaged or stolen rental items. Should any item be discontinued, client will be charged the full new retail replacement value for a comparable item at the discretion of Limelight Home Staging.
+            %li
+              Client assumes all responsibility for personal property and for any markings or holes from artwork and/or furnishings incurred during installation, display and/or removal throughout the Staging process. The installation of mirrors, artwork, wall hangings and other furnishings, during the Staging process, may require hooks and/or nails to be placed in the walls of property.  Upon removal, small holes will be left.  Touch up work on these is the responsibility of Client.
+            %li
+              Client acknowledges that the use of rugs and beds on all types of hardwood, laminate, and vinyl flooring may introduce discoloration to the flooring. Client further acknowledges that discoloration occurs naturally over time when hardwood/laminate/vinyl flooring are covered, as the organic or synthetic material doesn’t cure at the same rate with limited exposure to air and light rays. Client agrees that said discoloration is not considered damage to the flooring and will not hold Limelight Home Staging liable for damages due to any discoloration of any flooring resulting from the staging process.
+        %li
+          Hold Harmless
+          %ol
+            %li
+              Limelight Home Staging is not liable for any personal injury or property damage resulting in whole or part, directly or indirectly, from the Staging process and/or from any use of rented furnishings and Client acknowledges and agrees to assume any such risk.
+        %li
+          Limitation of Liability
+          %ol
+            %li
+              Client hereby agrees that in no event shall Limelight Home Staging, its Officers, Employees, Agents, Contractors and/or Suppliers’ total and aggregate liability under this agreement exceed the amount of fees paid by the Client.
+        %li
+          Absence of Warranties/Guarantees
+          %ol
+            %li
+              Client understands that Limelight Home Staging does not and cannot guarantee success or any particular result. While we shall use our best professional efforts to achieve a successful result, we can make no warranty or guarantee expressed or implied as to the successful sale of the Property in your favor. An expression of the relative merits of the Property and your chances of success are only expressions of opinion and estimates.
+            %li
+              Client understands that furniture and accessories are chosen to attract the widest range of potential buyers.  The items chosen will not always fit into the personal taste of the Client or any one individual.  Inventory and furniture selections are at the sole discretion of Limelight Home Staging. No substitutions and inventory exchanges shall be made to conform to the personal taste of the client or any one individual.
+            %li
+              Client understands that if he/she asks to have changes or additional items added, Limelight Home Staging will only add those items if they are available and if Limelight Home Staging agrees that adding those items will enhance and not hinder the sale of the property.  Client understands that he/she will be charged additional staging fees for any additions or changes.  The fees will be paid upfront before any additional item is delivered or exchanged. 
+    %li
+      ="PAYMENT FOR SERVICES.  Client will pay compensation to Limelight Home Staging, for the Home Staging Services in the amount of   #{@contract.staging_cost} for the installation of Staging and inventory items. This fee includes the #{@contract.included_rental} rental. The total amount of #{@contract.staging_cost} is due immediately upon the signing of this staging contract. After #{@contract.included_rental}, if any additional months of furniture rental is needed, the continued fee for monthly rental of inventory is #{@contract.weekly_rental} per week. The additional #{@contract.weekly_rental} weekly fee is available after the initial #{@contract.included_rental} lease and will be billed monthly in advance; any unused weekly fees not used during an escrow period will be refunded by check within 4-6 business days. After the initial #{@contract.included_rental} lease, the weekly rental fees shall be due and payable at the onset of every additional monthly billing cycle. Failure to pay ongoing rental on time may result in removal of all Staging inventory.  If for any reason the house is removed from active listing for sale, Client agrees to pay Limelight Home Staging in full for all services and rental costs incurred."
+      %ol
+        %li
+          Client is required to sign the contract whether or not the client is financially obligated for the staging fee.
+        %li
+          Client understands that the Staging fee is not paid on commission basis and that Staging fees are due and payable as outlined above in section 4 – Payment For Services. Nonetheless, if any part or all of the balance due is not paid prior to this close of escrow, then the acceptance of the terms in the contract shall constitute an irrevocable escrow instruction that the balance shall be paid from sale proceeds.
+    %li
+      CANCELLATION NOTICE. This contract length is offered for 90 days in total.  After 90 days, this contract is subject to a 48 hour cancellation notice at the discretion of Limelight Home Staging.  If there are any damages to our property, evidence that the property was not vacant, drug use on the premises or any other unsavory activities, Limelight Home Staging reserves the right to cancel the contract at any time, without a 48 hour cancellation notice, and immediately remove our furniture and accessory items with no refund of any monies paid.
+    %li
+      CANCELLATION POLICY.  This agreement for services may be canceled by either party upon 7 days written notice to the other party.  Any cancellation made 7 days prior to the staging date will not be charged a cancellation fee.  Any cancellation made less than 7 days before the staging date will be responsible to pay a 20% cancellation fee of the total project fee. Any cancellation made within 48 hours of the Staging date will be responsible to pay 50% of the total Staging project fee. Limelight Home Staging will expect payment immediately for this fee or will put a lien on the property until satisfaction of the balance is received. Once the property staging has begun and/or been completed, no refunds will be granted of the total project fee for any reason.
+    %li
+      INVENTORY RIDER .  In the event that the property is sold or must be taken off the market, Limelight Home Staging requires a 7-day period of notice to remove our furniture and accessories from the home. Rental fees within the initial 2 month lease will not be prorated.
+      %ol
+        %li
+          Client understands that the pick up of Limelight Home Staging’s furniture and accessories will be scheduled according to Limelight Home Staging’s availability.  Limelight Home Staging will not accommodate a pick-up request that falls outside of their availability.  
+        %li
+          Client understands that Limelight Home Staging’s furniture and accessories must be picked up prior to the close of escrow/recording/transfer to a new owner.  Therefore, Client will provide at least a 7-day period of notice for removal of items so that Limelight Home Staging can pick up their furniture and accessories prior to the escrow/recording/transfer to a new owner.
+        %li
+          Client agrees that if Client does not give Limelight Home Staging the required 7-day notice in order that the de-stage may take place before the close of escrow/recording/transfer to a new owner, and instead requests a specific date or date range, there will be a <u>$350.00</u> rush de-staging fee.  The $350.00 rush de-staging fee will be paid prior to the furniture pick-up.  The rush de-staging will be scheduled according to Limelight Home Staging’s availability.
+        %li
+          Client understands that the furniture and accessory pick up will be scheduled according to Limelight Home Staging’s availability.  If the Client decides that they would like to have the property de-staged on a date specified by the Client, Limelight Home Staging makes no guarantee that our schedule will permit a pick-up on the client’s specified date.  Limelight Home Staging will review their schedule.  If they are able to rearrange their schedule to accommodate the Client’s request for pick-up on the specified date, a $350.00 fee will be charged to the Client for pick up on their specified date.  The $350.00 fee will be paid prior to the furniture pick-up. If Limelight Home Staging is not able to accommodate the furniture pick up on the Client’s specified date, the furniture will be picked up according to Limelight Home Staging availability.
+        %li
+          Client understands that they will be charged continued rental for the furniture and accessories through and until Limelight Home Staging picks up and takes possession of their furniture and accessories.
+    %li
+      ENTIRE AGREEMENT.  This Agreement contains the entire agreement of the parties, and there are no other promises or conditions in any other agreement whether oral or written.
+    %li
+      Seller/Client agrees to the following conditions:
+      %ol
+        %li
+          House will be “Stage ready” upon our arrival or $300 fee will be assessed for our time and inconvenience. This includes any repair or remodeling work, cleaning, removal of items, a resident, owner, renter, or otherwise, living in and having not fully vacated the premises. 
+        %li
+          If within 48 hours of the scheduled staging date, the client chooses to delay the staging installation, the client has two options
+          %ol
+            %li
+              Client may elect to pay $100 per day fee (due upon completion of the Staging installation) until the end of the day of Staging installation completion, then the next day would be become day one of the 60 day Staging period. Scheduling of return to incomplete Stage is subject to Limelight Home Staging’s availability.
+            %li
+              Client may also elect to have the day of delay become day one of the 60 day Staging period. Client acknowledges that the 60 day rental cycle begins on the date of the delay and not on the actual staging date.
+        %li
+          Inventory installed in the home by Limelight Home Staging representatives will not be moved or re-moved by any parties except by Limelight Home Staging.
+        %li
+          Seller/Client agrees to refrain from any pest treatment while Staging items are in the house.
+        %li
+          Seller/Client will not conduct painting or other house repairs while inventory is installed that could damage or soil installed items. 
+        %li
+          Limelight Home Staging will be given a key to any vacant staged property that will be kept with Limelight Home Staging until house has been successfully de-staged.
+        %li
+          If payment for the staging or successive rental is not received in a prompt manner, Limelight Home Staging will remove its items.  If there is an outstanding balance due, we will expect payment or put a lien on the property until satisfaction of the balance is received.  
+        %li
+          If any rented inventory items are lost, stolen, damaged, destroyed or damaged through overuse, Limelight Home Staging will invoice the Client for those items as well as any fees, employee time associated with replacement of those items.  The Client will be charged full retail replacement cost for the lost, stolen, damaged, destroyed or damaged through overuse item. The invoice will become due immediately and will be paid promptly by the client. If the damages invoice is not paid immediately by the Client, Limelight will put a lien on the property until satisfaction of the balance is received.
+        %li
+          A fee of $10.00 per week for late payment will be charged for the Staging fee and/or any subsequent fee period that is not made within 7 days of due date.  In addition, Limelight Home Staging will issue a 48 hour notice of cancellation of the staging contract and Limelight Home Staging has the right to withdrawal the Staging furniture and accessory inventory with no refund of any monies paid.
+        %li
+          If for any reason the house is removed from active listing for sale, Client agrees to immediately inform Limelight Home Staging. Limelight Home Staging reserves the right issue a 48 hour notice of cancellation of the staging contract and Limelight Home Staging has the right to withdrawal the Staging furniture and accessory inventory with no refund of any monies paid.
+        %li
+          Clients agrees to notify Limelight Home Staging immediately in the event of any damages or evidence of non-vacancy.  If obvious damages are found and Limelight Home Staging is not notified, Limelight Home Staging reserves the right issue a 48 hour notice of cancellation of the staging contract and Limelight Home Staging has the right to withdrawal the Staging furniture and accessory inventory with no refund of any monies paid.
+        %li
+          Client acknowledges and agrees that this property is a vacant property and that all staging furniture and accessories are for vacant home purposes only. Upon residency, whether temporary or permanent, the furniture and accessories will be removed with no refund of any monies paid.
+        %li
+          Client agrees that there will be no pets at the property.
+        %li
+          Client agrees to pay a $50.00 fee per returned check. 
+    %li
+      APPLICABLE LAW.  This Agreement shall be governed by the laws of the State of California.
+%p
+  PARTY CONTRACTING SERVICES: (by signing below, I confirm that I have read and accept pages 1-6 of this document.)
+%pre
+  <br/>
+  By: ________________________________________on____________________ 
+  (Client Signature) 		                    Date
+
+  ______________________________________________________________
+  (Print Name)
+
+  ___________________________________________ ___________________
+  (Mailing Address)
+
+  _________________________   ___________________________________
+  (Phone Number)              (E-mail Address) 
+
+  <br/>  
+  SERVICE PROVIDER:  Limelight Home Staging / Sarah Meads, Independent Contractor<br/>
+
+  By: ________________________________________on____________________                 
+
+

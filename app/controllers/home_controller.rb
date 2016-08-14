@@ -9,8 +9,10 @@ class HomeController < ApplicationController
   def find_bids
     duplicate_same_property=false
     duplicate_new_property=false
-    duplicate_same_property=true if params[:bid_option] == 'duplicate_same_property'
-    duplicate_new_property=true if params[:bid_option] == 'duplicate_new_property'
+    @bid_option = params[:bid_option]
+    duplicate_same_property=true if @bid_option == 'duplicate_same_property'
+    duplicate_new_property=true if @bid_option == 'duplicate_new_property'
+    
     # user came back and selected a bid
     if params[:bid]
       bid=params[:bid]

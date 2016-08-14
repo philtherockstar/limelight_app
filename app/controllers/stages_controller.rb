@@ -33,6 +33,10 @@ class StagesController < ApplicationController
       property = Property.where("id = ?",@stage.property_id).first
       property.status_id = Status.where("status = 'De-Staged'").first.id
       property.save
+    elsif Date.new(params[:stage]['stage_date(1i)'].to_i, params[:stage]['stage_date(2i)'].to_i, params[:stage]['stage_date(3i)'].to_i) <= Date.today
+      property = Property.where("id = ?",@stage.property_id).first
+      property.status_id = Status.where("status = 'Staged'").first.id
+      property.save      
     end
     respond_with(@stage)
   end
@@ -48,6 +52,6 @@ class StagesController < ApplicationController
     end
 
     def stage_params
-      params[:stage].permit(:id, :rent, :total, :destage_date, :stage_date, :total, :stage)
+      params[:stage].permit(:id, :rent, :total, :destage_date, :stage_date, :total, :monthly_rental, :stage)
     end
 end

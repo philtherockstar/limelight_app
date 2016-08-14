@@ -33,25 +33,25 @@ class Stage < ActiveRecord::Base
 	  	# if 0, rent due in 2 months
 	  	# 
 	  	rents_count = rents.size
-	  	puts "rents_count=#{rents_count.to_s}"
+	  	#puts "rents_count=#{rents_count.to_s}"
         if rents_count == 0
             @rent_due_on = stage_date.advance(:months => 2)
             make_new_rent_record = true
             rent_is_due = true
         elsif rents_count > 0
-        	puts "count > 0. last record is #{rents.last.inspect}"
+        	#puts "count > 0. last record is #{rents.last.inspect}"
             if rents.last.rent_paid.nil?
-            	puts "last rent was not paid"
+            	#puts "last rent was not paid"
             	#@rent_due_on = stage_date.advance(:months => rents_count + 1)
                 @rent_due_on = rents.last.rent_due_on
             	rent_is_due = true
             else
-            	puts "last rent was paid"
+            	#puts "last rent was paid"
             	@rent_due_on = stage_date.advance(:months => rents_count + 2)
-            	puts "new rent due date is #{rent_due_on.inspect}"
-            	puts "#{@rent_due_on.advance(:days => -7)} <= #{Date.today}"
+            	#puts "new rent due date is #{rent_due_on.inspect}"
+            	#puts "#{@rent_due_on.advance(:days => -7)} <= #{Date.today}"
             	if @rent_due_on.advance(:days => -7) <= Date.today
-            		puts "time to collect rent. making new recrod and rent is now due"
+            		#puts "time to collect rent. making new recrod and rent is now due"
             		make_new_rent_record = true
             		rent_is_due = true
             	end
@@ -59,7 +59,7 @@ class Stage < ActiveRecord::Base
         end
 
         if make_new_rent_record
-            puts "making new rent record"
+            #puts "making new rent record"
         	Rent.transaction do
 
 	        	r = Rent.new

@@ -27,7 +27,7 @@ class TemplateRoomItemsController < ApplicationController
 
   def create
     @template_room_item = TemplateRoomItem.new(template_room_item_params)
-    @tem
+    @template_room_item.business_id = current_user.business_id
     @template_room_item.save
     respond_with(@template_room_item)
   end

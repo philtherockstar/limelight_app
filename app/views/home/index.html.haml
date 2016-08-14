@@ -64,7 +64,7 @@
         %div.row
           %div.col-xs-12
             %div.panel-heading
-              Active Stages
+              = "You have #{@active_stages.count} active stages and #{Stage.this_year} stages so far this year"
             %div.panel-body
               %table.table.table-striped
                 %thead

@@ -1,5 +1,10 @@
 class Stage < ActiveRecord::Base
 
+    
+    def self.this_year
+      where("cast(strftime('%Y', stage_date) as int) = ?",DateTime.now.year).size
+    end
+
     attr_accessor :extended_rental, :rent_due, :rent_due_on
     has_many :rents
 	belongs_to :bid

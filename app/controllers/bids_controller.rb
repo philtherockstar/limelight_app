@@ -199,9 +199,19 @@ class BidsController < ApplicationController
           end
           @bid.property_id = @property.id
           if params['client']['first_name'].size > 0 || params['client']['last_name'].size > 0
+            @bid.clients.destroy_all
             Client.transaction do
               if params['client']['id'].to_i > 0
                 @client = Client.find(params['client']['id'])
+                # did the client change?
+                stripped_submitted_name = (params['client']['first_name'] + params['client']['last_name']).stripped
+                stripped_client_name = (@client.first_name + @client.last_name).stripped
+                
+                if stripped_submitted_name != stripped_client_name                  
+                  #@bid.clients.destroy(@client)
+                  @client = nil
+                  @client = Client.new
+                end
               else
                 @client = Client.new
               end

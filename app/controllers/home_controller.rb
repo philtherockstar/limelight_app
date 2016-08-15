@@ -4,6 +4,7 @@ class HomeController < ApplicationController
     @active_stages = Stage.all.
                            where('property_id in (select id from properties where status_id in (1,2,3))').
                            order('stage_date')
+    
   end
 
   def find_bids

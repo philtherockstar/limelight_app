@@ -8,4 +8,9 @@ class Property < ActiveRecord::Base
   belongs_to :state
   belongs_to :country
   belongs_to :status
+
+  def display_addr
+    "#{address}, #{city}"
+  end
+
 end

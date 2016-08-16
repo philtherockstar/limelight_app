@@ -4,7 +4,9 @@ class HomeController < ApplicationController
     @active_stages = Stage.all.
                            where('property_id in (select id from properties where status_id in (1,2,3))').
                            order('stage_date')
-    
+    #@outstanding_bids = Bid.all.where('bidstatus_id <= 3 and bid_date is not null'). # 4 is accepted, 5 is rejected
+    @outstanding_bids = Bid.find_outstanding_bids 
+                        
   end
 
   def find_bids

@@ -18,6 +18,8 @@
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require_self
+//= require Chart.bundle
+//= require chartkick
 // require 'bids'
 // require 'home'
 //= require_tree .

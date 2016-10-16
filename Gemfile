@@ -47,6 +47,13 @@ gem 'autoprefixer-rails'
 
 gem 'haml-rails'
 
+group :test do 
+  gem 'cucumber-rails', :require => false
+  gem 'cucumber-rails-training-wheels'
+  gem 'database_cleaner'
+  gem 'factory_girl_rails'
+end 
+
 group :development, :test do
   # Call 'debugger' anywhere in the code to stop execution and get a debugger console
   gem 'debugger'
